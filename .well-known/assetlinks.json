@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "xyz.appmaker.gaginb",
+      "sha256_cert_fingerprints": ["DF:46:97:2C:AD:56:EB:1B:4C:51:00:B0:2F:2D:31:6E:60:B2:B9:23:80:6D:B4:52:1B:4B:F6:7E:41:BF:46:03"]
+    }
+  }
+]
