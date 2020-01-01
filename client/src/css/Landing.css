@@ -1,0 +1,36 @@
+.landing{
+    min-height: 100vh;
+    background: #acdbfc;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#intro{
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    font-size:2.3rem;
+}
+
+p{
+    font-size: 1.15rem;
+    margin-top:40px;
+}
+
+#loginform{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+input{
+    margin-top:20px;
+}
