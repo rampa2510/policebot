@@ -1,6 +1,7 @@
 const intereptor =async (url,method="GET",body={})=>{
   let token = localStorage.getItem("Token");
-  token = JSON.parse(token)
+
+  if(token) token = JSON.parse(token)
 
   let options = {
     method,
@@ -16,12 +17,15 @@ const intereptor =async (url,method="GET",body={})=>{
   if(!token) delete options.headers.authorization
 
   try {
-    const response = await fetch(`http://localhost:3000${url}`,options).then(res=>res.json())
+    const response = await fetch(`http://localhost:4000${url}`,options).then(res=>res.json())
+
+    if(response.error) throw new Error(response.error)
 
     return response;
 
   } catch (error) {
-    throw new Error(error)
+    // console.log(error.message)
+    throw new Error(error.message)
   }
 }
 

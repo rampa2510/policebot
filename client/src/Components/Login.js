@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import '../css/Landing.css';
 import {Link} from 'react-router-dom';
-
+import interceptor from '../Services/Interceptor'
 const Landing = ()=>{
     const [loaded,setLoaded] = useState(false);
     const [username,setUsername] = useState('');
@@ -10,16 +10,24 @@ const Landing = ()=>{
     const handleUsernameChange = e=>{setUsername(e.target.value)}
     const handlePasswordChange = e=>{setPassword(e.target.value)}
 
-    const handleSubmit = e=>{
+    const handleSubmit =async e=>{
         e.preventDefault();
-        sessionStorage['username']  = username.trim();
-        sessionStorage['role']="citizen";
-        window.location='/home';
+        const reqObj = {username,password}
+
+        try {
+            const response = await interceptor('/login',"POST",reqObj)
+            localStorage.setItem('Token',JSON.stringify(response.token))
+            localStorage.setItem('userData',JSON.stringify(response.data))
+            window.location = "/home"
+        } catch (error) {
+            // console.log(error)
+           alert(error.message)
+        }
     }
 
     useEffect(()=>{
-        const session_username = sessionStorage.getItem('username');
-        if(session_username!==null){
+        const userData = localStorage.getItem('userData');
+        if(userData!==null){
             window.location = '/home';
         }
         else{

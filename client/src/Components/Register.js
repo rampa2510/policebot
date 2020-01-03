@@ -15,16 +15,18 @@ const Register = ()=>{
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
-        let userObj = {username,name,password,address,userType:"user"}
+        let userObj = {username,name,password,address,userType:"citizen"}
         try {
             const response = await interceptor('/register',"POST",userObj)
-
-            localStorage.setItem("Token",response.token)
-            localStorage.setItem("userData",userObj)
+            console.log(response)
+            localStorage.setItem("Token",JSON.stringify(response.token))
+            delete userObj.password
+            localStorage.setItem("userData",JSON.stringify(userObj))
             window.location='/home';
 
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
+            alert(error)
         }
         // window.location='/home';
     }

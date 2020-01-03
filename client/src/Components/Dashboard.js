@@ -13,8 +13,8 @@ const Dashboard = ()=>{
 
     // get userdata with all info see registration handleSubmit method 
     // to view model for this storage
-    const userData = localStorage.getItem('userData');
-
+    let userData = localStorage.getItem('userData');
+    userData = JSON.parse(userData)
     // checks if user is logged in
     useEffect(()=>{
         if(userData===null)
@@ -27,7 +27,7 @@ const Dashboard = ()=>{
     // Loads dashboard based on if user is student or admin
     const loadPage = ()=>{
         if(loaded){
-            if(role === "citizen"){
+            if(userData.userType === "citizen"){
                 return(
                     <React.Fragment>
                         <Card img={student} link="/crimeregistration" buttonText="Register Complaint"/>
@@ -36,7 +36,7 @@ const Dashboard = ()=>{
                     </React.Fragment>
                 );
             }
-            else if(role=== "policeman"){
+            else if(userData.userType=== "policeman"){
                 return(
                     <React.Fragment>
                         <Card img={exam} link="/newreports" buttonText="New Reports"/>
