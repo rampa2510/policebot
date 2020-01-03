@@ -1,23 +1,32 @@
 import React,{useEffect,useState} from 'react';
 import '../css/Register.css';
-
+import interceptor from '../Services/Interceptor'
 const Register = ()=>{
     const [loaded,setLoaded] = useState(false);
     const [username,setUsername] = useState('');
-    const [fullName,setFullName] = useState('');
+    const [name,setFullName] = useState('');
     const [password,setPassword] = useState('');
+    const [address,setAddress] = useState('');
 
     const handleUsernameChange = e=>{setUsername(e.target.value)}
     const handleFullNameChange = e=>{setFullName(e.target.value)}
     const handlePasswordChange = e=>{setPassword(e.target.value)}
+    const handleAddressChange = e=>{setAddress(e.target.value)}
 
-    const handleSubmit = e=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        sessionStorage['username']  = username.trim();
-        sessionStorage['fullName']=fullName;
-        sessionStorage['password'] = password;
-        sessionStorage['role'] = 'citizen';
-        window.location='/home';
+        let userObj = {username,name,password,address,userType:"user"}
+        try {
+            const response = await interceptor('/register',"POST",userObj)
+
+            localStorage.setItem("Token",response.token)
+            localStorage.setItem("userData",userObj)
+            window.location='/home';
+
+        } catch (error) {
+            console.log(error.message)
+        }
+        // window.location='/home';
     }
 
     useEffect(()=>{
@@ -43,6 +52,7 @@ const Register = ()=>{
                                     <input type="text" placeholder="Full Name" onChange={handleFullNameChange} className="form-control" required></input>
                                     <input type="text" placeholder="Username" onChange={handleUsernameChange} className="form-control" required></input>
                                     <input type="password" placeholder="Password" onChange={handlePasswordChange} className="form-control" required></input>
+                                    <input type="text" placeholder="Address" onChange={handleAddressChange} className="form-control" required></input>
                                     <input type="submit" className="btn btn-success text-center form-control"></input>
                                 </form>
                             </div>

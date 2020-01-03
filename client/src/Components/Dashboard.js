@@ -10,13 +10,14 @@ import question from '../images/question.png';
 const Dashboard = ()=>{
     // Checks if loaded
     const [loaded,setLoaded] = useState(false);
-    // gets user's role
-    const role = sessionStorage.getItem('role');
-    // gets user's username
+
+    // get userdata with all info see registration handleSubmit method 
+    // to view model for this storage
+    const userData = localStorage.getItem('userData');
 
     // checks if user is logged in
     useEffect(()=>{
-        if(role===null)
+        if(userData===null)
             window.location='/';
         else
             setLoaded(true);
