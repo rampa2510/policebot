@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import ChatBot from "react-simple-chatbot";
 
 function RegistrationChatbot() {
+
+  const [type,setType] = useState('');
   const config = {
      width: "100%",
      height: "100vh",
@@ -16,12 +18,16 @@ function RegistrationChatbot() {
   {
     id: "Waiting for type",
     user: true,
+    validator: (value)=>{
+      console.log(value);
+      return true;
+    },
     trigger: "Asking Date"
   },
    {
      id: "Asking Date",
      message: "You are trying to report a {previousValue} crime. Please enter the Date of the crime.",
-     trigger: "Waiting for date"
+     trigger:"Waiting for date"
    },
    
    {
