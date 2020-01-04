@@ -1,34 +1,36 @@
 import React, { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import '../css/ManagePolicemen.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const ManagePolicemen = ()=>{
-    const [loaded,setLoaded] = useState(false);
-    useState(()=>{
-        if(sessionStorage['username']!=null && sessionStorage['role']==='admin')
-            setLoaded(true);
-        else
-            window.location='/'
-    },[])
+const ManagePolicemen = () => {
+  const [loaded, setLoaded] = useState(false);
+  useState(() => {
+    if (sessionStorage.username != null && sessionStorage.role === 'admin') setLoaded(true);
+    else window.location = '/';
+  }, []);
 
-    const loadPage = ()=>{
-        if(loaded){
-            return(
-            <div className="text-center" id="manageemployees">
-                <h1 id="manageheading">Manage Policemen</h1>
-                <Link to="/addpoliceman"><button className="btn btn-success" id="addbutton">Add Policeman</button></Link>
-                <Table responsive striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>City</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* <tr>
+  const loadPage = () => {
+    if (loaded) {
+      return (
+        <div className="text-center" id="manageemployees">
+          <h1 id="manageheading">Manage Policemen</h1>
+          <Link to="/addpoliceman">
+            <button className="btn btn-success" id="addbutton">
+              Add Policeman
+            </button>
+          </Link>
+          <Table responsive striped bordered hover>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* <tr>
                             <td>Abc</td>
                             <td style={{color:"green"}}>76%</td>
                             <td><button className="btn btn-info">Edit</button></td>
@@ -52,17 +54,13 @@ const ManagePolicemen = ()=>{
                             <td><button className="btn btn-info">Edit</button></td>
                             <td><button className="btn btn-danger">Delete</button></td>
                         </tr> */}
-                    </tbody>
-                </Table>
-            </div>
-            );
-        }
+            </tbody>
+          </Table>
+        </div>
+      );
     }
-    return(
-        <React.Fragment>
-            {loadPage()}
-        </React.Fragment>
-    );
-}
+  };
+  return <>{loadPage()}</>;
+};
 
 export default ManagePolicemen;

@@ -3,7 +3,7 @@ const intereptor =async (url,method="GET",body={})=>{
 
   if(token) token = JSON.parse(token)
 
-  let options = {
+  const options = {
     method,
     headers:{
       'authorization':`Bearer ${token}`,
@@ -24,7 +24,7 @@ const intereptor =async (url,method="GET",body={})=>{
     return response;
 
   } catch (error) {
-    // console.log(error.message)
+    console.log(error.message)
     throw new Error(error.message)
   }
 }
