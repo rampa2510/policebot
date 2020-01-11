@@ -5,7 +5,7 @@ module.exports = (req,res,next)=>{
   // the conditions for if statement iclude if a citizen wants to register
   // or login for the first part and the next one if admin wants to register
   // someone 
-  if(req.originalUrl!=="/register" && req.originalUrl!=="/login" ){
+  if(req.originalUrl!=="/register" && req.originalUrl!=="/login"  ){
 
     if(req.headers.authorization){
       try {

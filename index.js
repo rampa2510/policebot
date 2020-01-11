@@ -27,7 +27,7 @@ app.use(cors());
 
 app.use(require('./Middleware/verifyToken.middleware'))
 
-app.use("/", require("./routes"));
+app.use("/api", require("./routes"));
 
 //########################################################################################
 
