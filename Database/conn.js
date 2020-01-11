@@ -11,12 +11,12 @@ const option = { useNewUrlParser: true, useUnifiedTopology: true };
  */
 module.exports.connect = () =>
   new Promise((resolve, reject) => {
-    MongoClient.connect(process.env.DB_URI, option, (err, client) => {
+    MongoClient.connect("mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority", option, (err, client) => {
       if (err) {
         reject(err);
         return;
       }
-      const db = client.db(process.env.DB_NAME);
+      const db = client.db('sih');
       resolve(db);
       connection = db;
     });

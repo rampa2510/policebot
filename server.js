@@ -1,28 +1,56 @@
+//========================================================================================
+/*                                                                                      *
+ *                          ALl the imports                                             *
+ *                                                                                      */
+//========================================================================================
+// make sure to pass the NODE_ENV variable alongwith the command
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const path = require("path");
+const bodyParser = require("body-parser");
+const { connect } = require("./Database/conn");
+const cors = require('cors');
+const path = require('path');
+//########################################################################################
 
-// Set the port and DB uri
-const PORT = process.env.PORT || 5000;
-const URI = "mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority"
-
+//========================================================================================
+/*                                                                                      *
+ *                                All the configurations                                *
+ *                                                                                      */
+//========================================================================================
 const app = express();
+
+const PORT = process.env.PORT || 5000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(express.json());
 
-//DB Connection
-mongoose.connect(URI,{useCreateIndex:true, useNewUrlParser:true, useUnifiedTopology:true})
-    .then(()=>console.log("MongoDB Connected"))
-    .catch(err=>console.log(err));
+app.use(require('./Middleware/verifyToken.middleware'))
 
-//Serve static pages in production
+app.use("/api", require("./routes"));
+
+//########################################################################################
+
+//========================================================================================
+/*                                                                                      *
+ *                                   Start the server                                   *
+ *                                                                                      */
+//========================================================================================
+
 if(PORT!==5000){
-    app.use(express.static(path.join(__dirname,"client","build")));
-    app.get("*",(req,res)=>{
-        res.sendFile(path.join(__dirname,"client","build","index.html"));
-    });
-}    
+  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.use("*", (req, res) => {
+    res.send(path.join(__dirname, "client", "build", "index.html"));
+});
+}
 
-// Start Server
-app.listen(PORT,()=>console.log("Server is Running"));
+app.listen(PORT, async () => {
+  console.log(`listening on port ${PORT}`);
+
+  // connect to mongodb
+  try {
+    await connect();
+  } catch (error) {
+    console.log(error);
+  }
+});
+//########################################################################################

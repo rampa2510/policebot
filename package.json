@@ -1,26 +1,36 @@
 {
-  "name": "policechatbot",
+  "name": "sih-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+<<<<<<< HEAD
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/neelb99/chatbot-testing.git"
+=======
+>>>>>>> 067a98907985719748e415824d0285339380422b
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/neelb99/chatbot-testing/issues"
-  },
-  "homepage": "https://github.com/neelb99/chatbot-testing#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "celebrate": "^11.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.8.3"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.4.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-node": "^11.0.0",
+    "nodemon": "^2.0.2"
   }
 }
