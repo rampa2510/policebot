@@ -18,11 +18,6 @@ h1{
     font-size:2.3rem;
 }
 
-p{
-    font-size: 1.15rem;
-    margin-top:40px;
-}
-
 #attendanceform{
     display: flex;
     flex-direction: column;
