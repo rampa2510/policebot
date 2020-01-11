@@ -74,7 +74,7 @@ const Register = () => {
         </div>
         </div>
 
-        <div className="col col-lg col-md col-xs">
+        <div className="col col-lg">
           <img src={Logo} className="responsive-image" />
         </div>
         </div>
