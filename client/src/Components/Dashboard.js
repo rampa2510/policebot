@@ -6,6 +6,7 @@ import star from '../images/star.png';
 import exam from '../images/exam.png';
 import student from '../images/student.png';
 import question from '../images/question.png';
+import Chatbot from './Chatbot';
 
 
 const Dashboard = () => {
@@ -27,11 +28,7 @@ const Dashboard = () => {
     if (loaded) {
       if (userData.userType === 'citizen') {
         return (
-          <>
-            <Card img={student} link="/crimeregistration" buttonText="Register Complaint" />
-            <Card img={star} link="/crimeawareness" buttonText="Crime Awareness" />
-            <Card img={question} link="/tracking" buttonText="Complaint Tracking" />
-          </>
+          <Chatbot/>
         );
       }
       if (userData.userType === 'policeman') {

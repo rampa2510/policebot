@@ -1,7 +1,7 @@
 import React from 'react';
 import interceptor from '../Services/Interceptor'
 
-function RegistrationChatbot() {
+function Chatbot() {
   const crimeData = {};
 
   const config = {
@@ -23,4 +23,4 @@ function RegistrationChatbot() {
   );
 }
 
-export default RegistrationChatbot;
+export default Chatbot;

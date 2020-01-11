@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './Components/Login';
-import RegistrationChatbot from './Components/RegistrationChatbot';
 import Register from './Components/Register';
 import Navbar from './Components/Navbar';
 import Dashboard from './Components/Dashboard';
@@ -19,8 +18,6 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/crimeregistration" component={RegistrationChatbot} />
-        <Route path="/crimeawareness" exact component={RegistrationChatbot} />
         <Route path="/tracking" exact component={Tracking} />
         <Route path="/register" exact component={Register} />
         <Route path="/home" exact component={Dashboard} />
