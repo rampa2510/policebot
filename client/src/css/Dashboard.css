@@ -1,7 +1,5 @@
 #dashboard{
-    padding-top:55px;
     display: flex;
-    min-height: 90vh;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
