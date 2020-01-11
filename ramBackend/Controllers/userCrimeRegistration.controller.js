@@ -10,7 +10,7 @@ module.exports.registerCrime =async (req,res,next)=>{
   const {data} = res.locals
   try {
     const countData = await incrementCounter()
-    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo:countData.count})
+    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo:countData.count,status:'pending',investigatingOfficer:'none'})
 
     res.status(201).json({message:"Crime registered",caseNo:countData.count})
     next()

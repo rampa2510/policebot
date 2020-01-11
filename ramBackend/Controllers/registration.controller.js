@@ -9,22 +9,22 @@ const { sign } = require("jsonwebtoken");
 //########################################################################################
 
 module.exports = async (req, res, next) => {
-  const { username, password, name, address,userType } = req.body;
-  const {salt,hash} = hashPass(password);
+  const { username, password, name, city,userType } = req.body;
 
   try {
     const doesUsernameExist = await findOne("users", { username });
 
     if (doesUsernameExist) {
-      res.status(409).json({ message: "Username already exists" });
+      res.status(409).json({ error: "Username already exists" });
       return;
     }
+    const {salt,hash} = hashPass(password);
 
     const userData = await insertOne("users", {
       hash,
       username,
       name,
-      address,
+      city,
       salt,
       userType
     });
