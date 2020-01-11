@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../css/Register.css';
 import interceptor from '../Services/Interceptor';
+import Bot1 from '../images/Bot.png'
+import Logo from '../images/BPRD_Logo.png'
 
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
@@ -51,47 +53,32 @@ const Register = () => {
   const loadPage = () => {
     if (loaded) {
       return (
-        <div className="container-fluid">
-          <div className="markattendance row text-center">
-            <div className="col-12 col-md-6 col-lg-4" id="login">
-              <div id="loginform" className="col-12 text-center">
-                <div className="jumbotron">
-                  <h2>Register</h2>
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      onChange={handleFullNameChange}
-                      className="form-control"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Username"
-                      onChange={handleUsernameChange}
-                      className="form-control"
-                      required
-                    />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      onChange={handlePasswordChange}
-                      className="form-control"
-                      required
-                    />
-                    <input
-                      type="text"
-                      placeholder="Address"
-                      onChange={handleAddressChange}
-                      className="form-control"
-                      required
-                    />
-                    <input type="submit" className="btn btn-success text-center form-control" />
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="register">
+
+        <h1 className="reg-head">PoliceBot</h1>
+        <div className="content-grid">
+        <div className="col col-lg">
+          <img src={Bot1} className="responsive-image"/>
+        </div>
+
+        <div className="col col-lg">
+          <div className="form">
+          <form>
+               <input type ="text" placeholder="Full Name"/>
+               <input type ="text" placeholder="UserName"/>
+               <input type="password" placeholder="Password"/>
+               <input type="text" placeholder="City"/>
+
+               <button> Register </button>
+          </form>
+        </div>
+        </div>
+
+        <div className="col col-lg col-md col-xs">
+          <img src={Logo} className="responsive-image" />
+        </div>
+        </div>
+
         </div>
       );
     }

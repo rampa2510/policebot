@@ -1,0 +1,23 @@
+<div>
+  <h1 className="reg-head">PoliceBot</h1>
+
+<div className="content-grid">
+<div className="col col-lg">
+  <img src={Bot} className="responsive-image" />
+</div>
+<div className="col col-lg">
+<div className="register">
+  <div className="form">
+  <form>
+       <input type ="text" placeholder="Full Name"/>
+       <input type ="text" placeholder="UserName"/>
+       <input type="password" placeholder="Password"/>
+       <input type="text" placeholder="City"/>
+
+       <button> Register </button>
+  </form>
+</div>
+</div>
+</div>
+  </div>
+  </div>
