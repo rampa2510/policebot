@@ -17,7 +17,7 @@ const intereptor =async (url,method="GET",body={})=>{
   if(!token) delete options.headers.authorization
 
   try {
-    const response = await fetch(`http://localhost:5000/api/${url}`,options).then(res=>res.json())
+    const response = await fetch(`/api/${url}`,options).then(res=>res.json())
 
     if(response.error) throw new Error(response.error)
 

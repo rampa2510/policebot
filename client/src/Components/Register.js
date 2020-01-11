@@ -57,7 +57,7 @@ const Register = () => {
 
         <h1 className="reg-head">PoliceBot</h1>
         <div className="content-grid">
-        <div className="col col-lg">
+        <div className="col-lg">
           <img src={Bot1} className="responsive-image"/>
         </div>
 
@@ -74,7 +74,7 @@ const Register = () => {
         </div>
         </div>
 
-        <div className="col col-lg">
+        <div className="col-lg">
           <img src={Logo} className="responsive-image" />
         </div>
         </div>
