@@ -47,10 +47,12 @@ app.use((error, req, res) => {
   // return res.status(500).json({error:error.message});
 });
 
-app.use(express.static(path.join(__dirname,"client","build")));
-app.get("*",(req,res)=>{
-    res.sendFile(path.join(__dirname,"client","build","index.html"));
-  });
+if(PORT!==5000){
+  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.use("*", (req, res) => {
+    res.send(path.join(__dirname, "client", "build", "index.html"));
+});
+}
 
 app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`);
