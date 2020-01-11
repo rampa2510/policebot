@@ -21,7 +21,7 @@ const cors = require('cors');
 //========================================================================================
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -50,6 +50,13 @@ app.use((error, req, res) => {
   // console.log(error)
   // return res.status(500).json({error:error.message});
 });
+
+if(PORT!==5000){
+  app.use(express.static(path.join(__dirname,"client","build")));
+  app.get("*",(req,res)=>{
+      res.sendFile(path.join(__dirname,"client","build","index.html"));
+  });
+}
 
 app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`);

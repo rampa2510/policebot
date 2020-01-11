@@ -1,26 +1,35 @@
 {
-  "name": "policechatbot",
+  "name": "sih-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=8.10.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild":"cd client && npm install --only=dev && npm install && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/neelb99/chatbot-testing.git"
+    "dev": "NODE_ENV=development nodemon index.js",
+    "prod": "NODE_ENV=production pm2 start index.js -i max",
+    "precommit": "eslint .",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/neelb99/chatbot-testing/issues"
-  },
-  "homepage": "https://github.com/neelb99/chatbot-testing#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "celebrate": "^11.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "mongoose": "^5.8.3"
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.4.1",
+    "morgan": "^1.9.1",
+    "pm2": "^4.2.1"
+  },
+  "devDependencies": {
+    "eslint-plugin-node": "^11.0.0",
+    "nodemon": "^2.0.2"
   }
 }
