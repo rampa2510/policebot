@@ -38,7 +38,10 @@ app.use("/api", require("./routes"));
 //========================================================================================
 
 if(PORT!==5000){
-  app.use('*', express.static(path.join(__dirname, "client", "build")))
+  app.use(express.static(path.join(__dirname, "client", "build")));
+  app.use("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 }
 
 app.listen(PORT, async () => {
