@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-// app.use(require('./Middleware/verifyToken.middleware'))
+app.use(require('./Middleware/verifyToken.middleware'))
 
 app.use("/api", require("./routes"));
 
