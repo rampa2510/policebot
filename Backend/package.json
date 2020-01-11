@@ -11,7 +11,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=development nodemon index.js",
     "prod": "NODE_ENV=production pm2 start index.js -i max",
-    "precommit": "eslint ."
   },
   "keywords": [],
   "author": "",

@@ -10,13 +10,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-<<<<<<< HEAD
+
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/neelb99/chatbot-testing.git"
-=======
->>>>>>> 067a98907985719748e415824d0285339380422b
+
   },
   "keywords": [],
   "author": "",
