@@ -12,7 +12,6 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "devw": "SET NODE_ENV=development node index.js",
     "prod": "NODE_ENV=production pm2 start index.js -i max",
-    "precommit": "eslint .",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
