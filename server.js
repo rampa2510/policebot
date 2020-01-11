@@ -36,17 +36,6 @@ app.use("/api", require("./routes"));
  *                                                                                      */
 //========================================================================================
 
-// middleware to send error messages
-// app.use((error, req, res) => {
-
-//   if (error.joi) {
-//     // console.log(error)
-//     return res.status(400).json({ error: error.joi.message });
-//   }
-//   // console.log(error)
-//   // return res.status(500).json({error:error.message});
-// });
-
 if(PORT!==5000){
   app.use(express.static(path.join(__dirname, "client", "build")));
   app.use("*", (req, res) => {
