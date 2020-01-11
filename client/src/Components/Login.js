@@ -63,9 +63,9 @@ const Landing = () => {
           </form>
           <br/>
           <p>
-            Don't have an account?
+            Or
           </p>
-          <Link to="/register"><button>Register Here!</button></Link>
+          <Link to="/register"><button>Register</button></Link>
         </div>
         </div>
 
