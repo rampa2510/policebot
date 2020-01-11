@@ -55,14 +55,15 @@ const Register = () => {
       return (
         <div className="register">
 
-        <h1 className="reg-head">PoliceBot</h1>
-        <div className="content-grid">
-        <div className="col-lg">
+        
+       
+        
           <img src={Bot1} className="responsive-image"/>
-        </div>
+        
 
-        <div className="col col-lg">
+        
           <div className="form">
+          <h1 className="reg-head">PoliceBot</h1>
           <form>
                <input onChange={(e)=>handleFullNameChange(e)} type ="text" placeholder="Full Name"/>
                <input onChange={(e)=>handleUsernameChange(e)} type ="text" placeholder="UserName"/>
@@ -71,13 +72,13 @@ const Register = () => {
 
                <button onClick={handleSubmit}> Register </button>
           </form>
-        </div>
+        
         </div>
 
-        <div className="col-lg">
+        
           <img src={Logo} className="responsive-image" />
-        </div>
-        </div>
+        
+      
 
         </div>
       );
