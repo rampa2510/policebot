@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import '../css/Landing.css';
 import { Link } from 'react-router-dom';
 import interceptor from '../Services/Interceptor';
+import Bot1 from '../images/Bot.png'
+import Logo from '../images/BPRD_Logo.png'
 
 const Landing = () => {
   const [loaded, setLoaded] = useState(false);
@@ -42,44 +44,36 @@ const Landing = () => {
   const loadPage = () => {
     if (loaded) {
       return (
-        <div className="container-fluid">
-          <div className="landing row text-center">
-            <div className="col-12 col-md-6" id="intro">
-              <h1>Police Chatbot</h1>
-              <p>
-                This chatbot is used to register a complaint of any unlawful activity and to track
-                the status of that complaint. It can also be used to gain awareness about crimes in
-                your city.
-              </p>
-            </div>
-            <div className="col-12 col-md-6" id="login">
-              <div id="loginform" className="col-12 col-md-8 offset-md-2 text-center">
-                <div className="jumbotron">
-                  <h2>Login</h2>
-                  <form onSubmit={handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Username"
-                      className="form-control"
-                      required
-                      onChange={handleUsernameChange}
-                    />
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      className="form-control"
-                      required
-                      onChange={handlePasswordChange}
-                    />
-                    <input type="submit" className="btn btn-success text-center form-control" />
-                  </form>
-                  <p>
-                    Don't have an account? <Link to="/register">Register Here!</Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="register">
+
+        <h1 className="reg-head">PoliceBot</h1>
+        <div className="content-grid">
+        <div className="col col-lg">
+          <img src={Bot1} className="responsive-image"/>
+        </div>
+
+        <div className="col col-lg">
+          <div className="form">
+          <form>
+               <input type="text" placeholder="Username"/>
+               <input type="password" placeholder="Password"/>
+
+
+               <button> Login </button>
+          </form>
+          <br/>
+          <p>
+            Don't have an account?
+          </p>
+          <Link to="/register"><button>Register Here!</button></Link>
+        </div>
+        </div>
+
+        <div className="col col-lg col-md col-xs">
+          <img src={Logo} className="responsive-image" />
+        </div>
+        </div>
+
         </div>
       );
     }

@@ -7,6 +7,7 @@ import exam from '../images/exam.png';
 import student from '../images/student.png';
 import question from '../images/question.png';
 
+
 const Dashboard = () => {
   // Checks if loaded
   const [loaded, setLoaded] = useState(false);
@@ -51,8 +52,7 @@ const Dashboard = () => {
         </>
       );
     }
-  };
-
+    };
   return <div id="dashboard">{loadPage()}</div>;
 };
 
