@@ -32,7 +32,7 @@ module.exports = async (req, res, next) => {
     delete userData.hash;
     delete userData.salt;
 
-    const token = sign(userData, process.env.JWT_SECRET);
+    const token = sign(userData, 'sihpolicebotsecret');
 
     res.status(201).json({ message: "Sucess", token });
     next();

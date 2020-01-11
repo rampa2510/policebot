@@ -27,7 +27,7 @@ module.exports = async (req, res, next) => {
       delete response.salt;
       delete response.hash
 
-      const token = sign(response, process.env.JWT_SECRET);
+      const token = sign(response,"sihpolicebotsecret");
   
       res.status(200).json({data:response,token});
     } else {

@@ -4,13 +4,9 @@
  *                                                                                      */
 //========================================================================================
 // make sure to pass the NODE_ENV variable alongwith the command
-const dotEnvConfig = { path: `.env.${process.env.NODE_ENV}` };
-
-require("dotenv").config(dotEnvConfig);
 const express = require("express");
 const bodyParser = require("body-parser");
 const { connect } = require("./Database/conn");
-const logger = require("morgan");
 const cors = require('cors');
 const path = require('path');
 //########################################################################################
@@ -27,7 +23,7 @@ const PORT = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-if (process.env.NODE_ENV !== "production") app.use(logger("dev"));
+
 
 app.use(require('./Middleware/verifyToken.middleware'))
 
