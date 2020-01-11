@@ -24,13 +24,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-if(PORT!==5000){
-  app.use(express.static(path.join(__dirname,"client","build")));
-  app.get("*",(req,res)=>{
-      res.sendFile(path.join(__dirname,"client","build","index.html"));
-  });
-}
-
 app.use(require('./Middleware/verifyToken.middleware'))
 
 app.use("/api", require("./routes"));
@@ -53,6 +46,13 @@ app.use((error, req, res) => {
   // console.log(error)
   // return res.status(500).json({error:error.message});
 });
+
+if(PORT!==5000){
+  app.use(express.static(path.join(__dirname,"client","build")));
+  app.get("*",(req,res)=>{
+      res.sendFile(path.join(__dirname,"client","build","index.html"));
+  });
+}
 
 app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`);
