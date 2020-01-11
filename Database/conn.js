@@ -14,10 +14,12 @@ module.exports.connect = () =>
     MongoClient.connect("mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority", option, (err, client) => {
       if (err) {
         reject(err);
+        console.log(err)
         return;
       }
       const db = client.db('sih');
       resolve(db);
+      console.log(db)
       connection = db;
     });
   });

@@ -4,8 +4,6 @@ import '../css/Dashboard.css';
 import report from '../images/report.png';
 import star from '../images/star.png';
 import exam from '../images/exam.png';
-import student from '../images/student.png';
-import question from '../images/question.png';
 import Chatbot from './Chatbot';
 
 
