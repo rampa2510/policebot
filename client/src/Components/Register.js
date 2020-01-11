@@ -9,7 +9,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [name, setFullName] = useState('');
   const [password, setPassword] = useState('');
-  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
 
   const handleUsernameChange = e => {
     setUsername(e.target.value);
@@ -21,14 +21,14 @@ const Register = () => {
     setPassword(e.target.value);
   };
   const handleAddressChange = e => {
-    setAddress(e.target.value);
+    setCity(e.target.value);
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const userObj = { username, name, password, address, userType: 'citizen' };
+    const userObj = { username, name, password,city, userType: 'citizen' };
     try {
-      const response = await interceptor('/register', 'POST', userObj);
+      const response = await interceptor('register', 'POST', userObj);
       console.log(response);
       localStorage.setItem('Token', JSON.stringify(response.token));
       delete userObj.password;
@@ -64,12 +64,12 @@ const Register = () => {
         <div className="col col-lg">
           <div className="form">
           <form>
-               <input type ="text" placeholder="Full Name"/>
-               <input type ="text" placeholder="UserName"/>
-               <input type="password" placeholder="Password"/>
-               <input type="text" placeholder="City"/>
+               <input onChange={(e)=>handleFullNameChange(e)} type ="text" placeholder="Full Name"/>
+               <input onChange={(e)=>handleUsernameChange(e)} type ="text" placeholder="UserName"/>
+               <input onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
+               <input onChange={(e)=>handleAddressChange(e)} type="text" placeholder="City"/>
 
-               <button> Register </button>
+               <button onClick={handleSubmit}> Register </button>
           </form>
         </div>
         </div>

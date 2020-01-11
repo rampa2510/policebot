@@ -22,7 +22,7 @@ const Landing = () => {
     const reqObj = { username, password };
 
     try {
-      const response = await interceptor('/login', 'POST', reqObj);
+      const response = await interceptor('login', 'POST', reqObj);
       localStorage.setItem('Token', JSON.stringify(response.token));
       localStorage.setItem('userData', JSON.stringify(response.data));
       window.location = '/home';
@@ -54,12 +54,12 @@ const Landing = () => {
 
         <div className="col col-lg">
           <div className="form">
-          <form>
-               <input type="text" placeholder="Username"/>
-               <input type="password" placeholder="Password"/>
+          <form onSubmit={handleSubmit}>
+               <input onChange={(e)=>handleUsernameChange(e)} type="text" placeholder="Username"/>
+               <input onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
 
 
-               <button> Login </button>
+               <button type="submit"> Login </button>
           </form>
           <br/>
           <p>
