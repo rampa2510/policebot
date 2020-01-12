@@ -16,7 +16,8 @@ const express = require("express"),
 let controllerPath = "./Controllers";
 const registrationController = require(`${controllerPath}/registration.controller`);
 const loginController = require(`${controllerPath}/login.controller`);
-const {registerCrime,getCrimeDetails} = require(`${controllerPath}/userCrimeRegistration.controller`)
+const {registerCrime,getCrimeDetails} = require(`${controllerPath}/userCrimeRegistration.controller`);
+const chatBotRoute = require(`${controllerPath}/chatbotresponse.controller.js`)
 //########################################################################################
 
 //========================================================================================
@@ -39,7 +40,8 @@ const CrimeRegistrationModel = require(`${ModelPath}/userCrimeRegistration.model
 router.post("/register", celebrate(registrationModel), registrationController);
 router.post("/login", celebrate({[Segments.BODY]:body}), loginController);
 router.post('/crime-register',celebrate(CrimeRegistrationModel),registerCrime)
-router.get('/crime-register/:id',getCrimeDetails)
+router.get('/crime-register/:id',getCrimeDetails);
+router.post('/bot-reply',chatBotRoute);
 //########################################################################################
 
 module.exports = router;
