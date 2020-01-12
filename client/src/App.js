@@ -4,13 +4,6 @@ import Login from './Components/Login';
 import Register from './Components/Register';
 import Navbar from './Components/Navbar';
 import Dashboard from './Components/Dashboard';
-import Logout from './Components/Logout';
-import Tracking from './Components/Tracking';
-import AddPoliceman from './Components/AddPoliceman';
-import ManagePolicemen from './Components/ManagePolicemen';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import MyInvestigations from './Components/MyInvestigations';
-import NewReports from './Components/NewReports';
 
 function App() {
   return (
@@ -18,15 +11,12 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Login} />
-        <Route path="/tracking" exact component={Tracking} />
+        {/* <Route path="/tracking" exact component={Tracking} /> */}
         <Route path="/register" exact component={Register} />
         <Route path="/home" exact component={Dashboard} />
-        <Route path="/tracking" exact component={Tracking} />
-        <Route path="/addpoliceman" exact component={AddPoliceman} />
-        <Route path="/managepolicemen" exact component={ManagePolicemen} />
-        <Route path="/newreports" exact component={NewReports} />
-        <Route path="/myinvestigations" exact component={MyInvestigations} />
-        <Route path="/logout" exact component={Logout} />
+        {/* <Route path="/newreports" exact component={NewReports} /> */}
+        {/* <Route path="/myinvestigations" exact component={MyInvestigations} /> */}
+        {/* <Route path="/logout" exact component={Logout} /> */}
       </Switch>
     </BrowserRouter>
   );

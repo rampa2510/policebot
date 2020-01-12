@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../css/Landing.css';
 import { Link } from 'react-router-dom';
 import interceptor from '../Services/Interceptor';
 import Bot1 from '../images/Bot.png'

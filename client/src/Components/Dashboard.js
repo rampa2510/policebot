@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card';
-import '../css/Dashboard.css';
 import report from '../images/report.png';
 import star from '../images/star.png';
 import exam from '../images/exam.png';
@@ -105,9 +103,6 @@ const handleChange = (event, newValue) => {
 
         return (
           <>
-            <Card img={exam} link="/addpoliceman" buttonText="Add Policeman" />
-            <Card img={exam} link="/managepolicemen" buttonText="Manage Policemen" />
-            <Card img={report} link="/tracking" buttonText="Complaint Tracking" />
           </>
         );
       }

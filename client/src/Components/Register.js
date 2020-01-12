@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../css/Register.css';
 import interceptor from '../Services/Interceptor';
 import Bot1 from '../images/Bot.png'
 import Logo from '../images/BPRD_Logo.png'

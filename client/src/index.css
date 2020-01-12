@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding:0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,6 +9,8 @@ body {
 }
 
 html{
+  margin:0;
+  padding: 0;
   background: #f2f2f2;
 }
 
@@ -23,7 +26,6 @@ code {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding:10px;
 }
 
 .reg-head{
@@ -37,7 +39,7 @@ code {
   background: #f2f2f2;
   margin: 0 auto;
   text-align: center;
-  max-width: 420px;
+  max-width: 400px;
   padding: 45px;
 }
 
@@ -66,10 +68,9 @@ code {
 
 .form button:hover{
   background: grey;
-}
-button:hover{
   border-color: blue;
 }
+
 .responsive-image{
   width:30%;
   height: 30%;
