@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding:0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,6 +9,8 @@ body {
 }
 
 html{
+  margin:0;
+  padding: 0;
   background: #f2f2f2;
 }
 
@@ -18,32 +21,26 @@ code {
 
 .register{
   background: #f2f2f2;
+  min-width:100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .reg-head{
   text-align: center;
-  margin-top: 90px;
   font-size: 3rem;
-
-  /*font-size: 3rem;
-  font-weight: 100;
-  margin: 2rem 0;
-  letter-spacing: -1px;*/
+  padding: 20px;
   color: black;
-  background: #f2f2f2;
 }
 
 .form{
   background: #f2f2f2;
   margin: 0 auto;
   text-align: center;
-  max-width: 360px;
+  max-width: 400px;
   padding: 45px;
-  /*
-  margin: 0 auto;
-  text-align: center;
-  max-width: 360px;
-  padding: 45px; */
 }
 
 .form input{
@@ -71,44 +68,52 @@ code {
 
 .form button:hover{
   background: grey;
-}
-button:hover{
   border-color: blue;
 }
 
-.content-grid {
-    width: 100%;
-    display: flex;
-    background: #f2f2f2;
-}
-.col{
-  background: #f2f2f2;
-}
-.col-lg{
-    margin-left: 1%;
-    margin-right: 1%;
-    margin-bottom: 2%;
-    height: 90px;
-    width: 31.3%;
-    border-radius: 5px;
-  /*  margin-right: 1%;
-    margin-bottom: 2%;
-    height: 90px;
-    width: 31.3%;
-    border-radius: 5px;*/
-}
 .responsive-image{
-  width:100%;
-  height: auto;
-  display: block;
-  background: #f2f2f2;
+  width:30%;
+  height: 30%;
+  margin-top:40px;
 }
 
+/*
+.tracking-form{
+  background: #f2f2f2;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 400px;
+  padding: 45px;
+}
+
+.tracking-form .control-no-input{
+  font-family: sans-serif;
+  background: #ffffff;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 0 0 15px;
+}
+
+.tracking-form .tracking-search-button{
+  font-family: sans-serif;
+  text-transform: uppercase;
+  background: #262626;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tracking-form .tracking-search-button:hover{
+  background: grey;
+}
+*/
 @media only screen and (min-width: 569px) and (max-width: 767px){
-  .col-md{
-    width: 48%;
-    margin: 1%;
-  }
   .responsive-image{
   display: none;
   }
@@ -121,17 +126,13 @@ button:hover{
 }
 
 @media only screen and (min-width: 240px) and (max-width: 568px){
-  .col-xs{
-    width: 98%;
-    margin: 1%;
-  }
   .responsive-image{
   display: none;
   }
   .form{
     margin: 0 auto;
     text-align: center;
-    width: 290px;
+    width: 90%;
     padding: 10px;
   }
 }

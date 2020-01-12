@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import '../css/Register.css';
 import interceptor from '../Services/Interceptor';
-import Bot1 from '../images/Bot.png'
+import Bot from '../images/Bot.png'
 import Logo from '../images/BPRD_Logo.png'
 
 const Register = () => {
@@ -55,14 +54,15 @@ const Register = () => {
       return (
         <div className="register">
 
-        <h1 className="reg-head">PoliceBot</h1>
-        <div className="content-grid">
-        <div className="col col-lg">
-          <img src={Bot1} className="responsive-image"/>
-        </div>
+        
+       
+        
+          <img src={Bot} className="responsive-image"/>
+        
 
-        <div className="col col-lg">
+        
           <div className="form">
+          <h1 className="reg-head">PoliceBot</h1>
           <form>
                <input onChange={(e)=>handleFullNameChange(e)} type ="text" placeholder="Full Name"/>
                <input onChange={(e)=>handleUsernameChange(e)} type ="text" placeholder="UserName"/>
@@ -71,13 +71,13 @@ const Register = () => {
 
                <button onClick={handleSubmit}> Register </button>
           </form>
-        </div>
+        
         </div>
 
-        <div className="col col-lg col-md col-xs">
+        
           <img src={Logo} className="responsive-image" />
-        </div>
-        </div>
+        
+      
 
         </div>
       );

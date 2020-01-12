@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '../css/Landing.css';
 import { Link } from 'react-router-dom';
 import interceptor from '../Services/Interceptor';
 import Bot1 from '../images/Bot.png'
@@ -46,14 +45,11 @@ const Landing = () => {
       return (
         <div className="register">
 
-        <h1 className="reg-head">PoliceBot</h1>
-        <div className="content-grid">
-        <div className="col col-lg">
+        
           <img src={Bot1} className="responsive-image"/>
-        </div>
-
-        <div className="col col-lg">
+        
           <div className="form">
+          <h1 className="reg-head">PoliceBot</h1>
           <form onSubmit={handleSubmit}>
                <input onChange={(e)=>handleUsernameChange(e)} type="text" placeholder="Username"/>
                <input onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
@@ -67,14 +63,14 @@ const Landing = () => {
           </p>
           <Link to="/register"><button>Register</button></Link>
         </div>
-        </div>
+        
 
-        <div className="col col-lg col-md col-xs">
+        
           <img src={Logo} className="responsive-image" />
-        </div>
+        
         </div>
 
-        </div>
+        
       );
     }
   };

@@ -19,7 +19,6 @@ module.exports.connect = () =>
       }
       const db = client.db('sih');
       resolve(db);
-      // console.log(db)
       connection = db;
     });
   });

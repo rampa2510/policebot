@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card';
-import '../css/Dashboard.css';
-import report from '../images/report.png';
-import star from '../images/star.png';
-import exam from '../images/exam.png';
 import Chatbot from './Chatbot';
+import TabBar from './TabBar'
 
 
 const Dashboard = () => {
@@ -21,34 +17,30 @@ const Dashboard = () => {
     else setLoaded(true);
   }, []);
 
-  // Loads dashboard based on if user is student or admin
-  const loadPage = () => {
-    if (loaded) {
-      if (userData.userType === 'citizen') {
-        return (
-          <Chatbot/>
-        );
-      }
-      if (userData.userType === 'policeman') {
-        return (
-          <>
-            <Card img={exam} link="/newreports" buttonText="New Reports" />
-            <Card img={star} link="/myinvestigations" buttonText="My Investigations" />
-            <Card img={report} link="/tracking" buttonText="Complaint Tracking" />
-          </>
-        );
-      }
 
-      return (
-        <>
-          <Card img={exam} link="/addpoliceman" buttonText="Add Policeman" />
-          <Card img={exam} link="/managepolicemen" buttonText="Manage Policemen" />
-          <Card img={report} link="/tracking" buttonText="Complaint Tracking" />
-        </>
-      );
-    }
+
+    // Loads dashboard based on if user is student or admin
+    const loadPage = () => {
+      if (loaded) {
+        if (userData.userType === 'citizen') {
+          return (
+            <Chatbot/>
+          );
+        }
+        if (userData.userType === 'policeman') {
+          return (
+            <>
+              <TabBar/>
+            </>
+          );
+        }
+      }
     };
-  return <div id="dashboard">{loadPage()}</div>;
-};
+    return (
+      <>
+        {loadPage()}
+      </>
+    );
+  };
 
-export default Dashboard;
+  export default Dashboard;
