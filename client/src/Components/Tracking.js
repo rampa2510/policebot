@@ -20,12 +20,12 @@ const Tracking = () => {
             alert(error);
         }
     }
-  
+
     return(
         <>
-            <form onSubmit={handleSubmit}>
-                <input type="number" placeholder="Complaint Number" onChange={e=>setCrimeNumber(e.target.value)} className="form-control" />
-                <button id="searchbutton" type="submit" className="btn btn-primary form-control">
+            <form className="form tracking-form" onSubmit={handleSubmit}>
+                <input type="number" placeholder="Complaint Number" onChange={e=>setCrimeNumber(e.target.value)} className="control-no-input" />
+                <button id="searchbutton" type="submit">
                     Search
                 </button>
             </form>

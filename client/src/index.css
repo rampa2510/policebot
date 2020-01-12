@@ -77,6 +77,42 @@ code {
   margin-top:40px;
 }
 
+/*
+.tracking-form{
+  background: #f2f2f2;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 400px;
+  padding: 45px;
+}
+
+.tracking-form .control-no-input{
+  font-family: sans-serif;
+  background: #ffffff;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 0 0 15px;
+}
+
+.tracking-form .tracking-search-button{
+  font-family: sans-serif;
+  text-transform: uppercase;
+  background: #262626;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tracking-form .tracking-search-button:hover{
+  background: grey;
+}
+*/
 @media only screen and (min-width: 569px) and (max-width: 767px){
   .responsive-image{
   display: none;
