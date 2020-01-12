@@ -59,7 +59,7 @@ TabPanel.propTypes = {
     <>
         <AppBar position="static">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="New Reports" {...a11yProps(0)} />
+                <Tab label="Pending Reports" {...a11yProps(0)} />
                 <Tab label="My Investigations" {...a11yProps(1)} />
                 <Tab label="Tracking" {...a11yProps(2)} />
             </Tabs>

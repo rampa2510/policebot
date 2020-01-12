@@ -31,6 +31,20 @@ module.exports = {
     });
   },
 
+  findAll: (collection, query) => {
+    return new Promise((resolve, reject) => {
+      const DB = getConn();
+
+      DB.collection(collection).find(query,(err, resp) => {
+        if (err) {
+          reject(err);
+        }
+
+        resolve(resp.toArray());
+      });
+    });
+  },
+
     /**
    * @description This function is an abstraction of mongoDB insertOne
    *

@@ -3,6 +3,7 @@ import intereptor from '../Services/Interceptor';
 
 const Tracking = () => {
   const [crimeNumber, setCrimeNumber] = useState(false);
+  const [data,setData] = useState(null)
 
 //   useEffect(() => {
 //     if (localStorage.getItem('Token') != null) setLoaded(true);
@@ -13,12 +14,26 @@ const Tracking = () => {
         e.preventDefault();
 
         try {
-            const response = await intereptor(`/crime-register/${crimeNumber}`);
-            console.log(response)
+            const response = await intereptor(`crime-register/${crimeNumber}`);
+            setData(response["caseData"])
         } catch (error) {
             console.log(error);
             alert(error);
         }
+    }
+
+    const getData = ()=>{
+        if(data!==null)
+            return(
+            <>
+                <p>Case No: {data["caseNo"]}</p>
+                <p>Reported By: {data["name"]}</p>
+                <p>Crime: {data["crime"]}</p>
+                <p>Date of Crime: {data["date"].substring(8,10)+'/'+data["date"].substring(5,7)+'/'+data["date"].substring(0,4)}</p>
+                <p>Status: {data["status"]}</p>
+                <p>Investigating Officer: {data["investigatingOfficer"]}</p>
+            </>
+            );
     }
 
     return(
@@ -29,6 +44,7 @@ const Tracking = () => {
                     Search
                 </button>
             </form>
+            {getData()}
         </>
     );
 };
