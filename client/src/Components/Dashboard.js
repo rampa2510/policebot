@@ -34,14 +34,13 @@ const Dashboard = () => {
             </>
           );
         }
-
-        return (
-          <>
-          </>
-        );
       }
-      };
-    return <div id="dashboard">{loadPage()}</div>;
+    };
+    return (
+      <>
+        {loadPage()}
+      </>
+    );
   };
 
   export default Dashboard;
