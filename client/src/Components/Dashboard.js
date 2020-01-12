@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import report from '../images/report.png';
-import star from '../images/star.png';
-import exam from '../images/exam.png';
 import Chatbot from './Chatbot';
 
 import PropTypes from 'prop-types';

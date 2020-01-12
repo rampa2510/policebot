@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import interceptor from '../Services/Interceptor';
-import Bot1 from '../images/Bot.png'
+import Bot from '../images/Bot.png'
 import Logo from '../images/BPRD_Logo.png'
 
 const Register = () => {
@@ -57,7 +57,7 @@ const Register = () => {
         
        
         
-          <img src={Bot1} className="responsive-image"/>
+          <img src={Bot} className="responsive-image"/>
         
 
         
