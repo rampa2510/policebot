@@ -38,6 +38,8 @@ module.exports.startInvestigation=async (req,res)=>{
   try {
     const { caseNo } = req.body;
     const {data} = res.locals;
+    const isInvestigationOngoing = await findOne('crimeRegister',{caseNo,status:"ongoing"})
+    if(isInvestigationOngoing) return res.status(409).send({message:"the case is already ongoing"})
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:data.name,status:"ongoing"}})
     console.log(isCaseDataUpdated)
 
