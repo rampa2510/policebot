@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
+import Crime from './Crime';
 
 const Tracking = () => {
   const [crimeNumber, setCrimeNumber] = useState(false);
@@ -26,12 +27,7 @@ const Tracking = () => {
         if(data!==null)
             return(
             <>
-                <p>Case No: {data["caseNo"]}</p>
-                <p>Reported By: {data["name"]}</p>
-                <p>Crime: {data["crime"]}</p>
-                <p>Date of Crime: {data["date"].substring(8,10)+'/'+data["date"].substring(5,7)+'/'+data["date"].substring(0,4)}</p>
-                <p>Status: {data["status"]}</p>
-                <p>Investigating Officer: {data["investigatingOfficer"]}</p>
+                <Crime data={data}/>
             </>
             );
     }

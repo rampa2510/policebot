@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
-
+import Crime from './Crime';
 
 const NewReports = () => {
     const [data,setData] = useState(null)
@@ -23,17 +23,12 @@ const NewReports = () => {
     const getCrimes = ()=>{
         if(loaded && data!==null){
             return(
-            data.map(item=>{
+            data.map((item,index)=>{
                 return (
-                    <>
-                    <p>Case No: {item["caseNo"]}</p>
-                    <p>Reported By: {item["name"]}</p>
-                    <p>Crime: {item["crime"]}</p>
-                    <p>Date of Crime: {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
-                    <p>Status: {item["status"]}</p>
-                    <p>Investigating Officer: {item["investigatingOfficer"]}</p>
+                    <div key={index}>
+                    <Crime data={item}/>
                     <hr />
-                    </>
+                    </div>
                 );
             })
             );

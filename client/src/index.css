@@ -121,6 +121,7 @@ code {
   width: 100%;
   background: #262626;
   height: 56px;
+  z-index: 1;
 }
 
 .Toolbar-Navigation{
@@ -190,4 +191,8 @@ code {
     width: 90%;
     padding: 10px;
   }
+}
+
+.MuiTabs-flexContainer{
+  margin-top:32px;
 }
