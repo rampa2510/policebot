@@ -50,6 +50,22 @@ module.exports.startInvestigation=async (req,res)=>{
   }
 }
 
+module.exports.finishInvestigation=async (req,res)=>{
+  try {
+    const { caseNo } = req.body;
+    const {data} = res.locals;
+    const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{status:"completed"}})
+    console.log(isCaseDataUpdated)
+
+    if(isCaseDataUpdated) return res.status(200).send({message:"Case data updated successfully"});
+    else return res.status(404).send({error:"Couldn't update case data"});
+    
+  } catch (error) {
+    // console.log(error);
+    res.status(500).send({error})
+  }
+}
+
 module.exports.deleteCrimeData=async (req,res)=>{
   const caseNo = parseInt(req.params.caseNo);
   try {
