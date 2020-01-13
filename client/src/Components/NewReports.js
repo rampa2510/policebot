@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 const NewReports = () => {
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
 
     useEffect(()=>{getData()},[])
+
+    const useStyles = makeStyles(theme => ({
+        root: {
+          flexGrow: 1,
+        }
+      }));
+
+    const classes = useStyles();
 
     const getData=async ()=>{
         try {
@@ -25,10 +35,9 @@ const NewReports = () => {
             return(
             data.map((item,index)=>{
                 return (
-                    <div key={index}>
+                    <Grid key={index} item xs={12} md={6} lg={4}>
                     <Crime data={item}/>
-                    <hr />
-                    </div>
+                    </Grid>
                 );
             })
             );
@@ -36,9 +45,11 @@ const NewReports = () => {
     }
 
     return(
-        <>
+        <div className={classes.root}>
+        <Grid container spacing={3}>
             {getCrimes()}
-        </>
+        </Grid>
+        </div>
     );
 };
 

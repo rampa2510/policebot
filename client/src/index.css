@@ -178,6 +178,7 @@ code {
     text-align: center;
     width: 360px;
     padding: 2px;
+    padding-bottom:30px;
   }
 }
 
@@ -190,6 +191,7 @@ code {
     text-align: center;
     width: 90%;
     padding: 10px;
+    padding-bottom:30px;
   }
 }
 
