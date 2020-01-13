@@ -51,8 +51,8 @@ const Landing = () => {
           <div className="form">
           <h1 className="reg-head">PoliceBot</h1>
           <form onSubmit={handleSubmit}>
-               <input onChange={(e)=>handleUsernameChange(e)} type="text" placeholder="Username"/>
-               <input onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
+               <input required onChange={(e)=>handleUsernameChange(e)} type="text" placeholder="Username"/>
+               <input required onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
 
 
                <button type="submit"> Login </button>

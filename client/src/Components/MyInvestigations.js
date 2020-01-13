@@ -21,7 +21,7 @@ const MyInvestigations = () => {
     }
 
     const getCrimes = ()=>{
-        if(loaded){
+        if(loaded && data!==null){
             return(
             data.map(item=>{
                 return (

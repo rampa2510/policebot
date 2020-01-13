@@ -64,10 +64,10 @@ const Register = () => {
           <div className="form">
           <h1 className="reg-head">PoliceBot</h1>
           <form>
-               <input onChange={(e)=>handleFullNameChange(e)} type ="text" placeholder="Full Name"/>
-               <input onChange={(e)=>handleUsernameChange(e)} type ="text" placeholder="UserName"/>
-               <input onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
-               <input onChange={(e)=>handleAddressChange(e)} type="text" placeholder="City"/>
+               <input required onChange={(e)=>handleFullNameChange(e)} type ="text" placeholder="Full Name"/>
+               <input required onChange={(e)=>handleUsernameChange(e)} type ="text" placeholder="UserName"/>
+               <input required onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
+               <input required onChange={(e)=>handleAddressChange(e)} type="text" placeholder="City"/>
 
                <button onClick={handleSubmit}> Register </button>
           </form>
