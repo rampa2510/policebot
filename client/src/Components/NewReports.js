@@ -18,6 +18,26 @@ const NewReports = () => {
 
     const classes = useStyles();
 
+    const deleteReport=async (caseNo)=>{
+        try {
+            const response = await intereptor(`investigation/${caseNo}`,"DELETE");
+          console.log(response)
+          getData();
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      const startInvestigation=async (caseNo)=>{
+        try {
+            const response = await intereptor(`investigation`,"PATCH",{caseNo:caseNo});
+          console.log(response)
+          getData();
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
     const getData=async ()=>{
         try {
             const response = await intereptor(`get-crime-register`);
@@ -37,6 +57,8 @@ const NewReports = () => {
                 return (
                     <Grid key={index} item xs={12} md={6} lg={4}>
                     <Crime data={item}/>
+                    <button onClick={()=>deleteReport(item["caseNo"])}>Delete</button>
+                    <button onClick={()=>startInvestigation(item["caseNo"])}>Start Investigation</button>
                     </Grid>
                 );
             })
