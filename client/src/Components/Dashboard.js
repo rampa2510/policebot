@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Chatbot from './Chatbot';
 import TabBar from './TabBar'
+import Toolbar from './Toolbar'
 
 
 const Dashboard = () => {
@@ -30,7 +31,12 @@ const Dashboard = () => {
         if (userData.userType === 'policeman') {
           return (
             <>
+              <div>
+              <Toolbar/>
+              </div>
+              <div>
               <TabBar/>
+              </div>
             </>
           );
         }
