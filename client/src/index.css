@@ -121,13 +121,14 @@ code {
   width: 100%;
   background: #262626;
   height: 56px;
+  z-index: 1;
 }
 
 .Toolbar-Navigation{
   display: flex;
   height: 100%;
   align-items: center;
-  padding: 0 1rem;
+  padding: 0 0.5rem 0 0rem;
 }
 
 .Toolbar-Logo{
@@ -177,6 +178,7 @@ code {
     text-align: center;
     width: 360px;
     padding: 2px;
+    padding-bottom:30px;
   }
 }
 
@@ -189,5 +191,10 @@ code {
     text-align: center;
     width: 90%;
     padding: 10px;
+    padding-bottom:30px;
   }
+}
+
+.MuiTabs-flexContainer{
+  margin-top:32px;
 }

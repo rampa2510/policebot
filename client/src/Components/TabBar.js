@@ -62,9 +62,9 @@ function a11yProps(index) {
     <>
 
         <AppBar position="static" color="default">
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                <Tab label="Pending Reports" {...a11yProps(0)} />
-                <Tab label="My Investigations" {...a11yProps(1)} />
+            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" >
+                <Tab label="Pending Cases" {...a11yProps(0)} />
+                <Tab label="My Cases" {...a11yProps(1)} />
                 <Tab label="Tracking" {...a11yProps(2)} />
             </Tabs>
         </AppBar>

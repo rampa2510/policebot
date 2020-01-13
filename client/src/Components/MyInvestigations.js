@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
+import Crime from './Crime';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const MyInvestigations = () => {
@@ -7,6 +10,14 @@ const MyInvestigations = () => {
     const [loaded,setLoaded] = useState(false)
 
     useEffect(()=>{getData()},[])
+
+    const useStyles = makeStyles(theme => ({
+        root: {
+          flexGrow: 1,
+        }
+      }));
+
+    const classes = useStyles();
 
     const getData=async ()=>{
         try {
@@ -23,17 +34,11 @@ const MyInvestigations = () => {
     const getCrimes = ()=>{
         if(loaded && data!==null){
             return(
-            data.map(item=>{
+            data.map((item,index)=>{
                 return (
-                    <>
-                    <p>Case No: {item["caseNo"]}</p>
-                    <p>Reported By: {item["name"]}</p>
-                    <p>Crime: {item["crime"]}</p>
-                    <p>Date of Crime: {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
-                    <p>Status: {item["status"]}</p>
-                    <p>Investigating Officer: {item["investigatingOfficer"]}</p>
-                    <hr />
-                    </>
+                    <Grid key={index} item xs={12} md={6} lg={4}>
+                    <Crime data={item}/>
+                    </Grid>
                 );
             })
             );
@@ -41,9 +46,11 @@ const MyInvestigations = () => {
     }
 
     return(
-        <>
+        <div className={classes.root}>
+        <Grid container spacing={3}>
             {getCrimes()}
-        </>
+        </Grid>
+        </div>
     );
 };
 

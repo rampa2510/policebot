@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
+import Crime from './Crime';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Tracking = () => {
   const [crimeNumber, setCrimeNumber] = useState(false);
@@ -25,14 +28,9 @@ const Tracking = () => {
     const getData = ()=>{
         if(data!==null)
             return(
-            <>
-                <p>Case No: {data["caseNo"]}</p>
-                <p>Reported By: {data["name"]}</p>
-                <p>Crime: {data["crime"]}</p>
-                <p>Date of Crime: {data["date"].substring(8,10)+'/'+data["date"].substring(5,7)+'/'+data["date"].substring(0,4)}</p>
-                <p>Status: {data["status"]}</p>
-                <p>Investigating Officer: {data["investigatingOfficer"]}</p>
-            </>
+                <Grid item xs={12} md={6} >
+                <Crime data={data}/>
+                </Grid>
             );
     }
 
@@ -44,7 +42,11 @@ const Tracking = () => {
                     Search
                 </button>
             </form>
+            <Grid container >
+            <Grid item xs={0} md={3} >
+            </Grid>
             {getData()}
+            </Grid>
         </>
     );
 };
