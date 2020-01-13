@@ -21,14 +21,15 @@ module.exports = async (req,res)=>{
     const personObj = Result.parameters.fields.person.listValue.values || [];
     const details = Result.parameters.fields.details.stringValue || '';
     let personArr = []
-
+    // console.log(Result.parameters.fields.details)
     personObj.forEach(personData=>{
       personArr.push(personData.structValue.fields.name.stringValue)
     })
 
     try {
+      // get the case number from the mongodb database
       const caseNo =  await incrementCounter();
-
+      // console.log(data.city,details,personArr)
       await insertOne('crimeRegister',{name:data.name,date,crime,personArr,details,city:data.city,caseNo:caseNo.count,status:'pending',investigatingOfficer:'none'})
   
       res.status(201).send({reply:"Crime registered case No - "+caseNo.count})
@@ -37,7 +38,6 @@ module.exports = async (req,res)=>{
       console.log(error);
       res.status(200).send({reply:"lol"})
     }
-    // get the case number from the mongodb database
 
   }else res.status(200).send({reply:Result.fulfillmentText})
 }
