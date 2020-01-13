@@ -31,6 +31,21 @@ const MyInvestigations = () => {
         
     }
 
+    const finishInvestigation=async (caseNo)=>{
+        try {
+            const response = await intereptor(`finishinvestigation`,"PATCH",{caseNo:caseNo});
+          console.log(response)
+          getData();
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+    const checkCompleted = item=>{
+        if(item["status"]==="ongoing")
+            return <button onClick={()=>finishInvestigation(item["caseNo"])}>Finish Investigation</button>
+    } 
+
     const getCrimes = ()=>{
         if(loaded && data!==null){
             return(
@@ -38,6 +53,7 @@ const MyInvestigations = () => {
                 return (
                     <Grid key={index} item xs={12} md={6} lg={4}>
                     <Crime data={item}/>
+                    {checkCompleted(item)}
                     </Grid>
                 );
             })
