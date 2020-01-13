@@ -39,7 +39,7 @@ module.exports.startInvestigation=async (req,res)=>{
     const { caseNo } = req.body;
     const {data} = res.locals;
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:data.name,status:"ongoing"}})
-    console.log(isCaseDataUpdated)
+    // console.log(isCaseDataUpdated)
 
     if(isCaseDataUpdated) return res.status(200).send({message:"Case data updated successfully"});
     else return res.status(404).send({error:"Couldn't update case data"});
