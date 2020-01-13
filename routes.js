@@ -14,10 +14,11 @@ const express = require("express"),
  *                                                                                      */
 //========================================================================================
 let controllerPath = "./Controllers";
-const registrationController = require(`${controllerPath}/registration.controller`);
-const loginController = require(`${controllerPath}/login.controller`);
-const {registerCrime,getCrimeDetails,getAllCrimes, getMyCrimes} = require(`${controllerPath}/userCrimeRegistration.controller`);
-const chatBotRoute = require(`${controllerPath}/chatbotresponse.controller.js`)
+const registrationController = require(`./Controllers/registration.controller`);
+const loginController = require(`./Controllers/login.controller`);
+const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistration.controller`);
+const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
+const {getMyCrimes,getAllCrimes,startInvestigation,deleteCrimeData} = require(`./Controllers/policemanActions.controller.js`)
 //########################################################################################
 
 //========================================================================================
@@ -25,10 +26,9 @@ const chatBotRoute = require(`${controllerPath}/chatbotresponse.controller.js`)
  *                                 Import all the models                                *
  *                                                                                      */
 //========================================================================================
-let ModelPath = "./Models";
-const registrationModel = require(`${ModelPath}/regestration.model`);
-const {body} = require(`${ModelPath}/login.model`);
-const CrimeRegistrationModel = require(`${ModelPath}/userCrimeRegistration.model`)
+const registrationModel = require(`./Models/regestration.model`);
+const {body} = require(`./Models/login.model`);
+const CrimeRegistrationModel = require(`./Models/userCrimeRegistration.model`)
 //########################################################################################
 
 //========================================================================================
@@ -44,6 +44,8 @@ router.get('/crime-register/:id',getCrimeDetails);
 router.get('/get-crime-register',getAllCrimes);
 router.get('/get-my-crimes',getMyCrimes);
 router.post('/bot-reply',chatBotRoute);
+router.patch('/investigation',startInvestigation);
+router.delete('/investigation/:caseNo',deleteCrimeData)
 //########################################################################################
 
 module.exports = router;

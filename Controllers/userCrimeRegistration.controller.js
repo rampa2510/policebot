@@ -9,10 +9,10 @@ const {insertOne,incrementCounter,findOne, findAll} = require('../Helpers/queryH
 module.exports.registerCrime =async (req,res,next)=>{
   const {data} = res.locals
   try {
-    const countData = await incrementCounter()
-    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo:countData.count,status:'pending',investigatingOfficer:'none'})
+    const caseNo = await incrementCounter()
+    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo,status:'pending',investigatingOfficer:'none'})
 
-    res.status(201).json({message:"Crime registered",caseNo:countData.count})
+    res.status(201).json({message:"Crime registered",caseNo})
     next()
   } catch (error) {
     console.log(error)
@@ -35,31 +35,4 @@ module.exports.getCrimeDetails =async (req,res,next)=>{
   }
 }
 
-module.exports.getAllCrimes =async (req,res,next)=>{
-  try {
-    // console.log({$and : [{caseNo:id},{name:data.name}]})
-    const crimeData = await findAll('crimeRegister',{$and : [{investigatingOfficer:"none"}]})
-    console.log(crimeData)
-    res.status(200).json({crimeData})
-    next()
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({error})
-    next()
-  }
-}
 
-module.exports.getMyCrimes =async (req,res,next)=>{
-  const {data} = res.locals;
-  try {
-    // console.log({$and : [{caseNo:id},{name:data.name}]})
-    const crimeData = await findAll('crimeRegister',{$and : [{investigatingOfficer:data.name} ]})
-    console.log(crimeData)
-    res.status(200).json({crimeData})
-    next()
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({error})
-    next()
-  }
-}

@@ -6,7 +6,7 @@ const crypto = require("crypto");
  * 
  * @param  password:string salt:string null for registartaion or pass the salt
  *
- * @returns {salt:The salt used to hash, hash:The generated hash}
+ * @returns {salt:The salt used to hash the password, hash:The generated hash}
  *
  * @author Ram Pandey
  */
