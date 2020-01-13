@@ -18,18 +18,18 @@ module.exports = async (req,res)=>{
 
     const date = Result.parameters.fields.date.stringValue;
     const crime =  Result.parameters.fields.CrimeType.stringValue;
-    const personObj = Result.parameters.fields.person.listValue.values;
-
+    const personObj = Result.parameters.fields.person.listValue.values || [];
+    const details = Result.parameters.fields.details.stringValue || '';
     let personArr = []
 
     personObj.forEach(personData=>{
       personArr.push(personData.structValue.fields.name.stringValue)
     })
-    
+
     try {
       const caseNo =  await incrementCounter();
 
-      await insertOne('crimeRegister',{name:data.name,date,crime,personArr,caseNo:caseNo.count,status:'pending',investigatingOfficer:'none'})
+      await insertOne('crimeRegister',{name:data.name,date,crime,personArr,details,city:data.city,caseNo:caseNo.count,status:'pending',investigatingOfficer:'none'})
   
       res.status(201).send({reply:"Crime registered case No - "+caseNo.count})
   
