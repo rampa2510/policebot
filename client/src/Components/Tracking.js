@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import Grid from '@material-ui/core/Grid';
+import {Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Tracking = () => {
@@ -12,6 +13,19 @@ const Tracking = () => {
 //     if (localStorage.getItem('Token') != null) setLoaded(true);
 //     else window.location = '/';
 //   }, []);
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+  }));
+
+const classes = useStyles();
 
     const handleSubmit=async e=>{
         e.preventDefault();
@@ -29,7 +43,9 @@ const Tracking = () => {
         if(data!==null)
             return(
                 <Grid item xs={12} md={6} >
+                <Paper className={classes.paper} elevation={3}>
                 <Crime data={data}/>
+                </Paper>
                 </Grid>
             );
     }
