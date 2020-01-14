@@ -92,7 +92,7 @@ const NewReports = () => {
 
     return(
         <div className={classes.root}>
-        <Grid container spacing={0}>
+        <Grid container spacing={3}>
             {getCrimes()}
         </Grid>
         </div>
