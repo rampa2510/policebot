@@ -7,6 +7,10 @@ import SendIcon from '@material-ui/icons/Send';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 const useStyles = makeStyles({
   textField:{
     position:'absolute',
@@ -25,10 +29,13 @@ const useStyles = makeStyles({
   botReply:{
     backgroundColor:"#262626",
     color:"#fff",
-    width:"60%",
+    maxWidth:"60%",
     wordBreak:'break-all',
     padding:"10px",
-    marginLeft:"10px"
+    marginLeft:"10px",
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
+    hyphens: 'auto',
   },
   botAvatar:{
     color:"#fff",
@@ -44,7 +51,7 @@ const useStyles = makeStyles({
   userReply:{
     backgroundColor:"#fff",
     color:"#262626",
-    width:"60%",
+    maxWidth:"60%",
     wordBreak:'break-all',
     padding:"10px",
     marginRight:"10px",
@@ -63,25 +70,45 @@ const useStyles = makeStyles({
 })
 
 function Chatbot() {
+  const WelcomMessage=`Hello PoliceBot here! I am a chatbot designed to report crime, help you
+  in difficult situations and create crime awarness`
+
+  // get initials to show on the avatar icon
+  let name = localStorage.getItem('userData');
+  name = JSON.parse(name);
+  name = name.name
+  name = name.slice(0,2)
+
+
   const classes = useStyles()
-  const [chatHistory,setChatHistory] = useState([{type:'bot',message:"Hello"}]);
+  const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
   const [userChat,setUserChat]=useState('');
   const [isChatDisabled,setDisabled] = useState(false)
+  const [isSnackBarOpen,setSnackBar] = useState(false);
 
+  // Function to get reply 
   const getBotMsg=async ()=>{
     setDisabled(true);
+
+
+    if(!userChat.length){
+      setSnackBar(true);
+      return;
+    }
+
     await setChatHistory([...chatHistory,{type:"user",message:userChat}])
-    // setUserReply([...userReply,userChat]);
     const data = await interceptor('bot-reply',"POST",{MSG:userChat});
     setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
     setUserChat('')
     setDisabled(false)
   }
 
+
+  // function to render chats
   const renderChat=(item)=>{
     if(item.type==="bot"){
       return(
-        <div className={classes.botChatCont}>
+        <div key={item.index} className={classes.botChatCont}>
           <Avatar className={classes.botAvatar}>PB</Avatar> <Card className={classes.botReply}>{item.message}</Card>
         </div>  
       )
@@ -89,9 +116,18 @@ function Chatbot() {
 
     return (
       <div className={classes.userChatCont}>
-        <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>U</Avatar> 
+  <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar> 
       </div>
     )
+  }
+
+
+  // event listner for enter key
+  const onKeyPress = e=>{
+    if(e.key==="Enter") {
+      getBotMsg()
+      e.preventDefault()
+    }
   }
 
   return (
@@ -99,15 +135,13 @@ function Chatbot() {
     <div>
       <ToolBar/>
     </div>
+
     <div className={classes.chatCont}>
-      {/* <div className={classes.botChatCont}>
-      <Avatar className={classes.botAvatar}>PB</Avatar> <Card className={classes.botReply}>Helllodsjdsjkdajkdbajkdabadsasdkdasb</Card>
-      </div>
-      <div className={classes.userChatCont}>
-      <Card className={classes.userReply}>Helllodsjdsjkdajkdbajkdabadsasdkdasb</Card><Avatar className={classes.userAvatar}>U</Avatar> 
-      </div> */}
+    {/* The main chat screen */}
       {chatHistory.map(item=>renderChat(item))}
+
     </div>
+    {/* Message box */}
       <TextField 
       multiline
       rowsMax="2" 
@@ -116,6 +150,7 @@ function Chatbot() {
       variant="outlined"
       className={classes.textField}
       value={userChat}
+      onKeyPress={onKeyPress}
       onChange={e=>setUserChat(e.target.value)}
       InputProps={{
         endAdornment: (
@@ -124,6 +159,25 @@ function Chatbot() {
           </InputAdornment>
         ),
       }}
+      />
+
+      {/* Snackbar */}
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        open={isSnackBarOpen}
+        autoHideDuration={6000}
+        onClose={()=>setSnackBar(false)}
+        message="Cannot send an empty message"
+        action={
+          <React.Fragment>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={()=>setSnackBar(false)}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
       />
     </>
   );

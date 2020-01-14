@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const Toolbar = props => (
   <>
@@ -10,7 +11,7 @@ const Toolbar = props => (
       <div className="Spacer"/>
       <div className="Toolbar-Navigation-Items">
         <ul>
-          <li><Link to='/logout'>Logout</Link></li>
+          <li><Link to='/logout'><ExitToAppIcon /></Link></li>
         </ul>
       </div>
     </nav>
