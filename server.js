@@ -20,7 +20,7 @@ const rateLimit = require("express-rate-limit");
 //========================================================================================
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +28,6 @@ app.use(cors());
 
 app.use(require('./Middleware/verifyToken.middleware'))
 
-app.use("/api", require("./routes"));
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -36,6 +35,8 @@ const limiter = rateLimit({
 });
 
 app.use("/api/", limiter);
+
+app.use("/api", require("./routes"));
 
 //########################################################################################
 
@@ -45,7 +46,7 @@ app.use("/api/", limiter);
  *                                                                                      */
 //========================================================================================
 
-if(PORT!==5000){
+if(PORT!==8080){
   app.use(express.static(path.join(__dirname, "client", "build")));
   app.use("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

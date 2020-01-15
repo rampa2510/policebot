@@ -176,6 +176,30 @@ module.exports = {
         return true;
       })
     })
+  },
+
+      /**
+   * @description   This function will be used to add updates to the array
+   * 
+   * @param query {Object} The query you want to run for deleting the matching data
+   * 
+   * @param update {Object} The update data you want to push to the array
+   * 
+   * @return      if err it will thow the err object otherwise true 
+   *
+   * @author      Ram Pandey
+   */
+  updateDetails:(query,update)=>{
+    const DB = getConn();
+
+    return new Promise((resolve,reject)=>{
+      DB.collection('crimeRegister').update(query,{$push:{updates:update}},(err,resp)=>{
+        if(err) return reject(err);
+        console.log(resp)
+        resolve(true);
+        return true;
+      })
+    })
   }
 
 };
