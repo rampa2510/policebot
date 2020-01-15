@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import Grid from '@material-ui/core/Grid';
-import {Paper} from '@material-ui/core';
+import {Paper, TextField, Hidden, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const Tracking = () => {
@@ -16,13 +16,26 @@ const Tracking = () => {
 
 const useStyles = makeStyles(theme => ({
     root: {
-      flexGrow: 1,
+        textAlign: "center",
     },
-    paper: {
+    field:{
+        background:"#fff",
+        margin: theme.spacing(1),
+        width:"80%",
+      },
+      paper: {
         padding: theme.spacing(2),
-        textAlign: 'center',
         color: theme.palette.text.secondary,
-    },
+        },
+      formButtons: {
+        width:"80%",
+        margin: theme.spacing(1),
+        background:"#262626",
+        padding: "12px",
+        "&:hover": {
+          backgroundColor: "#808080"
+      }
+      }
   }));
 
 const classes = useStyles();
@@ -52,15 +65,25 @@ const classes = useStyles();
 
     return(
         <>
-            <form className="form tracking-form" onSubmit={handleSubmit}>
-                <input type="number" placeholder="Complaint Number" onChange={e=>setCrimeNumber(e.target.value)} className="control-no-input" />
-                <button id="searchbutton" type="submit">
+            <Grid spacing={3} className= {classes.root} container >
+            <Hidden smDown>
+                <Grid item md={3}></Grid>
+            </Hidden>
+            <Grid item xs={12} md={6}>
+            <form onSubmit={handleSubmit}>
+                <TextField type="number" variant="outlined" className={classes.field} onChange={e=>setCrimeNumber(e.target.value)} label="Complaint Number" defaultValue="Hello World" />
+                
+                <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
                     Search
-                </button>
+                </Button>
             </form>
-            <Grid container >
-            <Grid item xs={0} md={3} >
             </Grid>
+            <Hidden smDown>
+                <Grid item md={3}></Grid>
+            </Hidden>
+            <Hidden smDown>
+            <Grid md={3} ></Grid>
+            </Hidden>
             {getData()}
             </Grid>
         </>

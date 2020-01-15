@@ -11,11 +11,11 @@ const Crime = props=>{
                 {item["personArr"].map((suspect,index)=>{
                     if(index===item["personArr"].length-1)
                         return(
-                            <>{suspect}</>
+                            <React.Fragment key={index}> {suspect}</React.Fragment>
                         );
                     else
                         return(
-                            <>{suspect}, </>
+                            <React.Fragment key={index}> {suspect},</React.Fragment>
                         );
                 })}
                 </>

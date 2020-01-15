@@ -59,7 +59,16 @@ const MyInvestigations = () => {
 
     const checkCompleted = item=>{
         if(item["status"]==="ongoing")
-            return <Button variant="contained" color="primary" className={classes.actionbuttons} onClick={()=>finishInvestigation(item["caseNo"])}>Finish Investigation</Button>
+            return( 
+                <Grid container spacing={3}>
+                    <Grid item xs={6}>
+                        <Button variant="contained" color="primary" className={classes.actionbuttons}>Update</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" color="primary" className={classes.actionbuttons} onClick={()=>finishInvestigation(item["caseNo"])}>Complete</Button>
+                    </Grid>
+                </Grid>
+            );
     } 
 
     const getCrimes = ()=>{

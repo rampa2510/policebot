@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     backgroundColor:"#262626",
     color:"#fff",
     maxWidth:"60%",
-    wordBreak:'break-all',
+    // wordBreak:'break-all',
     padding:"10px",
     marginLeft:"10px",
     overflowWrap: 'break-word',

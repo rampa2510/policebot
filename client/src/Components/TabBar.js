@@ -56,7 +56,7 @@ function a11yProps(index) {
                 <Tab label="Pending" {...a11yProps(0)} />
                 <Tab label="My Cases" {...a11yProps(1)} />
                 <Tab label="Tracking" {...a11yProps(2)} />
-                <Tab label="Emergency" {...a11yProps(2)} />
+                <Tab label="Emergency" {...a11yProps(3)} />
             </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -68,7 +68,7 @@ function a11yProps(index) {
         <TabPanel value={value} index={2}>
             <Tracking />
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={value} index={3}>
             <Emergency />
         </TabPanel>
     </>
