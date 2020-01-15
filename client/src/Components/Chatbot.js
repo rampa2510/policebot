@@ -18,12 +18,13 @@ const useStyles = makeStyles({
     width:"90%",
     marginLeft:"5%",
     left:0,
-    backgroundColor:"#fff"
+    backgroundColor:"#fff",
+    marginTop: "10px"
   },
   botChatCont:{
     left:0,
     width:"100%",
-    marginTop:"20px",
+    marginTop:"5px",
     display:'flex',
   },
   botReply:{
@@ -65,7 +66,7 @@ const useStyles = makeStyles({
   chatCont:{
     height:"80vh",
     overflowY:"scroll",
-    marginTop:"50px"
+    marginTop:"20px"
   }
 })
 
@@ -86,7 +87,7 @@ function Chatbot() {
   const [isChatDisabled,setDisabled] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false);
 
-  // Function to get reply 
+  // Function to get reply
   const getBotMsg=async ()=>{
     setDisabled(true);
 
@@ -109,14 +110,14 @@ function Chatbot() {
     if(item.type==="bot"){
       return(
         <div key={item.index} className={classes.botChatCont}>
-          <Avatar className={classes.botAvatar}>PB</Avatar> <Card className={classes.botReply}>{item.message}</Card>
-        </div>  
+          <div className="Mssg"><Avatar className={classes.botAvatar}>PB</Avatar></div><Card className={classes.botReply}>{item.message}</Card>
+        </div>
       )
     }
 
     return (
       <div className={classes.userChatCont}>
-  <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar> 
+  <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
       </div>
     )
   }
@@ -142,11 +143,11 @@ function Chatbot() {
 
     </div>
     {/* Message box */}
-      <TextField 
+      <TextField
       multiline
-      rowsMax="2" 
-      disabled={isChatDisabled} 
-      label="Message" 
+      rowsMax="2"
+      disabled={isChatDisabled}
+      label="Message"
       variant="outlined"
       className={classes.textField}
       value={userChat}
