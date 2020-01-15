@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
 const Crime = props=>{
 
@@ -22,11 +21,6 @@ const Crime = props=>{
                 </>
             );
     }
-
-    const useStyles = makeStyles(theme => ({
-        
-      }));
-    const classes = useStyles();
 
     return(
         

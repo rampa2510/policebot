@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import interceptor from '../Services/Interceptor';
-import Bot1 from '../images/Bot.png'
+import Bot from '../images/Bot.png'
 import Logo from '../images/BPRD_Logo.png'
+import Grid from '@material-ui/core/Grid';
+import {Button, Hidden, TextField} from '@material-ui/core';
+import { makeStyles} from '@material-ui/core/styles';
 
 const Landing = () => {
   const [loaded, setLoaded] = useState(false);
@@ -40,37 +43,76 @@ const Landing = () => {
     }
   }, []);
 
+  const useStyles = makeStyles(theme => ({
+    root: {
+      
+      background: "#f2f2f2",
+      minWidth:"100vw",
+      minHeight: "100vh",
+      alignItems: "center",
+      textAlign:"center",
+    },
+    heading: {
+      fontSize: "3rem",
+    },
+    field:{
+      background:"#fff",
+      margin: theme.spacing(1),
+      width:"80%",
+    },
+    formButtons: {
+      width:"80%",
+      margin: theme.spacing(1),
+      background:"#262626",
+      padding: "12px",
+      "&:hover": {
+        //you want this to be the same as the backgroundColor above
+        backgroundColor: "#000"
+    }
+    }
+  }));
+
+  const classes = useStyles();
+
   const loadPage = () => {
     if (loaded) {
       return (
-        <div className="register">
-
-        
-          <img src={Bot1} className="responsive-image"/>
-        
-          <div className="form">
-          <h1 className="reg-head">PoliceBot</h1>
-          <form onSubmit={handleSubmit}>
-               <input required onChange={(e)=>handleUsernameChange(e)} type="text" placeholder="Username"/>
-               <input required onChange={(e)=>handlePasswordChange(e)} type="password" placeholder="Password"/>
-
-
-               <button type="submit"> Login </button>
-          </form>
-          <br/>
-          <p>
-            Or
-          </p>
-          <Link to="/register"><button>Register</button></Link>
-        </div>
-        
-
-        
-          <img src={Logo} className="responsive-image" />
-        
-        </div>
-
-        
+        <Grid className={classes.root} container spacing={0}>
+          <Hidden smDown>
+            <Grid item md={4}>
+              <img alt="police" width="80%" src={Bot}/>
+            </Grid>
+          </Hidden>
+          <Grid item xs={12} md={4}>
+            <Grid item xs={12}>
+            <h1 className={classes.heading}>PoliceBot</h1>
+            </Grid>
+            <Grid item xs={12}>
+            <form className={classes.loginform} onSubmit={handleSubmit}>
+              <Grid item xs={12}>
+                <TextField className={classes.field} required onChange={(e)=>handleUsernameChange(e)} label="Username" variant="outlined" />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField className={classes.field} type="password" required onChange={(e)=>handlePasswordChange(e)} label="Password" variant="outlined"/>
+              </Grid>
+              <Grid item xs={12}>  
+                <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Login </Button>  
+              </Grid>
+            </form>
+            </Grid>
+            <Grid item xs={12}>
+            <p>Or</p>
+            </Grid>
+            <Grid item xs={12}>
+            <Link style={{ textDecoration: 'none' }} to="/register"><Button className={classes.formButtons} variant="contained" color="primary" >Register</Button></Link>
+            </Grid>
+          </Grid>
+          <Hidden smDown>
+            <Grid item  md={4}>
+              <img alt="logo" width="50%" src={Logo}/>
+            </Grid>
+          </Hidden>
+        </Grid>
       );
     }
   };
