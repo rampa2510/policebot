@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
@@ -9,9 +8,7 @@ import {AppBar} from '@material-ui/core';
 import MyInvestigations from './MyInvestigations';
 import Tracking from './Tracking';
 import NewReports from './NewReports';
-
-//For Navbar
-import Toolbar from './Toolbar'
+import Emergency from './Emergency';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,14 +41,7 @@ function a11yProps(index) {
   };
 }
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
-
-  const classes = useStyles();
+  
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -63,9 +53,10 @@ function a11yProps(index) {
 
         <AppBar position="static" color="default">
             <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" >
-                <Tab label="Pending Cases" {...a11yProps(0)} />
+                <Tab label="Pending" {...a11yProps(0)} />
                 <Tab label="My Cases" {...a11yProps(1)} />
                 <Tab label="Tracking" {...a11yProps(2)} />
+                <Tab label="Emergency" {...a11yProps(2)} />
             </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
@@ -76,6 +67,9 @@ function a11yProps(index) {
         </TabPanel>
         <TabPanel value={value} index={2}>
             <Tracking />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+            <Emergency />
         </TabPanel>
     </>
   );

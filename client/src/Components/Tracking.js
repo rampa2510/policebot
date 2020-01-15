@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import Grid from '@material-ui/core/Grid';
