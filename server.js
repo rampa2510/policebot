@@ -20,7 +20,7 @@ const rateLimit = require("express-rate-limit");
 //========================================================================================
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -45,7 +45,7 @@ app.use("/api/", limiter);
  *                                                                                      */
 //========================================================================================
 
-if(PORT!==5000){
+if(PORT!==8080){
   app.use(express.static(path.join(__dirname, "client", "build")));
   app.use("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
