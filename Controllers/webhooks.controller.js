@@ -17,7 +17,7 @@ module.exports.webhookController=async (req,res)=>{
     textResponse = `No such case with case number ${caseNo} please enter a correct case no`
   }
   const responseObj  = {
-    "fulfillmentText": "This is a text response",
+    "fulfillmentText": textResponse,
     "fulfillmentMessages": [
       {
         "text": {

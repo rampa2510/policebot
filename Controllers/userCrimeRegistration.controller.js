@@ -3,14 +3,14 @@
  *                              Import all the modules here                             *
  *                                                                                      */
 //========================================================================================
-const {insertOne,incrementCounter,findOne, findAll} = require('../Helpers/queryHandler')
+const {insertOne,incrementCounter,findOne} = require('../Helpers/queryHandler')
 //########################################################################################
 
 module.exports.registerCrime =async (req,res,next)=>{
   const {data} = res.locals
   try {
     const caseNo = await incrementCounter()
-    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo,status:'pending',investigatingOfficer:'none'})
+    await insertOne('crimeRegister',{name:data.name,...req.body,caseNo,status:'pending',investigatingOfficer:'none',updates:[]})
 
     res.status(201).json({message:"Crime registered",caseNo})
     next()

@@ -3,7 +3,7 @@
  *                            Import all the helper functions                           *
  *                                                                                      */
 //========================================================================================
-const {findAll,updateOne,deleteOne,findOne} = require('../Helpers/queryHandler')
+const {findAll,updateOne,deleteOne,findOne,updateDetails} = require('../Helpers/queryHandler')
 const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
 //########################################################################################
 module.exports.getMyCrimes =async (req,res,next)=>{
@@ -65,7 +65,7 @@ module.exports.finishInvestigation=async (req,res)=>{
     const { caseNo } = req.body;
     const {data} = res.locals;
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{status:"completed"}})
-    console.log(isCaseDataUpdated)
+    // console.log(isCaseDataUpdated)
 
     if(isCaseDataUpdated){ 
       client.messages.create({
@@ -100,4 +100,31 @@ module.exports.deleteCrimeData=async (req,res)=>{
     console.log(error);
     res.status(500).send({error})
   }
+}
+
+module.exports.updateDetails=async (req,res)=>{
+  const {details,date,caseNo} = req.body;
+  let textResponse;
+  const data = await findOne('crimeRegister',{caseNo});
+
+  if(!data){
+    textResponse=`Case with case no ${caseNo} does not exits please enter a valid case number`
+  }else{
+    await updateDetails({caseNo},{details,date});
+    textResponse = "Case details updated!"
+  }
+
+  const responseObj  = {
+    "fulfillmentText": textResponse,
+    "fulfillmentMessages": [
+      {
+        "text": {
+          "text": [
+            textResponse
+          ]
+        }
+      }
+    ],    
+  }
+  res.send(responseObj);
 }
