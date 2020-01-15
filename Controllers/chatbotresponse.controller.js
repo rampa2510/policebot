@@ -11,7 +11,7 @@ module.exports = async (req,res)=>{
   const Result = await BotReply(req.body.MSG);
 
   // get all the values here if the intent is the end intent
-  if(Result.intent.displayName==="policebot.confirm.yes"){
+  if(Result.intent.displayName==="policebot.confirm.yes" || Result.intent.displayName==="policebot.start.genric - yes" || Result.intent.displayName==="policebot.start.genric - no"){
     
     // in the locals we have the jwt data decode with all the details
     const {data} = res.locals

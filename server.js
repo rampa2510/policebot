@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 const { connect } = require("./Database/conn");
 const cors = require('cors');
 const path = require('path');
+const rateLimit = require("express-rate-limit");
 //########################################################################################
 
 
@@ -28,6 +29,13 @@ app.use(cors());
 app.use(require('./Middleware/verifyToken.middleware'))
 
 app.use("/api", require("./routes"));
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 400 // limit each IP to 100 requests per windowMs
+});
+
+app.use("/api/", limiter);
 
 //########################################################################################
 
