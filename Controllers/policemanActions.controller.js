@@ -3,7 +3,8 @@
  *                            Import all the helper functions                           *
  *                                                                                      */
 //========================================================================================
-const {findAll,updateOne,deleteOne} = require('../Helpers/queryHandler')
+const {findAll,updateOne,deleteOne,findOne} = require('../Helpers/queryHandler')
+const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
 //########################################################################################
 module.exports.getMyCrimes =async (req,res,next)=>{
   const {data} = res.locals;
@@ -38,12 +39,19 @@ module.exports.startInvestigation=async (req,res)=>{
   try {
     const { caseNo } = req.body;
     const {data} = res.locals;
-    const isInvestigationOngoing = await findOne('crimeRegister',{caseNo,status:"ongoing"})
+    const isInvestigationOngoing = await findOne('crimeRegister',{caseNo:caseNo,status:"ongoing"})
     if(isInvestigationOngoing) return res.status(409).send({message:"the case is already ongoing"})
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:data.name,status:"ongoing"}})
     // console.log(isCaseDataUpdated)
 
-    if(isCaseDataUpdated) return res.status(200).send({message:"Case data updated successfully"});
+    if(isCaseDataUpdated){ 
+      client.messages.create({
+        from: 'whatsapp:+14155238886',
+        to:'whatsapp:+917666137800',
+        body: 'Investigation of case number: '+caseNo+' has been started by: Inspector: '+data.name
+      })
+      return res.status(200).send({message:"Case data updated successfully"});
+    }
     else return res.status(404).send({error:"Couldn't update case data"});
     
   } catch (error) {
@@ -59,7 +67,13 @@ module.exports.finishInvestigation=async (req,res)=>{
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{status:"completed"}})
     console.log(isCaseDataUpdated)
 
-    if(isCaseDataUpdated) return res.status(200).send({message:"Case data updated successfully"});
+    if(isCaseDataUpdated){ 
+      client.messages.create({
+        from: 'whatsapp:+14155238886',
+        to:'whatsapp:+917666137800',
+        body: 'Investigation of case number: '+caseNo+' has been completed by inspector: '+data.name
+      })
+      return res.status(200).send({message:"Case data updated successfully"});}
     else return res.status(404).send({error:"Couldn't update case data"});
     
   } catch (error) {
@@ -70,9 +84,17 @@ module.exports.finishInvestigation=async (req,res)=>{
 
 module.exports.deleteCrimeData=async (req,res)=>{
   const caseNo = parseInt(req.params.caseNo);
+  const {data} = res.locals;
   try {
     const isCaseDeleted = await deleteOne('crimeRegister',{caseNo});
-    if(isCaseDeleted) return res.status(200).send({message:"Case deleted!"});
+    if(isCaseDeleted){ 
+      client.messages.create({
+        from: 'whatsapp:+14155238886',
+        to:'whatsapp:+917666137800',
+        body: 'Case Number: '+caseNo+' has been dismissed by inspector: '+data.name
+      })
+      return res.status(200).send({message:"Case deleted!"});
+    }
     else return res.status(404).send({error:"Case cannot be found"})
   } catch (error) {
     console.log(error);

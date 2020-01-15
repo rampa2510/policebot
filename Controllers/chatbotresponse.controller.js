@@ -5,6 +5,7 @@
 //========================================================================================
 const BotReply = require('../Helpers/chatbotCon');
 const {insertOne,incrementCounter} = require('../Helpers/queryHandler')
+const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
 //########################################################################################
 
 module.exports = async (req,res)=>{
@@ -31,9 +32,14 @@ module.exports = async (req,res)=>{
       const caseNo =  await incrementCounter();
       // console.log(data.city,details,personArr)
       await insertOne('crimeRegister',{name:data.name,date,crime,personArr,details,city:data.city,caseNo,status:'pending',investigatingOfficer:'none'})
-  
-      res.status(201).send({reply:"Crime registered case No - "+caseNo})
-  
+      {
+        client.messages.create({
+          from: 'whatsapp:+14155238886',
+          to:'whatsapp:+917666137800',
+          body: 'Your Report has been Registered\nCase Number: '+caseNo+'\nCrime: '+crime+'\nDescription: '+details
+        })
+        res.status(201).send({reply:"Crime registered case No - "+caseNo})
+      }
     } catch (error) {
       console.log(error);
       res.status(200).send({reply:"I have expereinced an error sorry"})
