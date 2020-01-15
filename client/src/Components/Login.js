@@ -66,8 +66,7 @@ const Landing = () => {
       background:"#262626",
       padding: "12px",
       "&:hover": {
-        //you want this to be the same as the backgroundColor above
-        backgroundColor: "#000"
+        backgroundColor: "#808080"
     }
     }
   }));
