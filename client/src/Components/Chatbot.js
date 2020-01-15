@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   botChatCont:{
     left:0,
     width:"100%",
-    marginTop:"5px",
+    marginTop:"15px",
     display:'flex',
   },
   botReply:{
