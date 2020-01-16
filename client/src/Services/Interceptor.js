@@ -24,7 +24,7 @@ const intereptor =async (url,method="GET",body={})=>{
     return response;
 
   } catch (error) {
-    console.log(error.message)
+    // console.log(error.message)
     throw new Error(error.message)
   }
 }

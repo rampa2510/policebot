@@ -20,7 +20,7 @@ const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistra
 const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
 const {getMyCrimes,getAllCrimes,startInvestigation,deleteCrimeData, finishInvestigation,updateDetails} = require(`./Controllers/policemanActions.controller.js`);
 const {webhookController} = require('./Controllers/webhooks.controller');
-const {emergencyRegister} = require('./Controllers/emergency.controller')
+const {emergencyRegister,getEmergencyData} = require('./Controllers/emergency.controller')
 //########################################################################################
 
 //========================================================================================
@@ -31,7 +31,7 @@ const {emergencyRegister} = require('./Controllers/emergency.controller')
 const registrationModel = require(`./Models/regestration.model`);
 const {body} = require(`./Models/login.model`);
 const CrimeRegistrationModel = require(`./Models/userCrimeRegistration.model`);
-const updateDetailsModel = require('./Models/updateDetails.model')
+const updateDetailsModel = require('./Models/updateDetails.model');
 //########################################################################################
 
 //========================================================================================
@@ -53,6 +53,7 @@ router.delete('/investigation/:caseNo',deleteCrimeData);
 router.post('/webhooks',webhookController);
 router.post('/update-details',celebrate(updateDetailsModel),updateDetails);
 router.post('/emergency',emergencyRegister);
+router.get('/emergency',getEmergencyData);
 //########################################################################################
 
 module.exports = router;
