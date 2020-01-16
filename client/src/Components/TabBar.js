@@ -9,6 +9,7 @@ import MyInvestigations from './MyInvestigations';
 import Tracking from './Tracking';
 import NewReports from './NewReports';
 import Emergency from './Emergency';
+import Updates from './Updates';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -70,6 +71,9 @@ function a11yProps(index) {
         </TabPanel>
         <TabPanel value={value} index={3}>
             <Emergency />
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+            <Updates />
         </TabPanel>
     </>
   );

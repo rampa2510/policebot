@@ -2,6 +2,8 @@ import React,{useState, useEffect} from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import { Grid, Paper, makeStyles, TextField, Button, Hidden } from '@material-ui/core';
+import TabBar from './TabBar'
+import Toolbar from './Toolbar'
 
 const Updates = props=>{
 
@@ -85,6 +87,13 @@ const Updates = props=>{
     const loadPage = ()=>{
         if(loaded){
             return(
+                <>
+                {/* <div>
+                <Toolbar/>
+                </div> */}
+                {/* <div>
+                <TabBar/>
+                </div> */}
                 <Grid className={classes.root} container spacing={0}>
                     <Hidden smDown>
                         <Grid item md={3}></Grid>
@@ -110,6 +119,7 @@ const Updates = props=>{
                         </Paper>
                     </Grid>
                 </Grid>
+                </>
             );
         }
     }
