@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect,useRef} from 'react';
 import interceptor from '../Services/Interceptor'
 import ToolBar from './Toolbar'
 import TextField from '@material-ui/core/TextField';
@@ -47,7 +47,6 @@ const useStyles = makeStyles({
     width:"100%",
     display:'flex',
     marginTop:"20px",
-    display:'flex',
   },
   userReply:{
     backgroundColor:"#fff",
@@ -87,6 +86,21 @@ function Chatbot() {
   const [isChatDisabled,setDisabled] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false);
 
+  // this will store the data of long and lat in the array
+  // where the 1st index will be lat and 2nd will be long
+  const [coords,setCoords] = useState([]);
+
+
+  const chatEndRef = React.createRef()
+
+  const scrollToBottom = () => {
+    chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+
+  useEffect(scrollToBottom,[chatHistory])
+
+  const inputRef = useRef(null)
+
   // Function to get reply
   const getBotMsg=async ()=>{
     setDisabled(true);
@@ -101,9 +115,30 @@ function Chatbot() {
     const data = await interceptor('bot-reply',"POST",{MSG:userChat});
     setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
     setUserChat('')
-    setDisabled(false)
+    await setDisabled(false)
+    inputRef.current.focus()
   }
 
+  // success callback for coords
+  function success(position) {
+    setCoords([position.coords.latitude,position.coords.longitude])
+  }
+
+  // error callback for coords
+  async function error(){
+    alert("Cannot access your location");
+    const addr = prompt("Please enter a benchmark or details of nearby surrounding");
+    await interceptor('/emergency',"POST",{addr})
+  }
+
+  // function to get user data
+  function getCoords(){
+    if(!window.navigator.geolocation){
+      alert("Geolocation not supported in your browser");
+    }else{
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  }
 
   // function to render chats
   const renderChat=(item)=>{
@@ -117,11 +152,16 @@ function Chatbot() {
 
     return (
       <div className={classes.userChatCont}>
-  <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
+        <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
       </div>
     )
   }
 
+
+
+  useEffect(()=>{
+    getCoords()
+  },[])
 
   // event listner for enter key
   const onKeyPress = e=>{
@@ -140,28 +180,29 @@ function Chatbot() {
     <div className={classes.chatCont}>
     {/* The main chat screen */}
       {chatHistory.map(item=>renderChat(item))}
-
+      <div ref={chatEndRef} />
     </div>
     {/* Message box */}
-      <TextField
-      multiline
-      rowsMax="2"
-      disabled={isChatDisabled}
-      label="Message"
-      variant="outlined"
-      className={classes.textField}
-      value={userChat}
-      onKeyPress={onKeyPress}
-      onChange={e=>setUserChat(e.target.value)}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <SendIcon onClick={getBotMsg}/>
-          </InputAdornment>
-        ),
-      }}
-      />
-
+          <TextField
+          multiline
+          rowsMax="2"
+          disabled={isChatDisabled}
+          label="Message"
+          variant="outlined"
+          className={classes.textField}
+          value={userChat}
+          onKeyPress={onKeyPress}
+          onChange={e=>setUserChat(e.target.value)}
+          inputRef={inputRef}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SendIcon onClick={getBotMsg}/>
+              </InputAdornment>
+            ),
+          }}
+          />
+                 
       {/* Snackbar */}
       <Snackbar
         anchorOrigin={{
