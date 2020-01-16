@@ -86,10 +86,6 @@ function Chatbot() {
   const [isChatDisabled,setDisabled] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false);
 
-  // this will store the data of long and lat in the array
-  // where the 1st index will be lat and 2nd will be long
-  const [coords,setCoords] = useState([]);
-
 
   const chatEndRef = React.createRef()
 
@@ -102,66 +98,87 @@ function Chatbot() {
   const inputRef = useRef(null)
 
   // Function to get reply
-  const getBotMsg=async ()=>{
+  const getBotMsg=async (impChat="")=>{
     setDisabled(true);
 
+      if(!userChat.length && !impChat.length){
+        setSnackBar(true);
+        return;
+      }
 
-    if(!userChat.length){
-      setSnackBar(true);
-      return;
-    }
-
-    await setChatHistory([...chatHistory,{type:"user",message:userChat}])
-    const data = await interceptor('bot-reply',"POST",{MSG:userChat});
-    setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
-    setUserChat('')
-    await setDisabled(false)
-    inputRef.current.focus()
+      await setChatHistory([...chatHistory,{type:"user",message:impChat.length?impChat:userChat}])
+      const data = await interceptor('bot-reply',"POST",{MSG:impChat.length?impChat:userChat});
+      if(data.emergency){
+        await getCoords();
+        return;
+      }
+      setChatHistory([...chatHistory,{type:"user",message:impChat.length?impChat:userChat},{type:"bot",message:data.reply}]);
+      setUserChat('')
+      await setDisabled(false)
+      inputRef.current.focus()
   }
 
   // success callback for coords
-  function success(position) {
-    setCoords([position.coords.latitude,position.coords.longitude])
-  }
+  async function success({coords}) {
+    try {
+      console.log("l")
+      const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key=41866a1cdd99d0&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
+      // throw new Error("")
+      await interceptor('emergency',"POST",{display_name,boundingbox});
+      setDisabled(true);
+      await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+      setUserChat('')
+      await setDisabled(false)
+      inputRef.current.focus()
+  
+    } catch (err) {
+      error()
+    }
+  } 
 
   // error callback for coords
   async function error(){
-    alert("Cannot access your location");
-    const addr = prompt("Please enter a benchmark or details of nearby surrounding");
-    await interceptor('/emergency',"POST",{addr})
+    const addr = prompt("Error finding your location Please enter a benchmark or details of nearby surrounding");
+    try {
+      await interceptor('/emergency',"POST",{addr});
+      alert("I have sent your location to the policemen. Help is on its way");
+  
+    } catch (err) {
+      if(window.confirm("We encountered an issue while trying to connect please check your connection . Do you want to try again?")){
+        error()
+      }
+    }
   }
 
   // function to get user data
-  function getCoords(){
+  async function getCoords(){
+    // await getBotMsg('');
+
     if(!window.navigator.geolocation){
-      alert("Geolocation not supported in your browser");
+      await error()
     }else{
       navigator.geolocation.getCurrentPosition(success, error);
     }
   }
 
   // function to render chats
-  const renderChat=(item)=>{
-    if(item.type==="bot"){
+  const renderChat=({type,message,index})=>{
+    if(type==="bot"){
       return(
-        <div key={item.index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}>PB</Avatar></div><Card className={classes.botReply}>{item.message}</Card>
+        <div key={index} className={classes.botChatCont}>
+          <div className="Mssg"><Avatar className={classes.botAvatar}>PB</Avatar></div><Card className={classes.botReply}>{message}</Card>
         </div>
       )
     }
 
     return (
-      <div className={classes.userChatCont}>
-        <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
+      <div key={index} className={classes.userChatCont}>
+        <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
       </div>
     )
   }
 
 
-
-  useEffect(()=>{
-    getCoords()
-  },[])
 
   // event listner for enter key
   const onKeyPress = e=>{

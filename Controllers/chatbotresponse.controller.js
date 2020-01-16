@@ -12,8 +12,9 @@ module.exports = async (req,res)=>{
 
   try {
     const Result = await BotReply(req.body.MSG);
-    if(Result.intent.displayName==="policbot.help"){
-      
+    if(Result.intent.displayName==="policebot.help"){
+      res.status(200).send({emergency:true});
+      return;
     }
   // get all the values here if the intent is the end intent
 
