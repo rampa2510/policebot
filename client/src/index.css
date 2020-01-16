@@ -169,6 +169,60 @@ code {
 .Spacer{
   flex: 1;
 }
+.Mssg {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  animation:
+    typing 1.5s steps(40, end);
+    transition: 0.5s ease;
+}
+
+/* The typing effect */
+
+@keyframes typing {
+  from { width : 0% }
+  to { width: 3% }
+}
+
+
+
+@media only screen and (min-width: 569px) and (max-width: 767px){
+  .responsive-image{
+  display: none;
+  }
+  .form{
+    margin: 0 auto;
+    text-align: center;
+    width: 360px;
+    padding: 2px;
+    padding-bottom:30px;
+  }
+}
+
+@media only screen and (min-width: 240px) and (max-width: 568px){
+  .responsive-image{
+  display: none;
+  }
+  .form{
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
+    padding: 10px;
+    padding-bottom:30px;
+  }
+  .Mssg {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    animation:
+      typing 1.5s steps(40, end);
+      transition: 0.5s ease;
+  }
+
+  /* The typing effect */
+
+  @keyframes typing {
+    from { width : 0% }
+    to { width: 14% }
+  }
+}
 
 .MuiTabs-flexContainer{
   margin-top:32px;
