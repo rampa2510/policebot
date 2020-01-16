@@ -42,10 +42,11 @@ const Updates = props=>{
 
     const useStyles = makeStyles(theme => ({
         root: {
+            marginTop:"32px",
             textAlign: "center",
             padding:theme.spacing(2),
             minHeight:"100vh",
-            minWidth:"100vw",
+            maxWidth:"100vw",
             alignItems:"center",
         },
         field:{
@@ -54,12 +55,15 @@ const Updates = props=>{
             width:"80%",
           },
           paper: {
+            margin: theme.spacing(2),
             padding: theme.spacing(2),
             color: theme.palette.text.secondary,
             },
           formButtons: {
             width:"80%",
             margin: theme.spacing(1),
+            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
             background:"#262626",
             padding: "12px",
             "&:hover": {
@@ -88,12 +92,9 @@ const Updates = props=>{
         if(loaded){
             return(
                 <>
-                {/* <div>
+                <div>
                 <Toolbar/>
-                </div> */}
-                {/* <div>
-                <TabBar/>
-                </div> */}
+                </div>
                 <Grid className={classes.root} container spacing={0}>
                     <Hidden smDown>
                         <Grid item md={3}></Grid>
@@ -111,7 +112,7 @@ const Updates = props=>{
                         <Grid item md={3}></Grid>
                     </Hidden>
                     <Hidden smDown>
-                        <Grid md={3} ></Grid>
+                        <Grid item md={3} ></Grid>
                     </Hidden>
                     <Grid item xs={12} md={6}>
                         <Paper className={classes.paper} elevation={3}>

@@ -4,6 +4,7 @@ import Crime from './Crime';
 import Grid from '@material-ui/core/Grid';
 import {Paper, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
 
 
 const MyInvestigations = () => {
@@ -62,7 +63,7 @@ const MyInvestigations = () => {
             return( 
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
-                        <Button variant="contained" color="primary" className={classes.actionbuttons}>Update</Button>
+                        <Link to={"/update/"+item["caseNo"]}><Button variant="contained" color="primary" className={classes.actionbuttons} >Update</Button></Link>
                     </Grid>
                     <Grid item xs={6}>
                         <Button variant="contained" color="primary" className={classes.actionbuttons} onClick={()=>finishInvestigation(item["caseNo"])}>Complete</Button>
