@@ -22,6 +22,19 @@ const Crime = props=>{
             );
     }
 
+    const getUpdates = ()=>{
+        if(item["updates"]!=null && item["updates"].length>0)
+            return(
+                <>
+                {item["updates"].map((update,index)=>{
+                    return(
+                        <React.Fragment key={index}> <li>{update.date.substring(8,10)+'/'+update.date.substring(5,7)+'/'+update.date.substring(0,4)} - {update.details}</li></React.Fragment>
+                    );
+                })}
+                </>
+            );
+    }
+
     return(
         
             <>
@@ -33,6 +46,7 @@ const Crime = props=>{
             <p>Date of Crime: {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
             <p>Status: {item["status"]}</p>
             <p>Details: {item["details"]}</p>
+            <p>{getUpdates()}</p>
             </>
         
     );
