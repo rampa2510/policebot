@@ -16,7 +16,6 @@ const Toolbar = props => (
       </div>
     </nav>
   </header>
-  <br className="Spacing"/>
   </>
 );
 

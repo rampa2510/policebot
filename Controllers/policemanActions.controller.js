@@ -21,6 +21,21 @@ module.exports.getMyCrimes =async (req,res,next)=>{
   }
 }
 
+module.exports.getUserCrimes =async (req,res,next)=>{
+  const {data} = res.locals;
+  try {
+    // console.log({$and : [{caseNo:id},{name:data.name}]})
+    const crimeData = await findAll('crimeRegister',{$and : [{name:data.name} ]})
+    // console.log(crimeData)
+    res.status(200).json({crimeData})
+    next()
+  } catch (error) {
+    // console.log(error)
+    res.status(500).json({error})
+    next()
+  }
+}
+
 module.exports.getAllCrimes =async (req,res,next)=>{
   try {
     // console.log({$and : [{caseNo:id},{name:data.name}]})
