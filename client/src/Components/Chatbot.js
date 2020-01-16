@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import interceptor from '../Services/Interceptor'
 import ToolBar from './Toolbar'
 import TextField from '@material-ui/core/TextField';
@@ -47,7 +47,6 @@ const useStyles = makeStyles({
     width:"100%",
     display:'flex',
     marginTop:"20px",
-    display:'flex',
   },
   userReply:{
     backgroundColor:"#fff",
@@ -104,6 +103,26 @@ function Chatbot() {
     setDisabled(false)
   }
 
+  // success callback for coords
+  function success(position) {
+    const latitude  = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log(latitude,longitude)
+  }
+
+  // error callback for coords
+  function error(){
+    console.log("error")
+  }
+
+  // function to get user data
+  function getCoords(){
+    if(!window.navigator.geolocation){
+      alert("Geolocation not supported in your browser");
+    }else{
+      navigator.geolocation.getCurrentPosition(success, error);
+    }
+  }
 
   // function to render chats
   const renderChat=(item)=>{
@@ -117,11 +136,15 @@ function Chatbot() {
 
     return (
       <div className={classes.userChatCont}>
-  <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
+        <Card className={classes.userReply}>{item.message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
       </div>
     )
   }
 
+
+  useEffect(()=>{
+    getCoords()
+  },[])
 
   // event listner for enter key
   const onKeyPress = e=>{

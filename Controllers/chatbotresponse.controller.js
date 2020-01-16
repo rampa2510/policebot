@@ -45,5 +45,7 @@ module.exports = async (req,res)=>{
       res.status(200).send({reply:"I have expereinced an error sorry"})
     }
 
+  }else if(Result.intent.displayName==="policebot.confirm.yes"){
+    
   }else res.status(200).send({reply:Result.fulfillmentText})
 }

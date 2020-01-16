@@ -195,7 +195,7 @@ module.exports = {
     return new Promise((resolve,reject)=>{
       DB.collection('crimeRegister').update(query,{$push:{updates:update}},(err,resp)=>{
         if(err) return reject(err);
-        console.log(resp)
+        // console.log(resp)
         resolve(true);
         return true;
       })
