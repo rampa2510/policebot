@@ -42,7 +42,13 @@ function a11yProps(index) {
 }
 
   
-  const [value, setValue] = React.useState(0);
+  
+  if(window.location.pathname.substring(1,7)==="update")
+    var a =false;
+  else
+    var a = 0;
+
+  const  [value, setValue] = React.useState(a);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

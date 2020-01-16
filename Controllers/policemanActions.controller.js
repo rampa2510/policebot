@@ -111,6 +111,11 @@ module.exports.updateDetails=async (req,res)=>{
     textResponse=`Case with case no ${caseNo} does not exits please enter a valid case number`
   }else{
     await updateDetails({caseNo},{details,date});
+    client.messages.create({
+      from: 'whatsapp:+14155238886',
+      to:'whatsapp:+917666137800',
+      body: 'Update for Case Number: '+caseNo+'\n'+details
+    })
     textResponse = "Case details updated!"
   }
 
