@@ -83,13 +83,15 @@ function Chatbot() {
   const [userChat,setUserChat]=useState('');
   const [isChatDisabled,setDisabled] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false)
-
-
   const chatEndRef = React.createRef()
+  let count = -1;
 
   const scrollToBottom = () => {
+    count = count+1;
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
+    var messagestest = document.getElementsByClassName("message");
+    messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
   }
 
   useEffect(scrollToBottom,[chatHistory])
@@ -130,7 +132,7 @@ function Chatbot() {
       return(
         <>
         <div key={index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={classes.botReply}>{message}</Card>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"]}>{message}</Card>
         </div>
         </>
       )
