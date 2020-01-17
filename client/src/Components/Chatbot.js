@@ -73,8 +73,8 @@ const useStyles = makeStyles({
 })
 
 function Chatbot() {
-  const WelcomMessage=`Hello PoliceBot here! I am a chatbot designed to report crime, help you
-  in difficult situations and create crime awarness for more information type policebot features or policebot f`
+  const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
+  in difficult situations and create crime awarness! Type policebot features or policebot f for more information.`
 
   // get initials to show on the avatar icon
   let name = localStorage.getItem('userData');
