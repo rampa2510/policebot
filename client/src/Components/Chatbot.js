@@ -15,7 +15,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
 const useStyles = makeStyles({
   textField:{
-    position:'absolute',
+    position:'fixed',
     bottom:15,
     width:"90%",
     marginLeft:"5%",
