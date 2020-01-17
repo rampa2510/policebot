@@ -12,7 +12,8 @@ const Register = () => {
   const [name, setFullName] = useState('');
   const [password, setPassword] = useState('');
   const [city, setCity] = useState('');
-
+  const [phone,setNo] = useState(null);
+  
   const handleUsernameChange = e => {
     setUsername(e.target.value);
   };
@@ -28,7 +29,7 @@ const Register = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const userObj = { username, name, password,city, userType: 'citizen' };
+    const userObj = { username, name, password,city, phone,userType: 'citizen' };
     try {
       const response = await interceptor('register', 'POST', userObj);
       console.log(response);
@@ -108,6 +109,9 @@ const Register = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField required onChange={(e)=>handleAddressChange(e)} className={classes.field} label="City" variant="outlined"/>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField required onChange={(e)=>setNo(e.target.value)} className={classes.field} label="phone number" type="number" variant="outlined"/>
                 </Grid>
                 <Grid item xs={12}>  
                   <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Register </Button>  

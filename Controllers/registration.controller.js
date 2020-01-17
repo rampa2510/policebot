@@ -9,7 +9,7 @@ const { sign } = require("jsonwebtoken");
 //########################################################################################
 
 module.exports = async (req, res, next) => {
-  const { username, password, name, city,userType } = req.body;
+  const { username, password, name, city,userType,phone } = req.body;
 
   try {
     const doesUsernameExist = await findOne("users", { username });
@@ -26,7 +26,8 @@ module.exports = async (req, res, next) => {
       name,
       city,
       salt,
-      userType
+      userType,
+      phone
     });
 
     delete userData.hash;

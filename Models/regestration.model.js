@@ -6,7 +6,8 @@ module.exports = {
     password: Joi.string().required(),
     username: Joi.string().required(),
     city: Joi.string().required(),
-    userType:Joi.string().required()
+    userType:Joi.string().required(),
+    phone:Joi.number().required()
   },
 
 };
