@@ -4,11 +4,17 @@
  *                                                                                      */
 //========================================================================================
 const {findAll, insertOne, deleteOne} = require('../Helpers/queryHandler')
+const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
 //########################################################################################
 
 module.exports.emergencyRegister =async (req,res)=>{
   const {data} = res.locals;
   await insertOne('emergency',{...req.body,name:data.name});
+  client.messages.create({
+    from: 'whatsapp:+14155238886',
+    to:'whatsapp:+917021293874',
+    body: 'Emergency Reported by: '+data.name+'\nFrom: '+req.body.display_name
+  })
   res.status(200).send({reply:""});
 }
 
