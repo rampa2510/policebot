@@ -29,7 +29,7 @@ export async function success({coords}) {
     const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key=41866a1cdd99d0&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
     // throw new Error("")
     await interceptor('emergency',"POST",{display_name,boundingbox});
-    alert("I have sent your location to policemen. Dont panice help is on its way")
+    alert("I have sent your location to policemen. Dont panic, help is on its way")
   } catch (err) {
     error()
   }

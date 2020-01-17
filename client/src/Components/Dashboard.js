@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TabBar from './TabBar'
 import Toolbar from './Toolbar'
 import UserTabBar from './UserTabBar';
+import PoliceToolbar from './PoliceToolbar';
 
 
 const Dashboard = () => {
@@ -38,7 +39,7 @@ const Dashboard = () => {
           return (
             <>
               <div>
-              <Toolbar/>
+              <PoliceToolbar/>
               </div>
               <div>
               <TabBar/>
