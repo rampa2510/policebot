@@ -104,7 +104,6 @@ function Chatbot() {
   // Function to get reply
   const getBotMsg=async (impChat="")=>{
     setDisabled(true);
-
       if(!userChat.length && !impChat.length){
         setSnackBar(true);
         return;
@@ -120,6 +119,7 @@ function Chatbot() {
       setUserChat('')
       await setDisabled(false)
       inputRef.current.focus()
+      scrollToBottom();
   }
 
   // success callback for coords
