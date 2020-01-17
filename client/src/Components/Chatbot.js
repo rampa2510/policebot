@@ -204,7 +204,7 @@ function Chatbot() {
           multiline
           rowsMax="2"
           disabled={isChatDisabled}
-          label="Message"
+          placeholder="Message"
           variant="outlined"
           className={classes.textField}
           value={userChat}
@@ -216,6 +216,7 @@ function Chatbot() {
               <InputAdornment position="end">
                 <SendIcon onClick={getBotMsg}/>
               </InputAdornment>
+              
             ),
           }}
           />

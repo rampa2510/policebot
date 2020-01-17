@@ -71,7 +71,7 @@ const classes = useStyles();
             </Hidden>
             <Grid item xs={12} md={6}>
             <form onSubmit={handleSubmit}>
-                <TextField type="number" variant="outlined" className={classes.field} onChange={e=>setCrimeNumber(e.target.value)} label="Complaint Number" />
+                <TextField type="number" variant="outlined" className={classes.field} onChange={e=>setCrimeNumber(e.target.value)} placeholder="Complaint Number" />
                 
                 <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
                     Search

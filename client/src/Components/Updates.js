@@ -101,7 +101,7 @@ const Updates = props=>{
                     </Hidden>
                     <Grid item xs={12} md={6}>
                     <form onSubmit={handleSubmit}>
-                        <TextField required variant="outlined" className={classes.field} onChange={e=>setUpdateMsg(e.target.value)} label="Update" />
+                        <TextField required variant="outlined" className={classes.field} onChange={e=>setUpdateMsg(e.target.value)} placeholder="Update" />
                         
                         <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
                             Update
