@@ -158,6 +158,10 @@ code {
   color: #ffffff;
   text-decoration: none;
 }
+
+.Toolbar-Navigation-Items {
+  color: #ffffff;
+}
 .Toolbar-Navigation-Items a:hover,
 .Toolbar-Navigation-Items a:active{
   color: #fa9237;
