@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import {Paper, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
-
+import Loader from "./loader";
 
 const MyInvestigations = () => {
     const [data,setData] = useState(null)
@@ -86,6 +86,8 @@ const MyInvestigations = () => {
                 );
             })
             );
+        }else{
+            return (<Loader open={true} />)
         }
     }
 
