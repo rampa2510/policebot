@@ -27,13 +27,8 @@ export async function getCoords(){
 export async function success({coords}) {
   try {
     const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key=41866a1cdd99d0&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
-    throw new Error("")
+    // throw new Error("")
     await interceptor('emergency',"POST",{display_name,boundingbox});
-    // setDisabled(true);
-    // await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
-    // setUserChat('')
-    // await setDisabled(false)
-    // inputRef.current.focus()
 
   } catch (err) {
     error()

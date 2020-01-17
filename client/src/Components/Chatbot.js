@@ -128,16 +128,22 @@ function Chatbot() {
   const renderChat=({type,message,index})=>{
     if(type==="bot"){
       return(
+        <>
         <div key={index} className={classes.botChatCont}>
           <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={classes.botReply}>{message}</Card>
         </div>
+        <br/>
+        </>
       )
     }
 
     return (
+      <>
       <div key={index} className={classes.userChatCont}>
         <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
+      <br/>
+      </>
     )
   }
 
