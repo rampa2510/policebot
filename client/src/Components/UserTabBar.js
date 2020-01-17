@@ -11,18 +11,35 @@ import Chatbot from './Chatbot';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-    return (
-      <Typography
-        component="div"
-        role="tabpanel"
-        hidden={value !== index}
-        id={`scrollable-auto-tabpanel-${index}`}
-        aria-labelledby={`scrollable-auto-tab-${index}`}
-        {...other}
-      >
-        {value === index && <Box p={3}>{children}</Box>}
-      </Typography>
-    );
+    if(value===0){
+      return (
+        <Typography
+          component="div"
+          role="tabpanel"
+          hidden={value !== index}
+          id={`scrollable-auto-tabpanel-${index}`}
+          aria-labelledby={`scrollable-auto-tab-${index}`}
+          {...other}
+        >
+          {value === index && <Box>{children}</Box>}
+        </Typography>
+      );
+    }
+    else{
+        return (
+          <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`scrollable-auto-tabpanel-${index}`}
+            aria-labelledby={`scrollable-auto-tab-${index}`}
+            {...other}
+          >
+            {value === index && <Box p={3}>{children}</Box>}
+          </Typography>
+        );
+      
+    }
   }
 
 const UserTabBar = ()=>{
@@ -40,14 +57,7 @@ function a11yProps(index) {
   };
 }
 
-  
-  
-  if(window.location.pathname.substring(1,7)==="update")
-    var a =false;
-  else
-    var a = 0;
-
-  const  [value, setValue] = React.useState(a);
+  const  [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

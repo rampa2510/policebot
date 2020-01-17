@@ -11,7 +11,7 @@ const Toolbar = props => (
       <div className="Spacer"/>
       <div className="Toolbar-Navigation-Items">
         <ul>
-          <li><Link to='/logout'><ExitToAppIcon /></Link></li>
+          <li><Link to='/logout'><ExitToAppIcon fontSize="24" style={{marginTop:"5px"}}/></Link></li>
         </ul>
       </div>
     </nav>

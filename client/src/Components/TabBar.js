@@ -13,6 +13,7 @@ import Emergency from './Emergency';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
+     
       <Typography
         component="div"
         role="tabpanel"
@@ -41,8 +42,7 @@ function a11yProps(index) {
   };
 }
 
-  
-  
+
   if(window.location.pathname.substring(1,7)==="update")
     var a =false;
   else
@@ -58,7 +58,7 @@ function a11yProps(index) {
     <>
 
         <AppBar position="static" color="default">
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" >
+            <Tabs variant="scrollable" scrollButtons="auto" value={value} onChange={handleChange} aria-label="scrollable auto tabs example" >
                 <Tab label="Pending" {...a11yProps(0)} />
                 <Tab label="My Cases" {...a11yProps(1)} />
                 <Tab label="Tracking" {...a11yProps(2)} />

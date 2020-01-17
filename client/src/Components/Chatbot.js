@@ -10,10 +10,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import StarsIcon from '@material-ui/icons/Stars';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
 const useStyles = makeStyles({
   textField:{
-    position:'absolute',
+    position:'fixed',
     bottom:15,
     width:"90%",
     marginLeft:"5%",
@@ -63,9 +65,9 @@ const useStyles = makeStyles({
     marginRight:"10px"
   },
   chatCont:{
-    height:"80vh",
+    height:"calc(80vh - 65px)",
+    width:"100%",
     overflowY:"scroll",
-    marginTop:"20px"
   }
 })
 
@@ -116,6 +118,7 @@ function Chatbot() {
       setUserChat('')
       await setDisabled(false)
       inputRef.current.focus()
+      
   }
 
   // success callback for coords
@@ -166,14 +169,14 @@ function Chatbot() {
     if(type==="bot"){
       return(
         <div key={index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}>PB</Avatar></div><Card className={classes.botReply}>{message}</Card>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={classes.botReply}>{message}</Card>
         </div>
       )
     }
 
     return (
       <div key={index} className={classes.userChatCont}>
-        <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}>{name}</Avatar>
+        <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
     )
   }
@@ -190,9 +193,6 @@ function Chatbot() {
 
   return (
     <>
-    <div>
-      <ToolBar/>
-    </div>
 
     <div className={classes.chatCont}>
     {/* The main chat screen */}
