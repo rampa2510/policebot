@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Chatbot from './Chatbot';
 import TabBar from './TabBar'
 import Toolbar from './Toolbar'
 import UserTabBar from './UserTabBar';
