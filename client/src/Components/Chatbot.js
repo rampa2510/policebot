@@ -74,7 +74,7 @@ const useStyles = makeStyles({
 
 function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
-  in difficult situations and create crime awarness! Type policebot features or policebot f for more information.`
+  in difficult situations and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
 
   // get initials to show on the avatar icon
   let name = localStorage.getItem('userData');
