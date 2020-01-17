@@ -15,7 +15,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 
 const useStyles = makeStyles({
   textField:{
-    position:'fixed',
+    position:'absolute',
     bottom:15,
     width:"90%",
     marginLeft:"5%",
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     marginRight:"10px"
   },
   chatCont:{
-    height:"calc(80vh - 65px)",
+    height:"calc(100vh - 190px)",
     width:"100%",
     overflowY:"scroll",
   }
@@ -200,6 +200,7 @@ function Chatbot() {
       <div ref={chatEndRef} />
     </div>
     {/* Message box */}
+      <div className={classes.behindText}>
           <TextField
           multiline
           rowsMax="2"
@@ -219,6 +220,7 @@ function Chatbot() {
             ),
           }}
           />
+          </div>
                  
       {/* Snackbar */}
       <Snackbar
