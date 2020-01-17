@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useRef} from 'react';
 import interceptor from '../Services/Interceptor'
-import ToolBar from './Toolbar'
+// import ToolBar from './Toolbar'
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import SendIcon from '@material-ui/icons/Send';
@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import StarsIcon from '@material-ui/icons/Stars';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import { getCoords } from '../Services/emergency'
 
 const useStyles = makeStyles({
   textField:{
@@ -76,18 +77,12 @@ function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
   in difficult situations and create crime awarness! Type policebot features or policebot f for more information.`
 
-  // get initials to show on the avatar icon
-  let name = localStorage.getItem('userData');
-  name = JSON.parse(name);
-  name = name.name
-  name = name.slice(0,2)
-
 
   const classes = useStyles()
   const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
   const [userChat,setUserChat]=useState('');
   const [isChatDisabled,setDisabled] = useState(false)
-  const [isSnackBarOpen,setSnackBar] = useState(false);
+  const [isSnackBarOpen,setSnackBar] = useState(false)
 
 
   const chatEndRef = React.createRef()
@@ -102,68 +97,33 @@ function Chatbot() {
   const inputRef = useRef(null)
 
   // Function to get reply
-  const getBotMsg=async (impChat="")=>{
-    setDisabled(true);
+  const getBotMsg=async e=>{
+    
 
-      if(!userChat.length && !impChat.length){
+      if(!userChat.length ){
         setSnackBar(true);
+        await setDisabled(false)
         return;
       }
 
-      await setChatHistory([...chatHistory,{type:"user",message:impChat.length?impChat:userChat}])
-      const data = await interceptor('bot-reply',"POST",{MSG:impChat.length?impChat:userChat});
+      await setChatHistory([...chatHistory,{type:"user",message:userChat}])
+      const data = await interceptor('bot-reply',"POST",{MSG:userChat});
       if(data.emergency){
         await getCoords();
+        await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+        inputRef.current.focus()
         return;
       }
-      setChatHistory([...chatHistory,{type:"user",message:impChat.length?impChat:userChat},{type:"bot",message:data.reply}]);
-      setUserChat('')
-      await setDisabled(false)
-      inputRef.current.focus()
-  }
 
-  // success callback for coords
-  async function success({coords}) {
-    try {
-      const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key=41866a1cdd99d0&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
-      // throw new Error("")
-      await interceptor('emergency',"POST",{display_name,boundingbox});
       setDisabled(true);
-      await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+
+      setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
       setUserChat('')
       await setDisabled(false)
       inputRef.current.focus()
-  
-    } catch (err) {
-      error()
-    }
-  } 
-
-  // error callback for coords
-  async function error(){
-    const addr = prompt("Error finding your location Please enter a benchmark or details of nearby surrounding");
-    try {
-      await interceptor('/emergency',"POST",{addr});
-      alert("I have sent your location to the policemen. Help is on its way");
-  
-    } catch (err) {
-      if(window.confirm("We encountered an issue while trying to connect please check your connection . Do you want to try again?")){
-        error()
-      }
-    }
   }
 
-  // function to get user data
-  async function getCoords(){
-    // await getBotMsg('');
-
-    if(!window.navigator.geolocation){
-      await error()
-    }else{
-      navigator.geolocation.getCurrentPosition(success, error);
-    }
-  }
-
+  
   // function to render chats
   const renderChat=({type,message,index})=>{
     if(type==="bot"){
