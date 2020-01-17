@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import { Grid, Paper, makeStyles, TextField, Button, Hidden } from '@material-ui/core';
-import TabBar from './TabBar'
+// import TabBar from './TabBar'
 import Toolbar from './Toolbar'
 
 const Updates = props=>{

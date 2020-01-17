@@ -4,7 +4,7 @@ import Crime from './Crime';
 import Grid from '@material-ui/core/Grid';
 import {Paper, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Loader from './loader'
 const NewReports = () => {
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
@@ -87,6 +87,10 @@ const NewReports = () => {
                 );
             })
             );
+        }else{
+          return(
+            <Loader open={true} />
+          )
         }
     }
 

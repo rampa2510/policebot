@@ -31,7 +31,7 @@ const {emergencyRegister, deleteEmergency, getEmergency} = require('./Controller
 const registrationModel = require(`./Models/regestration.model`);
 const {body} = require(`./Models/login.model`);
 const CrimeRegistrationModel = require(`./Models/userCrimeRegistration.model`);
-const updateDetailsModel = require('./Models/updateDetails.model')
+const updateDetailsModel = require('./Models/updateDetails.model');
 //########################################################################################
 
 //========================================================================================
