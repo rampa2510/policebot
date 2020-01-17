@@ -66,7 +66,23 @@ module.exports = async (req,res)=>{
 
       }
 
-  }else res.status(200).send({reply:Result.fulfillmentText})
+  }else {
+    if(Result.fulfillmentText.includes(';')){
+      var regex = /;/gi, result, indices = [];
+      while ( (result = regex.exec(Result.fulfillmentText)) ) {
+        indices.push(result.index);
+    }
+    let date = Result.fulfillmentText.slice(indices[0]+1,indices[1]);
+    date = new Date(date);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    const reply = `${Result.fulfillmentText.slice(0,indices[0])}${day}-${month+1}-${year} ${Result.fulfillmentText.slice(indices[1]+1)}}`;
+    res.status(200).send({reply});
+    return;
+    }
+    res.status(200).send({reply:Result.fulfillmentText})
+  }
 
   } catch (error) {
     res.status(200).send({reply:"I have expereinced an error sorry"})

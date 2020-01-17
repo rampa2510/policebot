@@ -2,15 +2,19 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { getCoords } from '../Services/emergency'
+import Snackbar from '@material-ui/core/Snackbar';
 
 const Toolbar = () =>{
+  const [isSnackBarOpen,setSnackBar] = useState(false)
 
   var noOfClicks = 0;
   var timer=null;
 
   const onClick = ()=>{
+    
     if(!timer){
       noOfClicks++;
+      setSnackBar(true)
       timer = setTimeout(async()=>{
         if(noOfClicks>=3)
           await getCoords();
@@ -20,12 +24,13 @@ const Toolbar = () =>{
         noOfClicks = 0;
       },3000);
     }else{
+      setSnackBar(true)
       noOfClicks++;
     }
   }
 
   
-
+  let message = `click more ${3-noOfClicks} times consectively to fire an emergency meet`
   return (
     <>
     <header className="Toolbar">
@@ -40,6 +45,15 @@ const Toolbar = () =>{
         </div>
       </nav>
     </header>
+    <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={isSnackBarOpen}
+        autoHideDuration={1000}
+        message={message}
+      />
     </>
   );
 }
