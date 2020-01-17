@@ -39,7 +39,6 @@ module.exports = {
         if (err) {
           reject(err);
         }
-
         resolve(resp.toArray());
       });
     });
