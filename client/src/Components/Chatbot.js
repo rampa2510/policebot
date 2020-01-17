@@ -36,8 +36,8 @@ const useStyles = makeStyles({
     // wordBreak:'break-all',
     padding:"10px",
     marginLeft:"10px",
-    overflowWrap: 'break-word',
-    wordWrap: 'break-word',
+    // overflowWrap: 'break-word',
+    // wordWrap: 'break-word',
     hyphens: 'auto',
   },
   botAvatar:{
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     backgroundColor:"#fff",
     color:"#262626",
     maxWidth:"60%",
-    wordBreak:'break-all',
+    // wordBreak:'break-all',
     padding:"10px",
     marginRight:"10px",
     marginLeft:'auto',
@@ -68,6 +68,7 @@ const useStyles = makeStyles({
     height:"calc(100vh - 190px)",
     width:"100%",
     overflowY:"scroll",
+    marginBottom:"5px",
   }
 })
 
@@ -92,7 +93,8 @@ function Chatbot() {
   const chatEndRef = React.createRef()
 
   const scrollToBottom = () => {
-    chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    var elem = document.getElementById('scrolldiv');
+    elem.scrollTop = elem.scrollHeight;
   }
 
   useEffect(scrollToBottom,[chatHistory])
@@ -118,7 +120,6 @@ function Chatbot() {
       setUserChat('')
       await setDisabled(false)
       inputRef.current.focus()
-      
   }
 
   // success callback for coords
@@ -193,7 +194,7 @@ function Chatbot() {
   return (
     <>
 
-    <div className={classes.chatCont}>
+    <div className={classes.chatCont} id="scrolldiv">
     {/* The main chat screen */}
       {chatHistory.map(item=>renderChat(item))}
       <div ref={chatEndRef} />
