@@ -134,6 +134,7 @@ function Chatbot() {
         <div key={index} className={classes.botChatCont}>
           <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"]}>{message}</Card>
         </div>
+        <br />
         </>
       )
     }
@@ -143,6 +144,7 @@ function Chatbot() {
       <div key={index} className={classes.userChatCont}>
         <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
+      <br />
       </>
     )
   }
