@@ -77,7 +77,7 @@ module.exports = async (req,res)=>{
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
-    const reply = `${Result.fulfillmentText.slice(0,indices[0])}${day}-${month+1}-${year} ${Result.fulfillmentText.slice(indices[1]+1)}}`;
+    const reply = `${Result.fulfillmentText.slice(0,indices[0])}${day}-${month+1}-${year} ${Result.fulfillmentText.slice(indices[1]+1)}`;
     res.status(200).send({reply});
     return;
     }
