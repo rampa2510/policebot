@@ -34,18 +34,18 @@ const Toolbar = () =>{
   }
 
   
-  let message = `click more ${3-noOfClicks} times consectively to fire an emergency event`
+  let message = `Click ${3-noOfClicks} more times consectively to request emergency police presence!`
   return (
     <>
     <header className="Toolbar">
       <nav className="Toolbar-Navigation">
         <div></div>
-        <div className="Toolbar-Logo">PoliceBot</div>
+        <div className="Toolbar-Logo"><Link to="/home">PoliceBot</Link></div>
         <div className="Spacer"/>
         <div className="Toolbar-Navigation-Items">
           <ul>
-            <li onClick={onClick}><PersonPinCircleIcon fontSize="24" style={{marginTop:"5px"}}/></li>
-            <li><Link to='/logout'><ExitToAppIcon fontSize="24" style={{marginTop:"5px"}}/></Link></li>
+            <li onClick={onClick}><PersonPinCircleIcon style={{marginTop:"5px"}}/></li>
+            <li><Link to='/logout'><ExitToAppIcon style={{marginTop:"5px"}}/></Link></li>
           </ul>
         </div>
       </nav>
