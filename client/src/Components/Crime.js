@@ -22,7 +22,7 @@ const Crime = props=>{
             );
     }
 
-    const getUpdates = ()=>{
+    const getUpdates = ()=>{ 
         if(item["updates"]!=null && item["updates"].length>0)
             return(
                 <>
@@ -40,7 +40,7 @@ const Crime = props=>{
             <>
             <p style={{color:"black"}}><b>Case No:</b> {item["caseNo"]}</p>
             <p style={{color:"black"}}><b>Reported By:</b> {item["name"]}</p>
-            <p style={{color:"black"}}><b>Crime:</b> {item["crime"]}</p>
+            <p style={{color:"black"}}><b>Crime:</b>{item["crime"]}</p>
             <p style={{color:"black"}}><b>City:</b> {item["city"]}</p>
             <p style={{color:"black"}}><b>Suspects:</b> {getSuspects()}</p>
             <p style={{color:"black"}}><b>Date of Crime:</b> {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>

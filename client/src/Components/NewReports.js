@@ -8,6 +8,7 @@ import Loader from './loader'
 const NewReports = () => {
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
+    var backcolor = "#FFF"
 
     useEffect(()=>{getData()},[])
 
@@ -70,9 +71,57 @@ const NewReports = () => {
         if(loaded && data!==null){
             return(
             data.map((item,index)=>{
+              if(item["crime"]==="burglary"){
+                backcolor = "#FFFF99"
+              }
+              else if(item["crime"]==="Rape"){
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="Assault"){
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="Harassment"){
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="CyberCrime"){
+                backcolor ='#D1F2EB'
+              }
+              else if(item["crime"]==="Fraud"){
+                backcolor ='#7FFF00'
+              }
+              else if(item["crime"]==="Abuse"){
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="Bullying"){
+                backcolor ='#DCDCDC'
+              }
+              else if(item["crime"]==="Corruption")
+              {
+                backcolor ='#FF7F50'
+              }
+              else if(item["crime"]==="Kidnap")
+              {
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="Drugs")
+              {
+                backcolor ='#D8BFD8'
+              }
+              else if(item["crime"]==="Road crimes")
+              {
+                backcolor ='#FFB6C1'
+              }
+              else if(item["crime"]==="Murder")
+              {
+                backcolor ='#FF6347'
+              }
+              else if(item["crime"]==="Tranquility offence")
+              {
+                backcolor ='#DCDCDC'
+              } 
                 return (
                   <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
-                    <Paper className={classes.paper} elevation={3}>
+                    <Paper style={{background:backcolor}} className={classes.paper} elevation={3}>
                     <Crime data={item}/>
                     <Grid container spacing={3}>
                       <Grid item xs={6} md={6} lg={6}>
