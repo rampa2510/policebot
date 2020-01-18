@@ -38,15 +38,15 @@ const Crime = props=>{
     return(
         
             <>
-            <p>Case No: {item["caseNo"]}</p>
-            <p>Reported By: {item["name"]}</p>
-            <p>Crime: {item["crime"]}</p>
-            <p>City: {item["city"]}</p>
-            <p>Suspects:{getSuspects()}</p>
-            <p>Date of Crime: {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
-            <p>Status: {item["status"]}</p>
-            <p>Details: {item["details"]}</p>
-            <p>{getUpdates()}</p>
+            <p style={{color:"black"}}>Case No:{item["caseNo"]}</p>
+            <p style={{color:"black"}}>Reported By: {item["name"]}</p>
+            <p style={{color:"black"}}>Crime: {item["crime"]}</p>
+            <p style={{color:"black"}}>City: {item["city"]}</p>
+            <p style={{color:"black"}}>Suspects:{getSuspects()}</p>
+            <p style={{color:"black"}}>Date of Crime: {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
+            <p style={{color:"black"}}>Status: {item["status"]}</p>
+            <p style={{color:"black"}}>Details: {item["details"]}</p>
+            <p style={{color:"black"}}>{getUpdates()}</p>
             </>
         
     );
