@@ -17,7 +17,7 @@ module.exports = async (req,res)=>{
       return;
     }
   // get all the values here if the intent is the end intent
-    console.log(Result)
+    // console.log(Result)
   if(Result.intent.displayName==="policebot.confirm.yes" || (Result.intent.displayName==="policebot.start.genric - yes" && Result.parameters.fields.person.listValue.values.length ) ){
     // in the locals we have the jwt data decode with all the details
 

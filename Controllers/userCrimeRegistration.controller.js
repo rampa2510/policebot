@@ -25,7 +25,7 @@ module.exports.getCrimeDetails =async (req,res,next)=>{
   try {
     // console.log({$and : [{caseNo:id},{name:data.name}]})
     const caseData = await findOne('crimeRegister',{$and : [{caseNo:parseInt(id)}]})
-    console.log(caseData)
+    // console.log(caseData)
     res.status(200).json({caseData})
     next()
   } catch (error) {
