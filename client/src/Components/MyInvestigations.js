@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
-import Crime from './Crime';
-import Grid from '@material-ui/core/Grid';
-import {Paper, Button} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Paper, Button, Grid, makeStyles} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import Loader from "./loader";
+import Crime from './Crime';
 
 const MyInvestigations = () => {
     const [data,setData] = useState(null)

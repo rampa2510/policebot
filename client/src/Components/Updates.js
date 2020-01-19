@@ -1,9 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import intereptor from '../Services/Interceptor';
-import Crime from './Crime';
 import { Grid, Paper, makeStyles, TextField, Button, Hidden } from '@material-ui/core';
-// import TabBar from './TabBar'
-import Toolbar from './Toolbar'
+import Toolbar from './Toolbar';
+import Crime from './Crime';
 
 const Updates = props=>{
 
@@ -38,7 +37,7 @@ const Updates = props=>{
         else{
             checkExists()
         }
-    }, []);
+    }, [userData]);
 
     const useStyles = makeStyles(theme => ({
         root: {

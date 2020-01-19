@@ -37,16 +37,16 @@ const Crime = props=>{
 
     return(
         
-            <>
-            <p style={{color:"black"}}><b>Case No:</b> {item["caseNo"]}</p>
-            <p style={{color:"black"}}><b>Reported By:</b> {item["name"]}</p>
-            <p style={{color:"black"}}><b>Crime:</b>{item["crime"]}</p>
-            <p style={{color:"black"}}><b>City:</b> {item["city"]}</p>
-            <p style={{color:"black"}}><b>Suspects:</b> {getSuspects()}</p>
-            <p style={{color:"black"}}><b>Date of Crime:</b> {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
-            <p style={{color:"black"}}><b>Status:</b> {item["status"]}</p>
-            <p style={{color:"black"}}><b>Details:</b> {getUpdates()}{item["details"]}</p>
-            </>
+            <div style={{color:"black"}}>
+                <p><b>Case No:</b> {item["caseNo"]}</p>
+                <p><b>Reported By:</b> {item["name"]}</p>
+                <p><b>Crime:</b>{item["crime"]}</p>
+                <p><b>City:</b> {item["city"]}</p>
+                <p><b>Suspects:</b> {getSuspects()}</p>
+                <p><b>Date of Crime:</b> {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
+                <p><b>Status:</b> {item["status"]}</p>
+                <p><b>Details:</b> {getUpdates()}{item["details"]}</p>
+            </div>
         
     );
 }

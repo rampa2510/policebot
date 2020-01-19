@@ -3,7 +3,7 @@ import TabBar from './TabBar'
 import Toolbar from './Toolbar'
 import UserTabBar from './UserTabBar';
 import PoliceToolbar from './PoliceToolbar';
-
+import Loader from './loader';
 
 const Dashboard = () => {
   // Checks if loaded
@@ -17,35 +17,31 @@ const Dashboard = () => {
   useEffect(() => {
     if (userData === null) window.location = '/';
     else setLoaded(true);
-  }, []);
+  }, [userData]);
 
-
-
-    // Loads dashboard based on if user is student or admin
+    // Loads dashboard based on if user is citizen or police
     const loadPage = () => {
       if (loaded) {
         if (userData.userType === 'citizen') {
           return (
             <>
-            
               <Toolbar/>
-              
               <UserTabBar/>
-              
             </>
           );
         }
         if (userData.userType === 'policeman') {
           return (
             <>
-              <div>
               <PoliceToolbar/>
-              </div>
-              <div>
               <TabBar/>
-              </div>
             </>
           );
+        }
+        else{
+          return(
+            <Loader open={true} />
+          )
         }
       }
     };

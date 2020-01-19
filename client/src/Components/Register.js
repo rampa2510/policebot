@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import interceptor from '../Services/Interceptor';
+import {Button, Hidden, TextField, Grid, makeStyles} from '@material-ui/core';
 import Bot from '../images/Bot.png'
 import Logo from '../images/BPRD_Logo.png'
-import Grid from '@material-ui/core/Grid';
-import {Button, Hidden, TextField} from '@material-ui/core';
-import { makeStyles} from '@material-ui/core/styles';
 
 const Register = () => {
   const [loaded, setLoaded] = useState(false);
@@ -45,8 +43,8 @@ const Register = () => {
   };
 
   useEffect(() => {
-    const session_username = sessionStorage.getItem('username');
-    if (session_username !== null) {
+    const userData = localStorage.getItem('userData');
+    if (userData !== null) {
       window.location = '/home';
     } else {
       setLoaded(true);

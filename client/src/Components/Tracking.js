@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import intereptor from '../Services/Interceptor';
+import {Paper, TextField, Hidden, Button, makeStyles, Grid} from '@material-ui/core';
 import Crime from './Crime';
-import Grid from '@material-ui/core/Grid';
-import {Paper, TextField, Hidden, Button} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 const Tracking = () => {
   const [crimeNumber, setCrimeNumber] = useState(false);
   const [data,setData] = useState(null)
-
-//   useEffect(() => {
-//     if (localStorage.getItem('Token') != null) setLoaded(true);
-//     else window.location = '/';
-//   }, []);
 
 const useStyles = makeStyles(theme => ({
     root: {

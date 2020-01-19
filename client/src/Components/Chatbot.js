@@ -1,17 +1,10 @@
 import React,{useState,useEffect,useRef} from 'react';
-import interceptor from '../Services/Interceptor'
-// import ToolBar from './Toolbar'
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import SendIcon from '@material-ui/icons/Send';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Card from '@material-ui/core/Card';
-import Avatar from '@material-ui/core/Avatar';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import interceptor from '../Services/Interceptor';
+import { makeStyles, InputAdornment, TextField, Card, Avatar, Snackbar, IconButton } from '@material-ui/core';
 import StarsIcon from '@material-ui/icons/Stars';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import CloseIcon from '@material-ui/icons/Close'
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline'
+import SendIcon from '@material-ui/icons/Send';
 import { getCoords } from '../Services/emergency'
 
 const useStyles = makeStyles({
@@ -127,25 +120,19 @@ function Chatbot() {
 
   
   // function to render chats
-  const renderChat=({type,message,index})=>{
+  const renderChat=({type,message},index)=>{
     if(type==="bot"){
       return(
-        <>
         <div key={index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"]}>{message}</Card>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"].join(' ')}>{message}</Card>
         </div>
-        <br />
-        </>
       )
     }
 
     return (
-      <>
       <div key={index} className={classes.userChatCont}>
         <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
-      <br />
-      </>
     )
   }
 
@@ -164,7 +151,7 @@ function Chatbot() {
 
     <div className={classes.chatCont} id="scrolldiv">
     {/* The main chat screen */}
-      {chatHistory.map(item=>renderChat(item))}
+      {chatHistory.map((item,index)=>renderChat(item,index))}
       <div ref={chatEndRef} />
     </div>
     {/* Message box */}
