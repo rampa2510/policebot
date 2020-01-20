@@ -148,3 +148,10 @@ module.exports.updateDetails=async (req,res)=>{
   }
   res.send(responseObj);
 }
+
+module.exports.transferCase=async (req,res)=>{
+  const {newOfficer,caseNo} = req.body;
+  const isCaseUpdated = await updateOne('crimeRegister',{caseNo},{investigatingOfficer:newOfficer});
+  if(isCaseUpdated) return res.status(200).send({message:"Case transfer successfull"});
+  return res.status(500).send({error:"An error occured while trying to update case please try again"})
+}
