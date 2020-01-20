@@ -11,10 +11,10 @@ const EmergencyReport = props=>{
     }
     
     return(
-            <>
-            <p style={{color:"black"}}><b>Name:</b> {item["name"]}</p>
-            <p style={{color:"black"}}><b>Address:</b> {checkAddr()}</p>
-            </>
+            <div style={{color:"black"}}>
+            <p><b>Name:</b> {item["name"]}</p>
+            <p><b>Address:</b> {checkAddr()}</p>
+            </div>
         
     );
 }

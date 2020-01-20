@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import interceptor from '../Services/Interceptor';
-import Bot from '../images/Bot.png'
-import Logo from '../images/BPRD_Logo.png'
-import Grid from '@material-ui/core/Grid';
-import {Button, Hidden, TextField} from '@material-ui/core';
-import { makeStyles} from '@material-ui/core/styles';
+import {Button, Hidden, TextField, makeStyles, Grid} from '@material-ui/core';
+import Bot from '../images/Bot.png';
+import Logo from '../images/BPRD_Logo.png';
+import Loader from './loader';
 
 const Landing = () => {
   const [loaded, setLoaded] = useState(false);
@@ -44,8 +43,7 @@ const Landing = () => {
   }, []);
 
   const useStyles = makeStyles(theme => ({
-    root: {
-      
+    root: { 
       background: "#f2f2f2",
       minWidth:"100vw",
       minHeight: "100vh",
@@ -114,6 +112,10 @@ const Landing = () => {
         </Grid>
       );
     }
+    else
+    return(
+      <Loader open={true} />
+    )
   };
 
   return <>{loadPage()}</>;

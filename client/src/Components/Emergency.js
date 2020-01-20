@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
-import Grid from '@material-ui/core/Grid';
-import {Paper, Button, Hidden} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Paper, Button, Hidden, makeStyles, Grid} from '@material-ui/core';
 import EmergencyReport from './EmergencyReport';
+import Loader from './loader';
 
 const Emergency = () => {
     const [data,setData] = useState(null)
@@ -36,8 +35,7 @@ const Emergency = () => {
 
     const deleteEmergency=async (emergencyNo)=>{
         try {
-            const response = await intereptor(`deleteemergency/${emergencyNo}`,"DELETE");
-          console.log(response)
+          await intereptor(`deleteemergency/${emergencyNo}`,"DELETE");
           getData();
         } catch (error) {
           console.log(error)
@@ -78,6 +76,11 @@ const Emergency = () => {
                 );
             })
             );
+        }
+        else{
+          return(
+            <Loader open={true} />
+          )
         }
     }
 

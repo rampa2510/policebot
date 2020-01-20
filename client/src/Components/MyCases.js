@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
+import {Paper, Grid, makeStyles} from '@material-ui/core';
+import Loader from './loader';
 import Crime from './Crime';
-import Grid from '@material-ui/core/Grid';
-import {Paper} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
 
 const MyInvestigations = () => {
     const [data,setData] = useState(null)
@@ -62,6 +60,10 @@ const MyInvestigations = () => {
             })
             );
         }
+        else
+        return(
+            <Loader open={true} />
+          )
     }
 
     return(

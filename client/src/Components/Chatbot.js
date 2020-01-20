@@ -1,18 +1,13 @@
 import React,{useState,useEffect,useRef} from 'react';
-import interceptor from '../Services/Interceptor'
-// import ToolBar from './Toolbar'
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import SendIcon from '@material-ui/icons/Send';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Card from '@material-ui/core/Card';
-import Avatar from '@material-ui/core/Avatar';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import interceptor from '../Services/Interceptor';
+import { makeStyles, InputAdornment, TextField, Card, Avatar, Snackbar, IconButton } from '@material-ui/core';
 import StarsIcon from '@material-ui/icons/Stars';
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import CloseIcon from '@material-ui/icons/Close'
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline'
+import SendIcon from '@material-ui/icons/Send';
 import { getCoords } from '../Services/emergency'
+import MicIcon from '@material-ui/icons/Mic';
+import MicNoneIcon from '@material-ui/icons/MicNone';
 
 const useStyles = makeStyles({
   textField:{
@@ -77,6 +72,29 @@ function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
   in difficult situations and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
 
+  const [listening, setListening] = useState(false);
+ 
+  var SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = new SpeechRecognition();
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event) {
+      var last = event.results.length - 1;
+      var command = event.results[last][0].transcript;
+      setListening(false);
+      setUserChat(command)
+  };
+
+  recognition.onspeechend = function() {
+      recognition.stop();
+  };
+
+  recognition.onerror = function(event) {
+     console.log('Error occurred in recognition: ' + event.error);
+  }        
+
+
+
 
   const classes = useStyles()
   const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
@@ -126,27 +144,28 @@ function Chatbot() {
       inputRef.current.focus()
   }
 
-  
+  const checkListening = ()=>{
+    if(listening===false)
+      return <MicNoneIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(true); recognition.start()}}/>
+    else
+      return <MicIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(false); recognition.stop()}} />
+
+  }
+
   // function to render chats
   const renderChat=({type,message},index)=>{
     if(type==="bot"){
       return(
-        // <>
         <div key={index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"messages"]}>{message}</Card>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"].join(' ')}>{message}</Card>
         </div>
-        // <br />
-        // </>
       )
     }
 
     return (
-      // <>
       <div key={index} className={classes.userChatCont}>
         <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
-      // <br />
-      // </>
     )
   }
 
@@ -184,6 +203,7 @@ function Chatbot() {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
+                {checkListening()}
                 <SendIcon onClick={getBotMsg}/>
               </InputAdornment>
               

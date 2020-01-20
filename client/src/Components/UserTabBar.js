@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import {AppBar} from '@material-ui/core';
+import {Tabs, Tab, Typography, Box, AppBar} from '@material-ui/core';
 import MyCases from './MyCases';
 import Chatbot from './Chatbot';
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
+    // If tab is chatbot, remove the padding
     if(value===0){
       return (
         <Typography
@@ -67,7 +64,7 @@ function a11yProps(index) {
     <>
 
         <AppBar position="static" color="default">
-            <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" >
+            <Tabs value={value} onChange={handleChange}>
                 <Tab label="ChatBot" {...a11yProps(0)} />
                 <Tab label="My Cases" {...a11yProps(1)} />
             </Tabs>

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
-import Grid from '@material-ui/core/Grid';
-import {Paper, Button} from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import {Paper, Button, Grid, makeStyles} from '@material-ui/core';
 import Loader from './loader'
+
 const NewReports = () => {
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
@@ -69,7 +68,7 @@ const NewReports = () => {
     const getCrimes = ()=>{
         if(loaded && data!==null){
             return(
-            data.map((item,index)=>{
+            data.map((item,index)=>{ 
                 return (
                   <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
                     <Paper className={classes.paper} elevation={3}>

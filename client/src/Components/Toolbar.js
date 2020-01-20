@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { getCoords } from '../Services/emergency'
-import Snackbar from '@material-ui/core/Snackbar';
+import { getCoords } from '../Services/emergency';
+import {Snackbar, IconButton} from '@material-ui/core';
 import PersonPinCircleIcon from '@material-ui/icons/PersonPinCircle';
-import IconButton from '@material-ui/core/IconButton';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import CloseIcon from '@material-ui/icons/Close';
 
 const Toolbar = () =>{
