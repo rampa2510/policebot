@@ -17,7 +17,7 @@ module.exports = async (req,res)=>{
       return;
     }
   // get all the values here if the intent is the end intent
-    console.log(Result)
+
   if(Result.intent.displayName==="policebot.confirm.yes" || (Result.intent.displayName==="policebot.start.genric - yes" && Result.parameters.fields.person.listValue.values.length ) ){
     // in the locals we have the jwt data decode with all the details
 
@@ -68,12 +68,14 @@ module.exports = async (req,res)=>{
 
   }else {
     if(Result.fulfillmentText.includes(';')){
+
       var regex = /;/gi, result, indices = [];
       while ( (result = regex.exec(Result.fulfillmentText)) ) {
         indices.push(result.index);
     }
     let date = Result.fulfillmentText.slice(indices[0]+1,indices[1]);
     date = new Date(date);
+    console.log(date>=new Date())
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();

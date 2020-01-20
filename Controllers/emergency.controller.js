@@ -10,6 +10,7 @@ const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f085
 module.exports.emergencyRegister =async (req,res)=>{
   const {data} = res.locals;
   await insertOne('emergency',{...req.body,name:data.name});
+  console.log(req.body.addr,req.body.display_name)
   client.messages.create({
     from: 'whatsapp:+14155238886',
     to:'whatsapp:+917021293874',

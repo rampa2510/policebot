@@ -90,7 +90,7 @@ function Chatbot() {
     count = count+1;
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
-    var messagestest = document.getElementsByClassName("message");
+    var messagestest = document.getElementsByClassName("messages");
     messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
   }
 
@@ -101,6 +101,7 @@ function Chatbot() {
   // Function to get reply
   const getBotMsg=async e=>{
     
+      setDisabled(true);
 
       if(!userChat.length ){
         setSnackBar(true);
@@ -113,11 +114,11 @@ function Chatbot() {
       if(data.emergency){
         await getCoords();
         await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+        await setDisabled(false)
         inputRef.current.focus()
         return;
       }
 
-      setDisabled(true);
 
       setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
       setUserChat('')
@@ -127,25 +128,25 @@ function Chatbot() {
 
   
   // function to render chats
-  const renderChat=({type,message,index})=>{
+  const renderChat=({type,message},index)=>{
     if(type==="bot"){
       return(
-        <>
+        // <>
         <div key={index} className={classes.botChatCont}>
-          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"message"]}>{message}</Card>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div><Card className={[classes.botReply,"messages"]}>{message}</Card>
         </div>
-        <br />
-        </>
+        // <br />
+        // </>
       )
     }
 
     return (
-      <>
+      // <>
       <div key={index} className={classes.userChatCont}>
         <Card className={classes.userReply}>{message}</Card><Avatar className={classes.userAvatar}><PersonOutlineIcon /></Avatar>
       </div>
-      <br />
-      </>
+      // <br />
+      // </>
     )
   }
 
@@ -164,7 +165,7 @@ function Chatbot() {
 
     <div className={classes.chatCont} id="scrolldiv">
     {/* The main chat screen */}
-      {chatHistory.map(item=>renderChat(item))}
+      {chatHistory.map((item,index)=>renderChat(item,index))}
       <div ref={chatEndRef} />
     </div>
     {/* Message box */}
