@@ -108,7 +108,7 @@ function Chatbot() {
     count = count+1;
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
-    var messagestest = document.getElementsByClassName("messages");
+    var messagestest = document.getElementsByClassName("message");
     messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
   }
 
