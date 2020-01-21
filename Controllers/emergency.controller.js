@@ -9,12 +9,12 @@ const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f085
 
 module.exports.emergencyRegister =async (req,res)=>{
   const {data} = res.locals;
-  await insertOne('emergency',{...req.body,name:data.name});
-  console.log(req.body.addr,req.body.display_name)
+  await insertOne('emergency',{...req.body,name:data.name,number:data.phone,city:data.city});
+  console.log(data)
   client.messages.create({
     from: 'whatsapp:+14155238886',
     to:'whatsapp:+917021293874',
-    body: 'Emergency Reported by: '+data.name+`\nFrom: ${req.body.display_name?req.body.display_name:req.body.addr}`
+    body: 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: ${req.body.display_name?req.body.display_name:req.body.addr}'
   })
   res.status(200).send({reply:""});
 }
