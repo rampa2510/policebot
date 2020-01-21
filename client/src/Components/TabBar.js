@@ -50,23 +50,23 @@ function a11yProps(index) {
         <AppBar position="static" color="default">
 
             <Tabs variant="scrollable" scrollButtons="auto" value={value} onChange={handleChange} aria-label="scrollable auto tabs example" >
-                <Tab label="Pending" {...a11yProps(0)} />
-                <Tab label="My Cases" {...a11yProps(1)} />
-                <Tab label="Tracking" {...a11yProps(2)} />
-                <Tab label="Emergency" {...a11yProps(3)} />
+                <Tab label="Emergency" {...a11yProps(0)} />
+                <Tab label="Pending" {...a11yProps(1)} />
+                <Tab label="My Cases" {...a11yProps(2)} />
+                <Tab label="Tracking" {...a11yProps(3)} />
             </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-            <NewReports />
+            <Emergency />
         </TabPanel>
         <TabPanel value={value} index={1}>
-            <MyInvestigations />
+            <NewReports />
         </TabPanel>
         <TabPanel value={value} index={2}>
-            <Tracking />
+            <MyInvestigations />
         </TabPanel>
         <TabPanel value={value} index={3}>
-            <Emergency />
+            <Tracking /> 
         </TabPanel>
     </>
   );
