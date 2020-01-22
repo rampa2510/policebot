@@ -14,7 +14,7 @@ const express = require("express"),
  *                                                                                      */
 //========================================================================================
 let controllerPath = "./Controllers";
-const registrationController = require(`./Controllers/registration.controller`);
+const {registrationController} = require(`./Controllers/registration.controller`);
 const loginController = require(`./Controllers/login.controller`);
 const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistration.controller`);
 const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
