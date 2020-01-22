@@ -86,6 +86,7 @@ module.exports = async (req,res)=>{
   }
 
   } catch (error) {
+    console.log(error)
     res.status(200).send({reply:"I have expereinced an error sorry"})
   }
 }

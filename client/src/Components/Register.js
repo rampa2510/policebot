@@ -30,13 +30,13 @@ const Register = () => {
     const userObj = { username, name, password,city, phone,userType: 'citizen' };
     try {
       const response = await interceptor('register', 'POST', userObj);
-      console.log(response);
-      localStorage.setItem('Token', JSON.stringify(response.token));
+      // console.log(response);
+      // localStorage.setItem('Token', JSON.stringify(response.token));
       delete userObj.password;
       localStorage.setItem('userData', JSON.stringify(userObj));
       window.location = '/home';
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       alert(error);
     }
     // window.location='/home';

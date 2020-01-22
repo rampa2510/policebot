@@ -199,7 +199,26 @@ module.exports = {
         return true;
       })
     })
+  },
+  /**
+   * @description   This function will be used to genrate a random otp and insert otp in db
+   * 
+   * @param username {string} The user who requested the otp and who will be verified
+   * 
+   * 
+   * @return      if err it will thow the err object otherwise the otp generated 
+   *
+   * @author      Ram Pandey
+   */
+  generateOtp:async (username)=>{
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    try {
+      await this.insertOne('otps',{otp,username});
+      return otp;
+    } catch (error) {
+      console.log(error)
+      throw new Error("")
+    }
   }
-
 };
 
