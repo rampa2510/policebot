@@ -74,15 +74,24 @@ function Chatbot() {
 
   const [listening, setListening] = useState(false);
  
-  var SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition;
+  var SpeechRecognition = window.webkitSpeechRecognition;
   var recognition = new SpeechRecognition();
   recognition.interimResults = false;
 
-  recognition.onresult = function(event) {
+  recognition.onresult = async function(event) {
       var last = event.results.length - 1;
       var command = event.results[last][0].transcript;
       setListening(false);
-      setUserChat(command)
+      if(command==="emergency"){
+        await getCoords();
+        await setChatHistory([...chatHistory,{type:"user",message:command},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+        await setDisabled(false)
+        setUserChat('')
+        inputRef.current.focus()
+        return;
+      }
+      else
+        setUserChat(command)
   };
 
   recognition.onspeechend = function() {
