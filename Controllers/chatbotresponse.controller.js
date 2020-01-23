@@ -12,7 +12,7 @@ module.exports = async (req,res)=>{
 
   try {
     const Result = await BotReply(req.body.MSG);
-    if(Result.intent.displayName==="policebot.help"){
+    if(Result.intent.displayName==="policebot_emergency"){
       res.status(200).send({emergency:true});
       return;
     }
