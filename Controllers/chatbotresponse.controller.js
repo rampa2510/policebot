@@ -17,7 +17,7 @@ module.exports = async (req,res)=>{
       return;
     }
   // get all the values here if the intent is the end intent
-  if(Result.intent.displayName==="policebot.confirm.yes" || (Result.intent.displayName==="policebot.start.genric - yes" && Result.parameters.fields.person.listValue.values.length ) ){
+  if(Result.intent.displayName==="fullwithsuspects.confirm.yes" || Result.intent.displayName==="fullwithoutsuspects.confirm.yes"   ){
     // in the locals we have the jwt data decode with all the details
 
     const {data} = res.locals
@@ -33,10 +33,11 @@ module.exports = async (req,res)=>{
     let personArr = []
 
     // console.log(Result.parameters.fields.details)
-
+    // console.log(personObj)
     personObj.forEach(personData=>{
+      // console.log(personData)
 
-      personArr.push(personData.structValue.fields.name.stringValue)
+      personArr.push(personData.stringValue)
 
     })
 
