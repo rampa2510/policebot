@@ -3,7 +3,7 @@ import interceptor from './Interceptor'
 export async function error(){
   const addr = prompt("Error finding your location Please enter a benchmark or details of nearby surrounding");
   try {
-    await interceptor('/emergency',"POST",{addr});
+    await interceptor('emergency',"POST",{addr});
     alert("I have sent your location to the policemen. Help is on its way");
 
   } catch (err) {
