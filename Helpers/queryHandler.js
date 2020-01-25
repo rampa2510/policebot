@@ -213,7 +213,7 @@ module.exports = {
   generateOtp:async (username)=>{
     const otp = Math.floor(100000 + Math.random() * 900000);
     try {
-      await this.insertOne('otps',{otp,username});
+      await insertOne('otps',{otp,username});
       return otp;
     } catch (error) {
       console.log(error)
