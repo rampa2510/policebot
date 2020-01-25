@@ -13,8 +13,7 @@ const express = require("express"),
  *                            Import all the Controllers                                *
  *                                                                                      */
 //========================================================================================
-let controllerPath = "./Controllers";
-const {registrationController} = require(`./Controllers/registration.controller`);
+const {genrateOtp,verifyOtp} = require(`./Controllers/registration.controller`);
 const loginController = require(`./Controllers/login.controller`);
 const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistration.controller`);
 const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
@@ -32,6 +31,7 @@ const registrationModel = require(`./Models/regestration.model`);
 const {body} = require(`./Models/login.model`);
 const CrimeRegistrationModel = require(`./Models/userCrimeRegistration.model`);
 const updateDetailsModel = require('./Models/updateDetails.model');
+const verifyOtpModel = require('./Models/verifyOtp.model');
 //########################################################################################
 
 //========================================================================================
@@ -40,7 +40,8 @@ const updateDetailsModel = require('./Models/updateDetails.model');
  *                                                                                      */
 //========================================================================================
 
-router.post("/register", celebrate(registrationModel), registrationController);
+router.post("/register", celebrate(registrationModel), genrateOtp);
+router.post("/verify",celebrate(verifyOtpModel), verifyOtp);
 router.post("/login", celebrate({[Segments.BODY]:body}), loginController);
 router.post('/crime-register',celebrate(CrimeRegistrationModel),registerCrime)
 router.get('/crime-register/:id',getCrimeDetails);
