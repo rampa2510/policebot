@@ -6,6 +6,31 @@
 const { getConn } = require("../Database/conn");
 //########################################################################################
 
+    /**
+   * @description This function is an abstraction of mongoDB insertOne
+   *
+   * @params      collection = the collection in the db on which you want to perform query
+   *              query = the query you want to perform
+   *
+   * @return      if err it will thow the err object otherwise response
+   *
+   * @author      Ram Pandey
+   */
+
+const insertOne = (collection, query) => {
+  return new Promise((resolve, reject) => {
+    const DB = getConn();
+
+    DB.collection(collection).insertOne(query, (err, resp) => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(resp.ops[0]);
+    });
+  });
+}
+
 module.exports = {
   /**
    * @description This function is an abstraction of mongoDB findOne
@@ -44,29 +69,7 @@ module.exports = {
     });
   },
 
-    /**
-   * @description This function is an abstraction of mongoDB insertOne
-   *
-   * @params      collection = the collection in the db on which you want to perform query
-   *              query = the query you want to perform
-   *
-   * @return      if err it will thow the err object otherwise response
-   *
-   * @author      Ram Pandey
-   */
-  insertOne: (collection, query) => {
-    return new Promise((resolve, reject) => {
-      const DB = getConn();
-
-      DB.collection(collection).insertOne(query, (err, resp) => {
-        if (err) {
-          reject(err);
-        }
-
-        resolve(resp.ops[0]);
-      });
-    });
-  },
+  insertOne,
 
       /**
    * @description This function will help in incrementing case no
