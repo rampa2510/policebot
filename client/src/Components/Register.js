@@ -11,6 +11,8 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [city, setCity] = useState('');
   const [phone,setNo] = useState(null);
+  const [OTPSent,setOTPSent] = useState(false);
+  const [OTP,setOTP] = useState();
   
   const handleUsernameChange = e => {
     setUsername(e.target.value);
@@ -25,21 +27,37 @@ const Register = () => {
     setCity(e.target.value);
   };
 
-  const handleSubmit = async e => {
+  const handleRegister = async e => {
     e.preventDefault();
-    const userObj = { username, name, password,city, phone,userType: 'citizen' };
+    const userObj = { OTP,username, name, password,city, phone,userType: 'citizen' };
     try {
-      const response = await interceptor('register', 'POST', userObj);
-      // console.log(response);
-      // localStorage.setItem('Token', JSON.stringify(response.token));
-      delete userObj.password;
-      localStorage.setItem('userData', JSON.stringify(userObj));
-      window.location = '/home';
+      const response = await interceptor('verify', 'POST', userObj);
+      if(response.message==="Success"){
+        delete userObj.password;
+        localStorage.setItem('userData', JSON.stringify(userObj));
+        window.location = '/home';
+      }
+      else{
+        alert("Incorrect OTP, please try again!")
+      }
     } catch (error) {
       // console.log(error);
       alert(error);
     }
     // window.location='/home';
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const response = await interceptor('register', 'POST', {username,phone});
+      if(response.message==="Success"){
+        alert("OTP has been sent to your mobile number!");
+        setOTPSent(true)
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   useEffect(() => {
@@ -81,6 +99,45 @@ const Register = () => {
 
   const classes = useStyles();
 
+  const getform = () =>{
+    if(OTPSent===false){
+      return(
+        <form className={classes.loginform} onSubmit={handleSubmit}>
+          <Grid item xs={12}>
+            <TextField required onChange={(e)=>handleFullNameChange(e)} className={classes.field} label="Full Name" variant="outlined" />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField className={classes.field} required onChange={(e)=>handleUsernameChange(e)} label="Username" variant="outlined"/>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField className={classes.field} required onChange={(e)=>handlePasswordChange(e)} type="password" label="Password" variant="outlined"/>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField required onChange={(e)=>handleAddressChange(e)} className={classes.field} label="City" variant="outlined"/>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField required onChange={(e)=>setNo(e.target.value)} className={classes.field} label="phone number" type="number" variant="outlined"/>
+          </Grid>
+          <Grid item xs={12}>  
+            <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Register </Button>  
+          </Grid>
+        </form>
+      );
+    }
+    else{
+      return(
+        <form className={classes.loginform} onSubmit={handleRegister}>
+          <Grid item xs={12}>
+            <TextField required onChange={(e)=>setOTP(e.target.value)} className={classes.field} label="OTP" type="number" variant="outlined" />
+          </Grid>
+          <Grid item xs={12}>  
+            <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Register </Button>  
+          </Grid>
+        </form>
+      );
+    }
+  }
+
   const loadPage = () => {
     if (loaded) {
       return (
@@ -95,26 +152,7 @@ const Register = () => {
               <h1 className={classes.heading}>PoliceBot</h1>
             </Grid>
             <Grid item xs={12}>
-              <form className={classes.loginform} onSubmit={handleSubmit}>
-                <Grid item xs={12}>
-                  <TextField required onChange={(e)=>handleFullNameChange(e)} className={classes.field} label="Full Name" variant="outlined" />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField className={classes.field} required onChange={(e)=>handleUsernameChange(e)} label="Username" variant="outlined"/>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField className={classes.field} required onChange={(e)=>handlePasswordChange(e)} type="password" label="Password" variant="outlined"/>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField required onChange={(e)=>handleAddressChange(e)} className={classes.field} label="City" variant="outlined"/>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField required onChange={(e)=>setNo(e.target.value)} className={classes.field} label="phone number" type="number" variant="outlined"/>
-                </Grid>
-                <Grid item xs={12}>  
-                  <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Register </Button>  
-                </Grid>
-              </form>
+              {getform()}
             </Grid>
           </Grid>
           <Hidden smDown>

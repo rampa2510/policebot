@@ -37,12 +37,11 @@ module.exports.genrateOtp = async (req, res, next) => {
     // const token = sign(userData, 'sihpolicebotsecret');
 
     const otp = generateOtp(username);
-    console.log(otp)
     const mobile = phone.toString()
     client.messages.create({
       from: 'whatsapp:+14155238886',
       to:'whatsapp:+91'+mobile,
-      body: 'Your otp code is '+otp
+      body: 'Your OTP for Policebot is '+otp
     });
     res.status(201).json({ message: "Success" });
 
