@@ -34,6 +34,7 @@ const Register = () => {
       const response = await interceptor('verify', 'POST', userObj);
       if(response.message==="Success"){
         delete userObj.password;
+        localStorage.setItem('Token', JSON.stringify(response.token));
         localStorage.setItem('userData', JSON.stringify(userObj));
         window.location = '/home';
       }
