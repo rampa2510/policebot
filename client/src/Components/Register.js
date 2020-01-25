@@ -12,7 +12,7 @@ const Register = () => {
   const [city, setCity] = useState('');
   const [phone,setNo] = useState(null);
   const [OTPSent,setOTPSent] = useState(false);
-  const [OTP,setOTP] = useState();
+  const [otp,setotp] = useState();
   
   const handleUsernameChange = e => {
     setUsername(e.target.value);
@@ -29,7 +29,7 @@ const Register = () => {
 
   const handleRegister = async e => {
     e.preventDefault();
-    const userObj = { OTP,username, name, password,city, phone,userType: 'citizen' };
+    const userObj = { otp,username, name, password,city, phone,userType: 'citizen' };
     try {
       const response = await interceptor('verify', 'POST', userObj);
       if(response.message==="Success"){
@@ -128,7 +128,7 @@ const Register = () => {
       return(
         <form className={classes.loginform} onSubmit={handleRegister}>
           <Grid item xs={12}>
-            <TextField required onChange={(e)=>setOTP(e.target.value)} className={classes.field} label="OTP" type="number" variant="outlined" />
+            <TextField required onChange={(e)=>setotp(e.target.value)} className={classes.field} label="OTP" type="number" variant="outlined" />
           </Grid>
           <Grid item xs={12}>  
             <Button type="submit" className={classes.formButtons} variant="contained" color="primary"> Register </Button>  
