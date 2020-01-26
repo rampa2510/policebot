@@ -6,8 +6,19 @@
 const express = require("express"),
   router = express.Router(),
   { celebrate,Segments } = require("celebrate");
+const multer = require('multer') 
+const {extname} = require('path')
 //########################################################################################
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null,  `${Date.now()}${extname(file.originalname)}`)
+  }
+})
+const upload = multer({storage})
 //========================================================================================
 /*                                                                                      *
  *                            Import all the Controllers                                *
@@ -19,7 +30,8 @@ const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistra
 const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
 const {getMyCrimes,getUserCrimes,getAllCrimes,startInvestigation,deleteCrimeData, finishInvestigation,updateDetails,transferCase} = require(`./Controllers/policemanActions.controller.js`);
 const {webhookController} = require('./Controllers/webhooks.controller');
-const {emergencyRegister, deleteEmergency, getEmergency} = require('./Controllers/emergency.controller')
+const {emergencyRegister, deleteEmergency, getEmergency} = require('./Controllers/emergency.controller');
+const uploadFile = require('./Controllers/upload.controller')
 //########################################################################################
 
 //========================================================================================
@@ -58,6 +70,7 @@ router.post('/update-details',celebrate(updateDetailsModel),updateDetails);
 router.post('/emergency',emergencyRegister);
 router.delete('/deleteemergency/:emergencyNo',deleteEmergency);
 router.get('/getemergency', getEmergency);
+router.post('/image-upload',upload.single('image'),uploadFile)
 //########################################################################################
 
 module.exports = router;

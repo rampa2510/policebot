@@ -3,8 +3,10 @@
  *                              Import all the modules here                             *
  *                                                                                      */
 //========================================================================================
-const {insertOne,incrementCounter,findOne} = require('../Helpers/queryHandler')
+const {insertOne,incrementCounter,findOne} = require('../Helpers/queryHandler');
 //########################################################################################
+
+
 
 module.exports.registerCrime =async (req,res,next)=>{
   const {data} = res.locals
