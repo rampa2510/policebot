@@ -70,7 +70,7 @@ const useStyles = makeStyles({
 
 function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
-  in difficult situations and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
+  in difficult situations Crime registered case No and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
 
   const [listening, setListening] = useState(false);
  
@@ -109,16 +109,45 @@ function Chatbot() {
   const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
   const [userChat,setUserChat]=useState('');
   const [isChatDisabled,setDisabled] = useState(false)
+  const [askImage,setAskImage] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false)
   const chatEndRef = React.createRef()
-  let count = -1;
+  const[image,setImage] = useState();
+  var asked=false;
+
+  const uploadImage = async e=>{
+    e.preventDefault();
+    const formData = new FormData()
+    formData.append('image',image);
+    try {
+      const response = await interceptor('image-upload', 'POST', formData);
+      console.log(response);
+    } catch (error) {
+      // console.log(error);
+      alert(error);
+    }
+  }
+  
+  const imageform = ()=>{
+    if(askImage){
+      return(
+        <form onSubmit={uploadImage}>
+        <input required type="file" onChange={e=>{setImage(e.target.files[0])}}></input>
+        <button type="submit">Submit</button>
+        </form>
+      );
+    }
+  }
 
   const scrollToBottom = () => {
-    count = count+1;
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
     var messagestest = document.getElementsByClassName("message");
     messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
+    if(messagestest[messagestest.length-1].innerHTML.includes("Crime registered case No")&&asked===false){
+      setAskImage(true);
+      asked=true
+    }
   }
 
   useEffect(scrollToBottom,[chatHistory])
@@ -194,6 +223,7 @@ function Chatbot() {
     <div className={classes.chatCont} id="scrolldiv">
     {/* The main chat screen */}
       {chatHistory.map((item,index)=>renderChat(item,index))}
+      {imageform()}
       <div ref={chatEndRef} />
     </div>
     {/* Message box */}
