@@ -35,6 +35,13 @@ const Crime = props=>{
             );
     }
 
+    const getImage = ()=>{
+        if(item["url"])
+            return(
+                <img src={item["url"]}></img>
+            );
+    }
+
     return(
         
             <div style={{color:"black"}}>
@@ -46,6 +53,7 @@ const Crime = props=>{
                 <p><b>Date of Crime:</b> {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
                 <p><b>Status:</b> {item["status"]}</p>
                 <p><b>Details:</b> {getUpdates()}{item["details"]}</p>
+                <p>{getImage()}</p>
             </div>
         
     );
