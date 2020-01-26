@@ -36,7 +36,7 @@ module.exports.genrateOtp = async (req, res, next) => {
 
     // const token = sign(userData, 'sihpolicebotsecret');
 
-    const otp = generateOtp(username);
+    const otp = await generateOtp(username);
     const mobile = phone.toString()
     client.messages.create({
       from: 'whatsapp:+14155238886',
