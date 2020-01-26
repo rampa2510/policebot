@@ -120,7 +120,15 @@ function Chatbot() {
     const formData = new FormData()
     formData.append('image',image);
     try {
-      const response = await interceptor('image-upload', 'POST', formData);
+      let token = localStorage.getItem("Token");
+      token = JSON.parse(token);
+      const response = await fetch('/api/image-upload',{
+        method:"POST",
+        headers:{
+          'authorization':`Bearer ${token}`,
+        },
+        body:formData
+      }).then(res=>res.json());
       console.log(response);
     } catch (error) {
       // console.log(error);

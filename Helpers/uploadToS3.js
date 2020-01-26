@@ -9,32 +9,38 @@ const s3 = new aws.S3({
 })
 
 const uploadToS3 = (fileName,ext)=>{
-  // console.log(fileName)
+  return new Promise((resolve,reject)=>{
+      // console.log(fileName)
   sharp(join(__dirname,`../uploads/${fileName}${ext}`))
   .resize(220,200)
   .webp()
   .toFile(`${fileName}.webp`,(err)=>{
-    if(err) return console.log(err)
+    if(err) {
+      console.log(err)
+      reject(err)
+    }
       const fileContent = readFileSync(`${fileName}.webp`);
       const params = {
         Bucket: 'pbots',
         Key: `${fileName}.webp`, // File name you want to save as in S3
         Body: fileContent
     };
-    console.log('aa')
+
     s3.upload(params, function(err, data) {
       if (err) {
-          throw err;
+          reject(err);
       }
       unlinkSync(`${fileName}.webp`)
     
       unlinkSync(join(__dirname,`../uploads/${fileName}${ext}`))
       // console.log(`File uploaded successfully. ${data.Location}`);
-      return data.Location
+      resolve(data.Location);
     });
     
   })
 
+
+  })
 }
 
 module.exports = uploadToS3
