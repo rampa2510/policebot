@@ -6,7 +6,7 @@ const sessionId = uuid.v4()
  * @param {string} projectId The project to be used
  */
 module.exports = async function (message,projectId = 'newagent-bocquu',id=sessionId) {
-
+  // console.log(id)
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
     keyFilename:"./Helpers/NewAgent-97039e124a80.json"
