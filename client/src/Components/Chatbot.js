@@ -118,12 +118,14 @@ function Chatbot() {
   const [isSnackBarOpen,setSnackBar] = useState(false)
   const chatEndRef = React.createRef()
   const[image,setImage] = useState();
+  const [caseNo,setCaseNo] = useState();
   var asked=false;
 
   const uploadImage = async e=>{
     e.preventDefault();
     const formData = new FormData()
     formData.append('image',image);
+    formData.append('caseNo',caseNo);
     try {
       let token = localStorage.getItem("Token");
       token = JSON.parse(token);
@@ -134,7 +136,8 @@ function Chatbot() {
         },
         body:formData
       }).then(res=>res.json());
-      console.log(response);
+      setAskImage(false);
+      setChatHistory([...chatHistory,{type:"bot",message:"Your image has been uploaded, you can view your case information in the my cases tab"}])
     } catch (error) {
       // console.log(error);
       alert(error);
@@ -144,10 +147,16 @@ function Chatbot() {
   const imageform = ()=>{
     if(askImage){
       return(
-        <form onSubmit={uploadImage}>
-        <input required type="file" onChange={e=>{setImage(e.target.files[0])}}></input>
-        <button type="submit">Submit</button>
-        </form>
+        <div className={classes.botChatCont}>
+          <div className="Mssg"><Avatar className={classes.botAvatar}><StarsIcon /></Avatar></div>
+          <Card className={[classes.botReply,"message"].join(' ')}>
+          Please upload any relevant Images. <br/> Continue chatting to dismiss.<p></p>
+          <form onSubmit={uploadImage}>
+          <input required type="file" onChange={e=>{setImage(e.target.files[0])}}></input>
+          <button type="submit">Submit</button>
+          </form>
+          </Card>
+        </div>
       );
     }
   }
@@ -158,8 +167,12 @@ function Chatbot() {
     var messagestest = document.getElementsByClassName("message");
     messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
     if(messagestest[messagestest.length-1].innerHTML.includes("Crime registered case No")&&asked===false){
+      setCaseNo(parseInt(messagestest[messagestest.length-1].innerHTML.substring(27)))
       setAskImage(true);
       asked=true
+    }
+    else{
+      setAskImage(false)
     }
   }
 

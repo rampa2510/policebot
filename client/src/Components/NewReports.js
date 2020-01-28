@@ -3,6 +3,7 @@ import intereptor from '../Services/Interceptor';
 import Crime from './Crime';
 import {Paper, Button, Grid, makeStyles} from '@material-ui/core';
 import Loader from './loader'
+import Expansion from './Expansion'
 
 const NewReports = () => {
     const [data,setData] = useState(null)
@@ -13,6 +14,7 @@ const NewReports = () => {
     const useStyles = makeStyles(theme => ({
       root: {
         flexGrow: 1,
+        width:"100%",
       },
       paper: {
           padding: theme.spacing(2),
@@ -65,10 +67,11 @@ const NewReports = () => {
         
     }
 
-    const getCrimes = ()=>{
+    const getCrimes = reqtype=>{
         if(loaded && data!==null){
             return(
-            data.map((item,index)=>{ 
+            data.map((item,index)=>{
+              if(item["crime"]===reqtype){ 
                 return (
                   <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
                     <Paper className={classes.paper} elevation={3}>
@@ -84,6 +87,7 @@ const NewReports = () => {
                     </Paper>
                     </Grid>
                 );
+              }
             })
             );
         }else{
@@ -94,11 +98,23 @@ const NewReports = () => {
     }
 
     return(
-        <div className={classes.root}>
-        <Grid container spacing={3}>
-            {getCrimes()}
-        </Grid>
-        </div>
+      <div className={classes.root}>
+        <Expansion type="Assault" data={getCrimes("Assault")} />
+        <Expansion type="Bullying" data={getCrimes("Bullying")} />
+        <Expansion type="Corruption" data={getCrimes("Corruption")} />
+        <Expansion type="Cyber Crime" data={getCrimes("Cyber Crime")} />
+        <Expansion type="Domestic Abuse" data={getCrimes("Domestic Abuse")} />
+        <Expansion type="Drugs" data={getCrimes("Drugs")} />
+        <Expansion type="Fraud" data={getCrimes("Fraud")} />
+        <Expansion type="Harassment" data={getCrimes("Harassment")} />
+        <Expansion type="Kidnapping" data={getCrimes("Kidnapping")} />
+        <Expansion type="Murder" data={getCrimes("Murder")} />
+        <Expansion type="Rape" data={getCrimes("Rape")} />
+        <Expansion type="Road Crime" data={getCrimes("Road Crime")} />
+        <Expansion type="Robbery" data={getCrimes("Robbery")} />
+        <Expansion type="Tranquility Offence" data={getCrimes("Tranquility Offence")} />
+    </div>
+        
     );
 };
 
