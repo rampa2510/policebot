@@ -77,7 +77,6 @@ function Chatbot() {
   let speechNotAvailable=null;
   if (!('webkitSpeechRecognition' in window)) {
     speechNotAvailable="Speech to text not available please use google chrome"
-    setChatHistory([...chatHistory,{type:'bot',message:speechNotAvailable}]);
   }else{
 
     var SpeechRecognition = window.webkitSpeechRecognition;
@@ -209,11 +208,14 @@ function Chatbot() {
   }
 
   const checkListening = ()=>{
+    if(!speechNotAvailable){
     if(listening===false )
       return <MicNoneIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(true); recognition.start()}}/>
     else
       return <MicIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(false); recognition.stop()}} />
-
+    }else{
+      alert(speechNotAvailable)
+    }
   }
 
   // function to render chats
@@ -268,7 +270,7 @@ function Chatbot() {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {speechNotAvailable?checkListening():null}
+                {!speechNotAvailable?checkListening():null}
                 <SendIcon onClick={getBotMsg}/>
               </InputAdornment>
               
