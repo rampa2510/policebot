@@ -5,13 +5,13 @@ const sessionId = uuid.v4()
  * Send a query to the dialogflow agent, and return the query result.
  * @param {string} projectId The project to be used
  */
-module.exports = async function (message,projectId = 'newagent-bocquu') {
+module.exports = async function (message,projectId = 'newagent-bocquu',id=sessionId) {
 
   // Create a new session
   const sessionClient = new dialogflow.SessionsClient({
     keyFilename:"./Helpers/NewAgent-97039e124a80.json"
   });
-  const sessionPath = sessionClient.sessionPath(projectId, sessionId);
+  const sessionPath = sessionClient.sessionPath(projectId, id);
 
   // The text query request.
   const request = {

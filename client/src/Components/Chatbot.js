@@ -71,42 +71,47 @@ const useStyles = makeStyles({
 function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
   in difficult situations Crime registered case No and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
+  const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
 
   const [listening, setListening] = useState(false);
- 
-  var SpeechRecognition = window.webkitSpeechRecognition;
-  var recognition = new SpeechRecognition();
-  recognition.interimResults = false;
+  let speechNotAvailable=null;
+  if (!('webkitSpeechRecognition' in window)) {
+    speechNotAvailable="Speech to text not available please use google chrome"
+    setChatHistory([...chatHistory,{type:'bot',message:speechNotAvailable}]);
+  }else{
 
-  recognition.onresult = async function(event) {
-      var last = event.results.length - 1;
-      var command = event.results[last][0].transcript;
-      setListening(false);
-      if(command==="emergency"){
-        await getCoords();
-        await setChatHistory([...chatHistory,{type:"user",message:command},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
-        await setDisabled(false)
-        setUserChat('')
-        inputRef.current.focus()
-        return;
-      }
-      else
-        setUserChat(command)
-  };
+    var SpeechRecognition = window.webkitSpeechRecognition;
+    var recognition = new SpeechRecognition();
+    recognition.interimResults = false;
 
-  recognition.onspeechend = function() {
-      recognition.stop();
-  };
+    recognition.onresult = async function(event) {
+        var last = event.results.length - 1;
+        var command = event.results[last][0].transcript;
+        setListening(false);
+        if(command==="emergency"){
+          await getCoords();
+          await setChatHistory([...chatHistory,{type:"user",message:command},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+          await setDisabled(false)
+          setUserChat('')
+          inputRef.current.focus()
+          return;
+        }
+        else
+          setUserChat(command)
+    };
 
-  recognition.onerror = function(event) {
-     console.log('Error occurred in recognition: ' + event.error);
-  }        
+    recognition.onspeechend = function() {
+        recognition.stop();
+    };
 
+    recognition.onerror = function(event) {
+      console.log('Error occurred in recognition: ' + event.error);
+    }        
 
+  }
 
 
   const classes = useStyles()
-  const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
   const [userChat,setUserChat]=useState('');
   const [isChatDisabled,setDisabled] = useState(false)
   const [askImage,setAskImage] = useState(false)
@@ -191,7 +196,7 @@ function Chatbot() {
   }
 
   const checkListening = ()=>{
-    if(listening===false)
+    if(listening===false )
       return <MicNoneIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(true); recognition.start()}}/>
     else
       return <MicIcon style={{paddingRight:"10px"}} onClick={()=>{setListening(false); recognition.stop()}} />
@@ -250,7 +255,7 @@ function Chatbot() {
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                {checkListening()}
+                {speechNotAvailable?checkListening():null}
                 <SendIcon onClick={getBotMsg}/>
               </InputAdornment>
               

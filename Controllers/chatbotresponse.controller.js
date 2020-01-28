@@ -11,7 +11,9 @@ const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f085
 module.exports = async (req,res)=>{
 
   try {
-    const Result = await BotReply(req.body.MSG);
+    const {data} = res.locals
+    console.log(data)
+    const Result = await BotReply(req.body.MSG,data._id);
     if(Result.intent.displayName==="policebot_emergency"){
       res.status(200).send({emergency:true});
       return;
@@ -20,7 +22,6 @@ module.exports = async (req,res)=>{
   if(Result.intent.displayName==="fullwithsuspects.confirm.yes" || Result.intent.displayName==="fullwithoutsuspects.confirm.yes"   ){
     // in the locals we have the jwt data decode with all the details
 
-    const {data} = res.locals
 
     const date = Result.parameters.fields.date.stringValue;
 
