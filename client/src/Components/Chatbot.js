@@ -10,6 +10,13 @@ import MicIcon from '@material-ui/icons/Mic';
 import MicNoneIcon from '@material-ui/icons/MicNone';
 
 const useStyles = makeStyles({
+  behindText:{
+    position:'fixed',
+    bottom:0,
+    width:"100%",
+    height:"81px",
+    backgroundColor:"#f2f2f2",
+  },
   textField:{
     position:'fixed',
     bottom:15,
@@ -17,7 +24,6 @@ const useStyles = makeStyles({
     marginLeft:"5%",
     left:0,
     backgroundColor:"#fff",
-    marginTop: "10px"
   },
   botChatCont:{
     left:0,
@@ -61,10 +67,10 @@ const useStyles = makeStyles({
     marginRight:"10px"
   },
   chatCont:{
-    height:"calc(100vh - 190px)",
+    height:"calc(100vh - 200px)",
     width:"100%",
     overflowY:"scroll",
-    marginBottom:"81px",
+    marginBottom:"91px",
   }
 })
 
@@ -90,7 +96,7 @@ function Chatbot() {
         if(command==="emergency"){
           await getCoords();
           await setChatHistory([...chatHistory,{type:"user",message:command},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
-          await setDisabled(false)
+          // await setDisabled(false)
           setUserChat('')
           inputRef.current.focus()
           return;
@@ -112,7 +118,7 @@ function Chatbot() {
 
   const classes = useStyles()
   const [userChat,setUserChat]=useState('');
-  const [isChatDisabled,setDisabled] = useState(false)
+  // const [isChatDisabled,setDisabled] = useState(false)
   const [askImage,setAskImage] = useState(false)
   const [isSnackBarOpen,setSnackBar] = useState(false)
   const chatEndRef = React.createRef()
@@ -181,29 +187,31 @@ function Chatbot() {
 
   // Function to get reply
   const getBotMsg=async e=>{
-    
-      setDisabled(true);
+      const currentmsg = userChat
+      setUserChat('')
+      // setDisabled(true);
 
-      if(!userChat.length ){
+      if(!currentmsg.length ){
         setSnackBar(true);
-        await setDisabled(false)
+        // await setDisabled(false)
         return;
       }
 
-      await setChatHistory([...chatHistory,{type:"user",message:userChat}])
-      const data = await interceptor('bot-reply',"POST",{MSG:userChat});
+      await setChatHistory([...chatHistory,{type:"user",message:currentmsg}])
+      const data = await interceptor('bot-reply',"POST",{MSG:currentmsg});
       if(data.emergency){
         await getCoords();
-        await setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
-        await setDisabled(false)
+        await setChatHistory([...chatHistory,{type:"user",message:currentmsg},{type:"bot",message:"I have sent your coordinates to the policemen! Dont panic help is on its way"}])
+        // await setDisabled(false)
+        scrollToBottom();
         inputRef.current.focus()
         return;
       }
 
 
-      setChatHistory([...chatHistory,{type:"user",message:userChat},{type:"bot",message:data.reply}]);
-      setUserChat('')
-      await setDisabled(false)
+      setChatHistory([...chatHistory,{type:"user",message:currentmsg},{type:"bot",message:data.reply}]);
+      // await setDisabled(false)
+      scrollToBottom();
       inputRef.current.focus()
   }
 
@@ -259,7 +267,7 @@ function Chatbot() {
           <TextField
           multiline
           rowsMax="2"
-          disabled={isChatDisabled}
+          // disabled={isChatDisabled}
           placeholder="Message"
           variant="outlined"
           className={classes.textField}
