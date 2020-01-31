@@ -3,7 +3,8 @@ const { MongoClient } = require("mongodb");
 let connection = null;
 
 const option = { useNewUrlParser: true, useUnifiedTopology: true };
-
+//mongodb://localhost:27017
+//mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority
 /**
  * @description This will be used to connect to the db at the app start
  *
@@ -11,7 +12,7 @@ const option = { useNewUrlParser: true, useUnifiedTopology: true };
  */
 module.exports.connect = () =>
   new Promise((resolve, reject) => {
-    MongoClient.connect("mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority", option, (err, client) => {
+    MongoClient.connect("mongodb://localhost:27017", option, (err, client) => {
       if (err) {
         reject(err);
         console.log(err)

@@ -28,10 +28,15 @@ const {genrateOtp,verifyOtp} = require(`./Controllers/registration.controller`);
 const loginController = require(`./Controllers/login.controller`);
 const {registerCrime,getCrimeDetails} = require(`./Controllers/userCrimeRegistration.controller`);
 const chatBotRoute = require(`./Controllers/chatbotresponse.controller.js`);
-const {getMyCrimes,getUserCrimes,getAllCrimes,startInvestigation,deleteCrimeData, finishInvestigation,updateDetails,transferCase} = require(`./Controllers/policemanActions.controller.js`);
+const {getMyCrimes,getUserCrimes,getAllCrimes
+  ,startInvestigation,deleteCrimeData, 
+  finishInvestigation,updateDetails,
+  transferCase,
+  registerPolice} = require(`./Controllers/policemanActions.controller.js`);
 const {webhookController} = require('./Controllers/webhooks.controller');
 const {emergencyRegister, deleteEmergency, getEmergency} = require('./Controllers/emergency.controller');
 const uploadFile = require('./Controllers/upload.controller')
+const {reportSpam} = require('./Controllers/spam.controller');
 //########################################################################################
 
 //========================================================================================
@@ -70,7 +75,9 @@ router.post('/update-details',celebrate(updateDetailsModel),updateDetails);
 router.post('/emergency',emergencyRegister);
 router.delete('/deleteemergency/:emergencyNo',deleteEmergency);
 router.get('/getemergency', getEmergency);
-router.post('/image-upload',upload.single('image'),uploadFile)
+router.post('/image-upload',upload.single('image'),uploadFile);
+router.post('/spam',reportSpam);
+router.post('/register-police',registerPolice);
 //########################################################################################
 
 module.exports = router;

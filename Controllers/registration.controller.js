@@ -13,28 +13,12 @@ module.exports.genrateOtp = async (req, res, next) => {
   const { username, phone } = req.body;
 
   try {
-    const doesUsernameExist = await findOne("users", { username });
-    const doesPhoneExist = await findOne("users", { phone });
-    if (doesUsernameExist || doesPhoneExist) {
-      res.status(409).json({ error: `${doesPhoneExist?"Phone number":"Username"} already exists` });
+    const doesUsernameExist = await findOne("users", {$or:[{ username },{phone}]});
+    // const doesPhoneExist = await findOne("users", { phone });
+    if (doesUsernameExist ) {
+      res.status(409).json({ error: `Phone number or Username already exists` });
       return;
     }
-    // const {salt,hash} = hashPass(password);
-
-    // const userData = await insertOne("users", {
-    //   hash,
-    //   username,
-    //   name,
-    //   city,
-    //   salt,
-    //   userType,
-    //   phone
-    // });
-
-    // delete userData.hash;
-    // delete userData.salt;
-
-    // const token = sign(userData, 'sihpolicebotsecret');
 
     const otp = await generateOtp(username);
     const mobile = phone.toString()
@@ -70,11 +54,15 @@ module.exports.verifyOtp=async (req,res)=>{
       city,
       salt,
       userType,
-      phone
+      phone,
+      strikes:0,
+      lastStrikeAt:null
     });
 
     delete userData.hash;
     delete userData.salt;
+    delete userData.strikes;
+    delete userData.lastStrikeAt;
 
     const token = sign(userData, 'sihpolicebotsecret');
     res.status(201).json({ message: "Success",token });

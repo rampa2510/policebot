@@ -3,8 +3,10 @@
  *                            Import all the helper functions                           *
  *                                                                                      */
 //========================================================================================
-const {findAll,updateOne,deleteOne,findOne,updateDetails} = require('../Helpers/queryHandler')
+const {findAll,updateOne,deleteOne,findOne,updateDetails,insertOne} = require('../Helpers/queryHandler')
 const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
+const { sign } = require("jsonwebtoken");
+const hashPass = require("../Helpers/hashPassword");
 //########################################################################################
 module.exports.getMyCrimes =async (req,res,next)=>{
   const {data} = res.locals;
@@ -155,3 +157,33 @@ module.exports.transferCase=async (req,res)=>{
   if(isCaseUpdated) return res.status(200).send({message:"Case transfer successfull"});
   return res.status(500).send({error:"An error occured while trying to update case please try again"})
 }
+
+module.exports.registerPolice = async (req,res)=>{
+  const {data} = res.locals;
+  if(data.userType==="policeman"){ 
+    const {username,password,name,city,phone} = req.body;
+
+    const doesUsernameExist = await findOne("users", {$or:[{ username },{phone}]});
+
+    if (doesUsernameExist ) {
+      res.status(409).json({ error: `Phone number or Username already exists` });
+      return;
+    }
+
+    try {
+      const {salt,hash} = hashPass(password);
+
+      const isUserAdded =await insertOne('users',{username,name,salt,hash,city,phone,userType:"policeman"});
+      const token = sign({username,name,city,phone,userType:"policeman"}, 'sihpolicebotsecret');
+      res.status(201).json({ message: "Success",token });
+      
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({error})
+    }
+    return;
+  }
+
+  res.status(401).send({error:"Unauthorized access"});
+}
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJuYW1lIjoidGVzdCIsImNpdHkiOiJtdW1iYWkiLCJ1c2VyVHlwZSI6ImNpdGl6ZW4iLCJwaG9uZSI6MjMsIl9pZCI6IjVlMzQzN2M0NmRhZDdkMmMyYTk5MDE3YiIsImlhdCI6MTU4MDQ4MDQ1Mn0.MDNRFAAhlHbdrnxSzBqdOtIYEI2e1TBoj-JPrUBuJUI
