@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
-import Crime from './Crime';
 import {Paper, Button, Grid, makeStyles} from '@material-ui/core';
 import Loader from './loader'
 import Expansion from './Expansion'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 const NewReports = () => {
+
+    function createData(name, calories, fat, carbs, protein) {
+      return { name, calories, fat, carbs, protein };
+    }
+    
+    const rows = [
+      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+    ];
+
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
 
@@ -67,30 +81,69 @@ const NewReports = () => {
         
     }
 
+    const getsuspects = suspects=>{
+      if(suspects.length>0)
+      return(
+          <>
+          {suspects.map((suspect,index)=>{
+              if(index===suspects.length-1)
+                  return(
+                      <React.Fragment key={index}> {suspect}</React.Fragment>
+                  );
+              else
+                  return(
+                      <React.Fragment key={index}> {suspect},</React.Fragment>
+                  );
+          })}
+          </>
+      );
+    }
+
     const getCrimes = reqtype=>{
         if(loaded && data!==null){
             return(
-            data.map((item,index)=>{
-              if(item["crime"]===reqtype){ 
-                return (
-                  <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
-                    <Paper className={classes.paper} elevation={3}>
-                    <Crime data={item}/>
-                    <Grid container spacing={3}>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(item["caseNo"])}>Investigate</Button>
-                      </Grid>
-                      <Grid item xs={6} md={6} lg={6}>
-                        <Button variant="contained" color="secondary" className={classes.actionbuttons} onClick={()=>deleteReport(item["caseNo"])}>Delete</Button>
-                      </Grid>
-                    </Grid>
-                    </Paper>
-                    </Grid>
+                  <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Case No.</TableCell>
+                          <TableCell align="center">Reported By</TableCell>
+                          <TableCell align="center">Suspects</TableCell>
+                          <TableCell align="center">Crime Date</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {data.map((data,index) =>{
+                          if(data.crime===reqtype){
+                        return(
+                          <TableRow key={index}>
+                            <TableCell component="th" scope="row">
+                              {data.caseNo}
+                            </TableCell>
+                            <TableCell align="center">{data.name}</TableCell>
+                            <TableCell align="center">{getsuspects(data.personArr)}</TableCell>
+                            <TableCell align="center">{data.date.substring(8,10)+'/'+data.date.substring(5,7)+'/'+data.date.substring(0,4)}</TableCell>
+                          </TableRow>
+                        )}})}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  // <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
+                  //   <Paper className={classes.paper} elevation={3}>
+                  //   <Crime data={item}/>
+                  //   <Grid container spacing={3}>
+                  //     <Grid item xs={6} md={6} lg={6}>
+                  //       <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(item["caseNo"])}>Investigate</Button>
+                  //     </Grid>
+                  //     <Grid item xs={6} md={6} lg={6}>
+                  //       <Button variant="contained" color="secondary" className={classes.actionbuttons} onClick={()=>deleteReport(item["caseNo"])}>Delete</Button>
+                  //     </Grid>
+                  //   </Grid>
+                  //   </Paper>
+                  //   </Grid>
                 );
               }
-            })
-            );
-        }else{
+        else{
           return(
             <Loader open={true} />
           )
