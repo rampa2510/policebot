@@ -171,8 +171,8 @@ module.exports.transferCase=async (req,res)=>{
 module.exports.registerPolice = async (req,res)=>{
   const {data} = res.locals;
   if(data.userType==="policeman"){ 
-    const {username,password,name,city,phone} = req.body;
-
+    var {username,password,name,city,phone} = req.body;
+    city = city.toUpperCase()
     const doesUsernameExist = await findOne("users", {$or:[{ username },{phone}]});
 
     if (doesUsernameExist ) {
