@@ -188,6 +188,7 @@ function Chatbot() {
 
   // Function to get reply
   const getBotMsg=async e=>{
+    inputRef.current.focus()
       const currentmsg = userChat
       setUserChat('')
       // setDisabled(true);
@@ -299,7 +300,7 @@ function Chatbot() {
         message="Cannot send an empty message"
         action={
           <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={()=>setSnackBar(false)}>
+            <IconButton size="small" aria-label="close" color="inherit" onClick={()=>{setSnackBar(false); }}>
               <CloseIcon fontSize="small" />
             </IconButton>
           </React.Fragment>
