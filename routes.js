@@ -32,7 +32,7 @@ const {getMyCrimes,getUserCrimes,getAllCrimes
   ,startInvestigation,deleteCrimeData, 
   finishInvestigation,updateDetails,
   transferCase,
-  registerPolice} = require(`./Controllers/policemanActions.controller.js`);
+  registerPolice, getPoliceMen} = require(`./Controllers/policemanActions.controller.js`);
 const {webhookController} = require('./Controllers/webhooks.controller');
 const {emergencyRegister, deleteEmergency, getEmergency} = require('./Controllers/emergency.controller');
 const uploadFile = require('./Controllers/upload.controller')
@@ -66,6 +66,7 @@ router.patch("/crime-register",transferCase)
 router.get('/get-crime-register',getAllCrimes);
 router.get('/get-my-crimes',getMyCrimes);
 router.get('/get-user-crimes',getUserCrimes);
+router.get('/getpolicemen',getPoliceMen);
 router.post('/bot-reply',chatBotRoute);
 router.patch('/investigation',startInvestigation);
 router.patch('/finishinvestigation',finishInvestigation);
