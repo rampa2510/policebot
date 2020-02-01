@@ -172,7 +172,7 @@ const Updates = props=>{
 		                			<InputLabel>Select Police Officer</InputLabel>
                     				<Select style={{width:"100%"}} className={classes.field} required list="policemanList" value={transferTo} onChange={e=>setTransferTo(e.target.value)}>
 				                        
-				                    	{police.map((item)=><MenuItem value={item.name} >{item.name}</MenuItem>)}
+				                    	{police.map((item)=>{if(item.name!==data.name)return(<MenuItem value={item.name} >{item.name}</MenuItem>);})}
 				                    </Select>
 				                    </FormControl>
 				                </Grid>
