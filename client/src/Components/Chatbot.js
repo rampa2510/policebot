@@ -67,10 +67,11 @@ const useStyles = makeStyles({
     marginRight:"10px"
   },
   chatCont:{
-    height:"calc(100vh - 200px)",
+    top:110,
+    bottom:90,
     width:"100%",
     overflowY:"scroll",
-    marginBottom:"91px",
+    position:"fixed",
   }
 })
 
