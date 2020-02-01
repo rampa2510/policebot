@@ -49,7 +49,7 @@ module.exports = async (req,res)=>{
 
       // console.log(data.city,details,personArr)
 
-      await insertOne('crimeRegister',{name:data.name,date,crime,personArr,details,city:data.city,caseNo,status:'pending',investigatingOfficer:'none'})
+      await insertOne('crimeRegister',{name:data.name,number:data.phone.toString(),date,crime,personArr,details,city:data.city,caseNo,status:'pending',investigatingOfficer:'none'})
 
       {
 
@@ -57,7 +57,7 @@ module.exports = async (req,res)=>{
 
           from: 'whatsapp:+14155238886',
 
-          to:'whatsapp:+917666137800',
+          to:'whatsapp:+91'+data.phone.toString(),
 
           body: 'Your Report has been Registered\nCase Number: '+caseNo+'\nCrime: '+crime+'\nDescription: '+details
 

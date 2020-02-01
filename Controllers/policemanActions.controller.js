@@ -60,13 +60,14 @@ module.exports.startInvestigation=async (req,res)=>{
     const {data} = res.locals;
     const isInvestigationOngoing = await findOne('crimeRegister',{caseNo:caseNo,status:"ongoing"})
     if(isInvestigationOngoing) return res.status(409).send({message:"the case is already ongoing"})
+    const caseDetails = await findOne('crimeRegister',{caseNo:caseNo})
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:data.name,status:"ongoing"}})
     // console.log(isCaseDataUpdated)
-
+    console.log(caseDetails)
     if(isCaseDataUpdated){ 
       client.messages.create({
         from: 'whatsapp:+14155238886',
-        to:'whatsapp:+917666137800',
+        to:'whatsapp:+91'+caseDetails.number,
         body: 'Investigation of case number: '+caseNo+' has been started by: Inspector: '+data.name
       })
       return res.status(200).send({message:"Case data updated successfully"});
@@ -83,13 +84,13 @@ module.exports.finishInvestigation=async (req,res)=>{
   try {
     const { caseNo } = req.body;
     const {data} = res.locals;
+    const caseDetails = await findOne('crimeRegister',{caseNo:caseNo})
     const isCaseDataUpdated = await updateOne('crimeRegister',{caseNo},{$set:{status:"completed"}})
-    // console.log(isCaseDataUpdated)
-
+    console.log(isCaseDataUpdated)
     if(isCaseDataUpdated){ 
       client.messages.create({
         from: 'whatsapp:+14155238886',
-        to:'whatsapp:+917666137800',
+        to:'whatsapp:+91'+caseDetails.number,
         body: 'Investigation of case number: '+caseNo+' has been completed by inspector: '+data.name
       })
       return res.status(200).send({message:"Case data updated successfully"});}
@@ -109,7 +110,7 @@ module.exports.deleteCrimeData=async (req,res)=>{
     if(isCaseDeleted){ 
       client.messages.create({
         from: 'whatsapp:+14155238886',
-        to:'whatsapp:+917666137800',
+        to:'whatsapp:+91'+isCaseDeleted.number,
         body: 'Case Number: '+caseNo+' has been dismissed by inspector: '+data.name
       })
       return res.status(200).send({message:"Case deleted!"});
@@ -132,7 +133,7 @@ module.exports.updateDetails=async (req,res)=>{
     await updateDetails({caseNo},{details,date});
     client.messages.create({
       from: 'whatsapp:+14155238886',
-      to:'whatsapp:+917666137800',
+      to:'whatsapp:+91'+data.number,
       body: 'Update for Case Number: '+caseNo+'\n'+details
     })
     textResponse = "Case details updated!"
@@ -156,10 +157,11 @@ module.exports.updateDetails=async (req,res)=>{
 module.exports.transferCase=async (req,res)=>{
   const {newOfficer,caseNo} = req.body;
   const isCaseUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:newOfficer}});
+  const caseDetails = await findOne('crimeRegister',{caseNo:caseNo})
   if(isCaseUpdated){ 
     client.messages.create({
       from: 'whatsapp:+14155238886',
-      to:'whatsapp:+917666137800',
+      to:'whatsapp:+91'+caseDetails.number,
       body: 'Your case having case number: '+caseNo+' has been transfered to inspector '+newOfficer
     })
     return res.status(200).send({message:"Case transfer successfull"});}

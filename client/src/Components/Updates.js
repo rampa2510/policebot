@@ -132,7 +132,7 @@ const Updates = props=>{
                 <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(props.currentCaseNo)}>Investigate</Button>
                 </Grid>
                 <Grid item xs={5} md={3}>
-                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark As Spam</Button>
+                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark Spam</Button>
                 </Grid>
                 </Grid>
                 </Grid>
