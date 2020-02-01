@@ -153,8 +153,14 @@ module.exports.updateDetails=async (req,res)=>{
 
 module.exports.transferCase=async (req,res)=>{
   const {newOfficer,caseNo} = req.body;
-  const isCaseUpdated = await updateOne('crimeRegister',{caseNo},{investigatingOfficer:newOfficer});
-  if(isCaseUpdated) return res.status(200).send({message:"Case transfer successfull"});
+  const isCaseUpdated = await updateOne('crimeRegister',{caseNo},{$set:{investigatingOfficer:newOfficer}});
+  if(isCaseUpdated){ 
+    client.messages.create({
+      from: 'whatsapp:+14155238886',
+      to:'whatsapp:+917666137800',
+      body: 'Your case having case number: '+caseNo+' has been transfered to inspector '+newOfficer
+    })
+    return res.status(200).send({message:"Case transfer successfull"});}
   return res.status(500).send({error:"An error occured while trying to update case please try again"})
 }
 
@@ -177,6 +183,22 @@ module.exports.registerPolice = async (req,res)=>{
       const token = sign({username,name,city,phone,userType:"policeman"}, 'sihpolicebotsecret');
       res.status(201).json({ message: "Success",token });
       
+    } catch (error) {
+      console.log(error)
+      res.status(500).send({error})
+    }
+    return;
+  }
+
+  res.status(401).send({error:"Unauthorized access"});
+}
+
+module.exports.getPoliceMen = async (req,res)=>{
+  const {data} = res.locals;
+  if(data.userType==="policeman"){ 
+  try {
+    const police =await findAll('users',{$and : [{userType:"policeman"}]});
+    res.status(200).json(police);
     } catch (error) {
       console.log(error)
       res.status(500).send({error})

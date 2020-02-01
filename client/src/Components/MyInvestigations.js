@@ -10,11 +10,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Updates from './Updates';
+
 
 
 const MyInvestigations = () => {
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
+    const [currentCaseNo,setCurrentCaseNo] = useState()
 
     useEffect(()=>{getData()},[])
 
@@ -114,7 +117,7 @@ const MyInvestigations = () => {
                         {data.map((data,index) =>{
                           if(data.crime===reqtype){
                         return(
-                          <TableRow key={index}>
+                          <TableRow hover key={index} onClick={()=>setCurrentCaseNo(data.caseNo)}>
                             <TableCell component="th" scope="row">
                               {data.caseNo}
                             </TableCell>
@@ -148,7 +151,7 @@ const MyInvestigations = () => {
           )
         }
     }
-
+    if(currentCaseNo==null){
     return(
         <div className={classes.root}>
             <Expansion type="Assault" data={getCrimes("Assault")} />
@@ -167,6 +170,10 @@ const MyInvestigations = () => {
             <Expansion type="Tranquility Offence" data={getCrimes("Tranquility Offence")} />
         </div>
     );
+  }
+  else return(
+    <Updates currentCaseNo={currentCaseNo} setCurrentCaseNo={setCurrentCaseNo} />
+  ); 
 };
 
 export default MyInvestigations;

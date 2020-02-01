@@ -1,30 +1,71 @@
 import React,{useState, useEffect} from 'react';
 import intereptor from '../Services/Interceptor';
 import { Grid, Paper, makeStyles, TextField, Button, Hidden } from '@material-ui/core';
-import Toolbar from './Toolbar';
 import Crime from './Crime';
 
 const Updates = props=>{
 
     // Checks if loaded
     const [loaded, setLoaded] = useState(false);
-    const urlname = props.location.pathname.substring(8);
     const [data,setData] = useState(null);
     const [updateMsg,setUpdateMsg] = useState('');
+    const [caseStatus, setCaseStatus] = useState('');
+    const [update,setUpdate] = useState(false);
+    const [police,setPolice] = useState([]);
+    const [transferTo,setTransferTo] = useState();
 
-    const  checkExists = async ()=>{
+    const startInvestigation=async (caseNo)=>{
         try {
-            const response = await intereptor(`crime-register/${parseInt(urlname)}`)
-            if(response["caseData"]==null)
-                window.location='/home'
-            else{
-                setData(response["caseData"])
-                setLoaded(true)
-            }
+            const response = await intereptor(`investigation`,"PATCH",{caseNo:props.currentCaseNo});
+            alert('Investigation Started');
+            setUpdate(!update);
+            setCaseStatus('ongoing')
+            console.log(response)
         } catch (error) {
+          console.log(error)
+        }
+      }
+
+    const markSpam = async ()=>{
+        try {
+            const response = await intereptor(`spam`,"POST",{name:data.name , caseNo:props.currentCaseNo});
+          console.log(response)
+            props.setCurrentCaseNo(null);
+            alert('Spam reported!')
+        } catch (error) {
+          console.log(error)
+        }
+    }
+
+    const finishInvestigation=async (caseNo)=>{
+        try {
+            const response = await intereptor(`finishinvestigation`,"PATCH",{caseNo:caseNo});
+            alert('Investigation Completed');
+            props.setCurrentCaseNo(null)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      const handleTransfer = async e=>{
+          e.preventDefault();
+          try {
+            const response = await intereptor('crime-register', 'PATCH', {newOfficer:transferTo ,caseNo:props.currentCaseNo});
+            alert('Case Transfered!')
+            props.setCurrentCaseNo(null)
+            } catch (error) {
             console.log(error);
             alert(error);
         }
+      }
+
+    async function fetchData(){
+        const response = await intereptor(`crime-register/${props.currentCaseNo}`)
+        const policeList = await intereptor('getpolicemen')
+        setPolice(policeList)
+        setData(response["caseData"])
+        setCaseStatus(response.caseData.status)
+        setLoaded(true)
     }
 
     // get userdata with all info see registration handleSubmit method
@@ -35,9 +76,13 @@ const Updates = props=>{
     useEffect(() => {
         if (userData === null || userData.userType === 'citizen') window.location = '/';
         else{
-            checkExists()
+            fetchData()
         }
-    }, [userData]);
+    }, [update]);
+
+    // useEffect(()=>{
+    //     fetchData()
+    // },[update])
 
     const useStyles = makeStyles(theme => ({
         root: {
@@ -73,13 +118,48 @@ const Updates = props=>{
     
     const classes = useStyles();
 
+    const getButtons = ()=>{
+        if(caseStatus==='pending'){
+            return(
+                <>
+                <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(props.currentCaseNo)}>Investigate</Button>
+                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark As Spam</Button>
+                </>
+            );
+        }
+        else if(caseStatus==='ongoing'){
+            return(
+                <>
+                <form onSubmit={handleSubmit}>
+                    <TextField required variant="outlined" className={classes.field} value={updateMsg} onChange={e=>setUpdateMsg(e.target.value)} placeholder="Update" />
+                    
+                    <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
+                        Update
+                    </Button>
+                </form>
+                <form onSubmit={handleTransfer}>
+                    <select required list="policemanList" value={transferTo} onChange={e=>setTransferTo(e.target.value)}>
+                        <option value="" disabled selected>Select Police Officer</option>
+                    {police.map((item)=><option value={item.name} >{item.name}</option>)}
+                    </select>
+                    <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
+                        Transfer Case
+                    </Button>
+                </form>
+                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark As Spam</Button>
+                <Button variant="contained" color="primary" className={classes.actionbuttons} onClick={()=>finishInvestigation(props.currentCaseNo)}>Finish Investigation</Button>
+                </>
+            );
+        }
+    }
 
     const handleSubmit = async e=>{
         e.preventDefault();
         try {
-            const response = await intereptor('update-details', 'POST', {date:Date(), details:updateMsg ,caseNo:urlname,});
-            console.log(response);
-            checkExists()
+            const response = await intereptor('update-details', 'POST', {date:Date(), details:updateMsg ,caseNo:props.currentCaseNo,});
+            setUpdateMsg('')
+            setUpdate(!update);
+            alert('Update Sent!')
             } catch (error) {
             console.log(error);
             alert(error);
@@ -89,23 +169,13 @@ const Updates = props=>{
 
     const loadPage = ()=>{
         if(loaded){
-            return(
-                <>
-                <div>
-                <Toolbar/>
-                </div>
+        return(
                 <Grid className={classes.root} container spacing={0}>
                     <Hidden smDown>
                         <Grid item md={3}></Grid>
                     </Hidden>
                     <Grid item xs={12} md={6}>
-                    <form onSubmit={handleSubmit}>
-                        <TextField required variant="outlined" className={classes.field} onChange={e=>setUpdateMsg(e.target.value)} placeholder="Update" />
-                        
-                        <Button color="primary" variant="contained" className={classes.formButtons} type="submit">
-                            Update
-                        </Button>
-                    </form>
+                    {getButtons()}
                     </Grid>
                     <Hidden smDown>
                         <Grid item md={3}></Grid>
@@ -119,7 +189,6 @@ const Updates = props=>{
                         </Paper>
                     </Grid>
                 </Grid>
-                </>
             );
         }
     }

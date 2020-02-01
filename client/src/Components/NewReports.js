@@ -9,8 +9,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Updates from './Updates';
 
 const NewReports = () => {
+
+    const [currentCaseNo,setCurrentCaseNo] = useState()
 
     function createData(name, calories, fat, carbs, protein) {
       return { name, calories, fat, carbs, protein };
@@ -116,7 +119,8 @@ const NewReports = () => {
                         {data.map((data,index) =>{
                           if(data.crime===reqtype){
                         return(
-                          <TableRow key={index}>
+                         
+                        <TableRow hover key={index} onClick={()=>setCurrentCaseNo(data.caseNo)}>
                             <TableCell component="th" scope="row">
                               {data.caseNo}
                             </TableCell>
@@ -124,6 +128,7 @@ const NewReports = () => {
                             <TableCell align="center">{getsuspects(data.personArr)}</TableCell>
                             <TableCell align="center">{data.date.substring(8,10)+'/'+data.date.substring(5,7)+'/'+data.date.substring(0,4)}</TableCell>
                           </TableRow>
+                         
                         )}})}
                       </TableBody>
                     </Table>
@@ -149,7 +154,7 @@ const NewReports = () => {
           )
         }
     }
-
+    if(currentCaseNo==null){
     return(
       <div className={classes.root}>
         <Expansion type="Assault" data={getCrimes("Assault")} />
@@ -169,6 +174,10 @@ const NewReports = () => {
     </div>
         
     );
+    }
+    else return(
+      <Updates currentCaseNo={currentCaseNo} setCurrentCaseNo={setCurrentCaseNo} />
+    ); 
 };
 
 export default NewReports;

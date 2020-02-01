@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
     }
   
     if(response.userType==="citizen"){
-      if(response.strikes>3){
+      if(response.strikes>=3){
         let lastStrike = new Date(response.lastStrikeAt);
         lastStrike = lastStrike/1000
         let now = new Date();
