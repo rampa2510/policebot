@@ -268,7 +268,6 @@ function Chatbot() {
           <TextField
           multiline
           rowsMax="2"
-          // disabled={isChatDisabled}
           placeholder="Message"
           variant="outlined"
           className={classes.textField}
