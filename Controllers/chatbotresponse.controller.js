@@ -50,7 +50,13 @@ module.exports = async (req,res)=>{
       // console.log(data.city,details,personArr)
 
       await insertOne('crimeRegister',{name:data.name,number:data.phone.toString(),date,crime,personArr,details,city:data.city,caseNo,status:'pending',investigatingOfficer:'none'})
-
+      var msgBody = '';
+      if(personArr.length>0){
+        const suspects = personArr.map(item=>item);
+        msgBody = 'Your Report has been Registered\nCase Number: '+caseNo+'\nCrime: '+crime+'\nSuspects: '+suspects+'\nDescription: '+details
+      }
+      else
+        msgBody = 'Your Report has been Registered\nCase Number: '+caseNo+'\nCrime: '+crime+'\nDescription: '+details
       {
 
         client.messages.create({
@@ -59,7 +65,7 @@ module.exports = async (req,res)=>{
 
           to:'whatsapp:+91'+data.phone.toString(),
 
-          body: 'Your Report has been Registered\nCase Number: '+caseNo+'\nCrime: '+crime+'\nDescription: '+details
+          body: msgBody
 
         })
 
