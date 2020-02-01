@@ -39,9 +39,11 @@ module.exports.getUserCrimes =async (req,res,next)=>{
 }
 
 module.exports.getAllCrimes =async (req,res,next)=>{
+  
   try {
     // console.log({$and : [{caseNo:id},{name:data.name}]})
-    const crimeData = await findAll('crimeRegister',{$and : [{investigatingOfficer:"none"}]})
+    const {data} = res.locals;
+    const crimeData = await findAll('crimeRegister',{$and : [{investigatingOfficer:"none"},{city:data.city}]})
     // console.log(crimeData)
     res.status(200).json({crimeData})
     next()
