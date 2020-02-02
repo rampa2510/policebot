@@ -53,7 +53,8 @@ const Crime = props=>{
                 <p><b>Suspects:</b> {getSuspects()}</p>
                 <p><b>Date of Crime:</b> {item["date"].substring(8,10)+'/'+item["date"].substring(5,7)+'/'+item["date"].substring(0,4)}</p>
                 <p><b>Status:</b> {item["status"]}</p>
-                <p><b>Details:</b> {getUpdates()}{item["details"]}</p>
+                <p><b>Details:</b> {item["details"]}</p>
+                <p><b>Updates:</b> {getUpdates()}</p>
                 <p>{getImage()}</p>
             </div>
         
