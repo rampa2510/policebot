@@ -11,10 +11,16 @@ module.exports.emergencyRegister =async (req,res)=>{
   const {data} = res.locals;
   await insertOne('emergency',{...req.body,name:data.name,number:data.phone,city:data.city});
   // console.log(data)
+  var msgBody;
+  if(req.body.display_name==null)
+    msgBody = 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: '+req.body.addr
+  else
+    msgBody = 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: '+req.body.display_name
+  console.log(msgBody)
   client.messages.create({
     from: 'whatsapp:+14155238886',
     to:'whatsapp:+917021293874',
-    body: 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: '+req.body.display_name?req.body.display_name:req.body.addr
+    body: msgBody
   })
   res.status(200).send({reply:""});
 }
