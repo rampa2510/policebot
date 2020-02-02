@@ -12,7 +12,7 @@ module.exports = async (req,res)=>{
 
   try {
     const {data} = res.locals
-    console.log(data)
+    // console.log(data)
     const Result = await BotReply(req.body.MSG,'newagent-bocquu',data._id);
     if(Result.intent.displayName==="policebot_emergency"){
       res.status(200).send({emergency:true});
@@ -76,7 +76,7 @@ module.exports = async (req,res)=>{
     }
     let date = Result.fulfillmentText.slice(indices[0]+1,indices[1]);
     date = new Date(date);
-    console.log(date>=new Date())
+    console.log(date>new Date())
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
