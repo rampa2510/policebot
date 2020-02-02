@@ -14,7 +14,7 @@ module.exports.emergencyRegister =async (req,res)=>{
   client.messages.create({
     from: 'whatsapp:+14155238886',
     to:'whatsapp:+917021293874',
-    body: 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: ${req.body.display_name?req.body.display_name:req.body.addr}'
+    body: 'Emergency Reported by: '+data.name+'\nMoible Number: '+data.phone+ '\nCity: '+data.city+'\nAddress: '+req.body.display_name?req.body.display_name:req.body.addr
   })
   res.status(200).send({reply:""});
 }
