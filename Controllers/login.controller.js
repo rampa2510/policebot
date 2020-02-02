@@ -33,7 +33,7 @@ module.exports = async (req, res, next) => {
           const updateUsers = await updateOne('users',{username:response.username},{$set:{strikes:0,lastStrikeAt:null}});
 
         }else{
-          res.status(401).send({error:"You have been reported spam and been added to blocklist for 5 days"});
+          res.status(401).send({error:"You have been reported spam and your account has been suspended for 5 days"});
           return;
         }
       }
