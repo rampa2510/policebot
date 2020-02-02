@@ -88,6 +88,7 @@ const Updates = props=>{
         root: {
             textAlign: "center",
             maxWidth:"100vw",
+            marginTop:"10px",
         },
         field:{
             background:"#fff",
@@ -113,7 +114,7 @@ const Updates = props=>{
     const getButtons = ()=>{
         if(caseStatus==='pending'){
             return(
-            	<Grid container spacing={4}>
+            	<Grid container spacing={4} style={{paddingTop:"15px"}}>
 	            	<Hidden smDown>
 	            	<Grid item md={3}/>
 	            	</Hidden>
@@ -126,13 +127,13 @@ const Updates = props=>{
                     
                 <Grid container spacing={1} style={{width:"100%", textAlign:"center", height:"100%", }}>
             	<Hidden>
-            		<Grid item xs={1} md={3}/>			
+            		<Grid item xs={1} md={4}/>			
             	</Hidden>
-                <Grid item xs={5} md={3}>
+                <Grid item xs={5} md={2}>
                 <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(props.currentCaseNo)}>Investigate</Button>
                 </Grid>
-                <Grid item xs={5} md={3}>
-                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark As Spam</Button>
+                <Grid item xs={5} md={2}>
+                <Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark Spam</Button>
                 </Grid>
                 </Grid>
                 </Grid>
@@ -141,7 +142,7 @@ const Updates = props=>{
         }
         else if(caseStatus==='ongoing'){
             return(
-            	<Grid container spacing={4}>
+            	<Grid container spacing={4} style={{paddingTop:"15px"}}>
                     <Grid item xs={12} md={6}>
                         <Paper className={classes.paper} elevation={3}>
                             <Crime data={data} />

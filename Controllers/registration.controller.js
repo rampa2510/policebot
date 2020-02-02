@@ -38,8 +38,8 @@ module.exports.genrateOtp = async (req, res, next) => {
 };
 
 module.exports.verifyOtp=async (req,res)=>{
-  const {otp,username,password,name,city,userType,phone} = req.body;
-  
+  var {otp,username,password,name,city,userType,phone} = req.body;
+  city=city.toUpperCase()
   const isOtpVerified = await findOne('otps',{$and:[{otp},{username}]});
 
   if(isOtpVerified){

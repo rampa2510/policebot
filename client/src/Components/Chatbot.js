@@ -77,7 +77,7 @@ const useStyles = makeStyles({
 
 function Chatbot() {
   const WelcomMessage=`Hello, PoliceBot here! I am a chatbot designed to register crimes, help you
-  in difficult situations and create crime awarness! To request immediate police presence at your location, type 100. Type policebot f for more features.`
+  in difficult situations and create crime awarness! To request immediate police presence at your location, type 100. Type policebot for more features.`
   const [chatHistory,setChatHistory] = useState([{type:'bot',message:WelcomMessage}]);
 
   const [listening, setListening] = useState(false);

@@ -5,6 +5,7 @@ import Logout from './Components/Logout';
 import Register from './Components/Register';
 import Dashboard from './Components/Dashboard';
 import Updates from './Components/Updates';
+import AddPolice from './Components/AddPolice';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/home" exact component={Dashboard} />
         <Route path="/logout" exact component={Logout} />
         <Route path = '/update/' component={Updates}></Route>
+        <Route path = '/addpolice' component={AddPolice}></Route>
       </Switch>
     </BrowserRouter>
   );
