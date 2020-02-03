@@ -12,9 +12,9 @@ module.exports.webhookController=async (req,res)=>{
   try {
     const data = await findOne('crimeRegister',{caseNo});
     // console.log(data)
-    textResponse = data.status==="pending"?"Case Number: " + data.caseNo + " ^ Status: Pending"+" ^ Crime - "+data.crime+" ^ Date of crime: ;"+ data.date+"; ^ Details: "+data.details+" An officer will be assigned to your case soon":
-    data.status==="ongoing"?"Case Number: +"+data.caseNo+" ^ Status: Ongoing ^ Head Officer: "+data.investigatingOfficer+" ^ Date of crime -;"+ data.date+"; ^ Type of crime -"+ data.crime:
-    "The case number -"+ data.caseNo+" filed by you has been successfully completed. ^ For any queries please feel free to ask us on the queries section on your personal dashboard.";
+    textResponse = data.status==="pending"?"Case Number: " + data.caseNo + " ^ Status: Pending"+" ^ Crime: "+data.crime+" ^ Date of crime: ;"+ data.date+"; ^ Details: "+data.details+" ^ An officer will be assigned to your case soon":
+    data.status==="ongoing"?"Case Number: +"+data.caseNo+" ^ Status: Ongoing ^ Head Officer: "+data.investigatingOfficer+" ^ Date of crime: ;"+ data.date+"; ^ Crime: "+ data.crime:
+    "The case having case number: "+ data.caseNo+" has been successfully completed.";
     
     if(data.status==="ongoing" && data.updates.length){
       data.updates.forEach((item,i)=>{
@@ -23,13 +23,13 @@ module.exports.webhookController=async (req,res)=>{
         const year = date.getFullYear();
         const month = date.getMonth();
         const day = date.getDate();    
-        textResponse+=` ^ Updates: ${i} - ${item.details} , Date of update - ${day}-${month+1}-${year} ^`
+        textResponse+=` ^ Update ${i+1}: ${item.details}`
       })
     }
     // console.log(textResponse)
   } catch (error) {
     console.log(error)
-    textResponse = `No such case with case number ${caseNo} please enter a correct case no`
+    textResponse = `No such case with case number ${caseNo} please enter a correct case number!`
   }
   // console.log(textResponse)
   const responseObj  = {
