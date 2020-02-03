@@ -12,10 +12,10 @@ const EmergencyReport = props=>{
     
     return(
             <div style={{color:"black"}}>
-            <p><b>Name:</b> {item["name"]}</p>
-            <p><b>Number:</b> {item["number"]}</p>
-            <p><b>City:</b> {item["city"]}</p>
-            <p><b>Address:</b> {checkAddr()}</p>
+                <p><b>Name:</b> {item["name"]}</p>
+                <p><b>Number:</b> {item["number"]}</p>
+                <p><b>City:</b> {item["city"]}</p>
+                <p><b>Address:</b> {checkAddr()}</p>
             </div>
         
     );

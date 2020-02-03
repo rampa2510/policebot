@@ -185,6 +185,7 @@ function Chatbot() {
     elem.scrollTop = elem.scrollHeight;
     var messagestest = document.getElementsByClassName("message");
     messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace(/\\n/g, "<br />");
+    messagestest[messagestest.length-1].innerHTML = messagestest[messagestest.length-1].innerHTML.replace("^", "<br />");
     if(messagestest[messagestest.length-1].innerHTML.includes("Crime registered case No")&&asked===false){
       setCaseNo(parseInt(messagestest[messagestest.length-1].innerHTML.substring(27)))
       setAskImage(true);
