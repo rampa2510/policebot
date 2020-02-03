@@ -8,7 +8,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { getCoords } from '../Services/emergency'
 import MicIcon from '@material-ui/icons/Mic';
 import MicNoneIcon from '@material-ui/icons/MicNone';
-import moduleName from '../'
+
 const useStyles = makeStyles({
   behindText:{
     position:'fixed',
@@ -162,9 +162,15 @@ function Chatbot() {
           <button type="submit">Submit</button>
           </form>
           </Card>
+          {scrollDown()}
         </div>
       );
     }
+  }
+
+  const scrollDown = ()=>{
+    var elem = document.getElementById('scrolldiv');
+    elem.scrollTop = elem.scrollHeight;
   }
 
   const scrollToBottom = () => {

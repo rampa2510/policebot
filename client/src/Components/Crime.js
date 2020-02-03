@@ -38,7 +38,7 @@ const Crime = props=>{
     const getImage = ()=>{
         if(item["url"])
             return(
-                <img src={item["url"]}></img>
+                <img alt="crime" src={item["url"]}></img>
             );
     }
 
