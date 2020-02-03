@@ -8,7 +8,6 @@ import SendIcon from '@material-ui/icons/Send';
 import { getCoords } from '../Services/emergency'
 import MicIcon from '@material-ui/icons/Mic';
 import MicNoneIcon from '@material-ui/icons/MicNone';
-import moduleName from '../'
 const useStyles = makeStyles({
   behindText:{
     position:'fixed',

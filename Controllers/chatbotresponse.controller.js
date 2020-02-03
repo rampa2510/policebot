@@ -47,7 +47,7 @@ module.exports = async (req,res)=>{
 
       const caseNo =  await incrementCounter();
 
-      // console.log(data.city,details,personArr)
+      console.log(data,details,personArr)
 
       await insertOne('crimeRegister',{name:data.name,number:data.phone.toString(),date,crime,personArr,details,city:data.city,caseNo,status:'pending',investigatingOfficer:'none'})
       var msgBody = '';

@@ -58,11 +58,12 @@ module.exports.verifyOtp=async (req,res)=>{
       strikes:0,
       lastStrikeAt:null
     });
-
+    console.log(userData)
     delete userData.hash;
     delete userData.salt;
     delete userData.strikes;
     delete userData.lastStrikeAt;
+    console.log(userData)
 
     const token = sign(userData, 'sihpolicebotsecret');
     res.status(201).json({ message: "Success",token });
