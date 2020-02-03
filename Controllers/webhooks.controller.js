@@ -12,9 +12,9 @@ module.exports.webhookController=async (req,res)=>{
   try {
     const data = await findOne('crimeRegister',{caseNo});
     // console.log(data)
-    textResponse = data.status==="pending"?`Case Number: ${data.caseNo} \n Status: Pending \n Crime - ${data.crime} \n Date of crime: ;${data.date}; \n  Details: ${data.details} An officer will be assigned to your case soon`:
-    data.status==="ongoing"?`Case Number: ${data.caseNo} \n Status: Ongoing \n Head Officer: ${data.investigatingOfficer} \n Date of crime - ;${data.date}; \nType of crime - ${data.crime}`:
-    `The case number - ${data.caseNo} filed by you has been successfully completed. For any queries please feel free to ask us on the queries section on your personal dashboard.`;
+    textResponse = data.status==="pending"?"Case Number: " + data.caseNo + "\n Status: Pending"+"\n Crime - "+data.crime+" \n Date of crime: ;"+ data.date+";\n  Details: "+data.details+" An officer will be assigned to your case soon":
+    data.status==="ongoing"?"Case Number: +"+data.caseNo+" \n Status: Ongoing \n Head Officer: "+data.investigatingOfficer+" \n Date of crime -;"+ data.date+"; \nType of crime -"+ data.crime:
+    "The case number -"+ data.caseNo+" filed by you has been successfully completed.\n For any queries please feel free to ask us on the queries section on your personal dashboard.";
     
     if(data.status==="ongoing" && data.updates.length){
       data.updates.forEach((item,i)=>{
@@ -26,7 +26,7 @@ module.exports.webhookController=async (req,res)=>{
         textResponse+=`\n Updates: ${i} - ${item.details} , Date of update - ${day}-${month+1}-${year}\n`
       })
     }
-
+    console.log(textResponse)
   } catch (error) {
     console.log(error)
     textResponse = `No such case with case number ${caseNo} please enter a correct case no`
