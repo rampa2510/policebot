@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import intereptor from '../Services/Interceptor';
-import {Paper, Button, Grid, makeStyles} from '@material-ui/core';
+import {Paper, makeStyles} from '@material-ui/core';
 import Loader from './loader'
 import Expansion from './Expansion'
 import Table from '@material-ui/core/Table';
@@ -14,14 +14,7 @@ import Updates from './Updates';
 const NewReports = () => {
 
     const [currentCaseNo,setCurrentCaseNo] = useState()
-
-    function createData(name, calories, fat, carbs, protein) {
-      return { name, calories, fat, carbs, protein };
-    }
     
-    const rows = [
-      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    ];
 
     const [data,setData] = useState(null)
     const [loaded,setLoaded] = useState(false)
@@ -51,26 +44,6 @@ const NewReports = () => {
     }));
 
     const classes = useStyles();
-
-    const deleteReport=async (caseNo)=>{
-        try {
-            const response = await intereptor(`investigation/${caseNo}`,"DELETE");
-          console.log(response)
-          getData();
-        } catch (error) {
-          console.log(error)
-        }
-      }
-
-      const startInvestigation=async (caseNo)=>{
-        try {
-            const response = await intereptor(`investigation`,"PATCH",{caseNo:caseNo});
-          console.log(response)
-          getData();
-        } catch (error) {
-          console.log(error)
-        }
-      }
 
     const getData=async ()=>{
         try {
@@ -133,19 +106,7 @@ const NewReports = () => {
                       </TableBody>
                     </Table>
                   </TableContainer>
-                  // <Grid key={index} item xs={12} md={6} lg={4} className={classes.gridItem}>
-                  //   <Paper className={classes.paper} elevation={3}>
-                  //   <Crime data={item}/>
-                  //   <Grid container spacing={3}>
-                  //     <Grid item xs={6} md={6} lg={6}>
-                  //       <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(item["caseNo"])}>Investigate</Button>
-                  //     </Grid>
-                  //     <Grid item xs={6} md={6} lg={6}>
-                  //       <Button variant="contained" color="secondary" className={classes.actionbuttons} onClick={()=>deleteReport(item["caseNo"])}>Delete</Button>
-                  //     </Grid>
-                  //   </Grid>
-                  //   </Paper>
-                  //   </Grid>
+                  
                 );
               }
         else{

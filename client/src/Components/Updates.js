@@ -126,9 +126,9 @@ const Updates = props=>{
                     <Grid item xs={12} md={12} style={{marginTop:"20px", minHeight:"100vh%"}}>
                     
                 <Grid container spacing={1} style={{width:"100%", textAlign:"center", height:"100%", }}>
-            	<Hidden>
+            	
             		<Grid item xs={1} md={4}/>			
-            	</Hidden>
+            	
                 <Grid item xs={5} md={2}>
                 <Button variant="contained" color="primary"  className={classes.actionbuttons} onClick={()=>startInvestigation(props.currentCaseNo)}>Investigate</Button>
                 </Grid>
@@ -151,7 +151,7 @@ const Updates = props=>{
                     <Hidden smUp>
                     <Grid item xs={1}/>
                     </Hidden>
-                    <Grid item xs={10} md={6} style={{marginTop:"20px", minHeight:"100vh%"}}>
+                    <Grid item xs={12} md={6} style={{marginTop:"20px", minHeight:"100vh%"}}>
                 <Grid container spacing={2} style={{minHeight:"50vh", textAlign:"center"}}>
 		                <form onSubmit={handleSubmit} style={{width:"100%"}}>
 		                	<Grid container spacing={2}>
@@ -185,9 +185,9 @@ const Updates = props=>{
 	                </Grid>
                 </form>
                 <Grid container spacing={2} style={{width:"100%", textAlign:"center"}}>
-                	<Hidden>
+                	
                 		<Grid item xs={1}/>			
-                	</Hidden>
+                	
                 	<Grid item xs={5}>
                 	<Button variant="contained" color="secondary"  className={classes.actionbuttons} onClick={()=>markSpam()}>Mark Spam</Button>
                 	</Grid>
