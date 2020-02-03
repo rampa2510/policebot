@@ -8,6 +8,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { getCoords } from '../Services/emergency'
 import MicIcon from '@material-ui/icons/Mic';
 import MicNoneIcon from '@material-ui/icons/MicNone';
+import Loader from './loader';
 
 const useStyles = makeStyles({
   behindText:{
@@ -126,8 +127,10 @@ function Chatbot() {
   const[image,setImage] = useState();
   const [caseNo,setCaseNo] = useState();
   var asked=false;
+  const [loading,setLoading] = useState(false)
 
   const uploadImage = async e=>{
+    setLoading(true)
     e.preventDefault();
     const formData = new FormData()
     formData.append('image',image);
@@ -142,6 +145,7 @@ function Chatbot() {
         },
         body:formData
       }).then(res=>res.json());
+      setLoading(false);
       setAskImage(false);
       setChatHistory([...chatHistory,{type:"bot",message:"Your image has been uploaded, you can view your case information in the my cases tab"}])
     } catch (error) {
@@ -169,11 +173,14 @@ function Chatbot() {
   }
 
   const scrollDown = ()=>{
+    if(loading===false){
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
   }
+  }
 
   const scrollToBottom = () => {
+    if(loading===false){
     var elem = document.getElementById('scrolldiv');
     elem.scrollTop = elem.scrollHeight;
     var messagestest = document.getElementsByClassName("message");
@@ -186,6 +193,7 @@ function Chatbot() {
     else{
       setAskImage(false)
     }
+  }
   }
 
   useEffect(scrollToBottom,[chatHistory])
@@ -261,59 +269,67 @@ function Chatbot() {
     }
   }
 
-  return (
-    <>
+    const testRender = ()=>{
+      if(loading===true)
+        return <Loader open={true} />
+      else
+        return <> {chatHistory.map((item,index)=>renderChat(item,index))}
+        {imageform()} </>
+    }
+  
+    return (
+      <>
 
-    <div className={classes.chatCont} id="scrolldiv">
-    {/* The main chat screen */}
-      {chatHistory.map((item,index)=>renderChat(item,index))}
-      {imageform()}
-      <div ref={chatEndRef} />
-    </div>
-    {/* Message box */}
-      <div className={classes.behindText}>
-          <TextField
-          multiline
-          rowsMax="2"
-          placeholder="Message"
-          variant="outlined"
-          className={classes.textField}
-          value={userChat}
-          onKeyPress={onKeyPress}
-          onChange={e=>setUserChat(e.target.value)}
-          inputRef={inputRef}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                {!speechNotAvailable?checkListening():null}
-                <SendIcon onClick={getBotMsg}/>
-              </InputAdornment>
-              
-            ),
+      <div className={classes.chatCont} id="scrolldiv">
+      {/* The main chat screen */}
+        {testRender()}
+        <div ref={chatEndRef} />
+      </div>
+      {/* Message box */}
+        <div className={classes.behindText}>
+            <TextField
+            multiline
+            rowsMax="2"
+            placeholder="Message"
+            variant="outlined"
+            className={classes.textField}
+            value={userChat}
+            onKeyPress={onKeyPress}
+            onChange={e=>setUserChat(e.target.value)}
+            inputRef={inputRef}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  {!speechNotAvailable?checkListening():null}
+                  <SendIcon onClick={getBotMsg}/>
+                </InputAdornment>
+                
+              ),
+            }}
+            />
+            </div>
+                   
+        {/* Snackbar */}
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
           }}
-          />
-          </div>
-                 
-      {/* Snackbar */}
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        open={isSnackBarOpen}
-        autoHideDuration={6000}
-        onClose={()=>setSnackBar(false)}
-        message="Cannot send an empty message"
-        action={
-          <React.Fragment>
-            <IconButton size="small" aria-label="close" color="inherit" onClick={()=>{setSnackBar(false); }}>
-              <CloseIcon fontSize="small" />
-            </IconButton>
-          </React.Fragment>
-        }
-      />
-    </>
-  );
+          open={isSnackBarOpen}
+          autoHideDuration={6000}
+          onClose={()=>setSnackBar(false)}
+          message="Cannot send an empty message"
+          action={
+            <React.Fragment>
+              <IconButton size="small" aria-label="close" color="inherit" onClick={()=>{setSnackBar(false); }}>
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </React.Fragment>
+          }
+        />
+      </>
+    );
+  
 }
 
 export default Chatbot;
