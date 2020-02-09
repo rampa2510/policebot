@@ -8,13 +8,13 @@
   <p align="center">
     A Chatbot PWA
     <br />
-    <a href="https://github.com/ram2510/policebot"><strong> Explore the docs » </strong></a>
+    <a href="https://github.com/rampa2510/policebot"><strong> Explore the docs » </strong></a>
     <br />
     <br />
     ·
-    <a href="https://github.com/ram2510/policebot/issues">Report Bug</a>
+    <a href="https://github.com/rampa2510/policebot/issues">Report Bug</a>
     ·
-    <a href="https://github.com/ram2510/policebot/issues">Request Feature</a>
+    <a href="https://github.com/rampa2510/policebot/issues">Request Feature</a>
   </p>
 </p>
 
@@ -143,4 +143,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
- [![linkedin](https://img.shields.io/badge/connect%20with%20me-linkedIn-green.svg?style=for-the-badge&logo=appveyor)](https://www.linkedin.com/in/ram2510) [![GMAIL](https://img.shields.io/static/v1.svg?label=send&message=iamram2510@ieee.org&color=red&logo=gmail&style=social)](https://www.github.com/ram2510) 
+ [![linkedin](https://img.shields.io/badge/connect%20with%20me-linkedIn-green.svg?style=for-the-badge&logo=appveyor)](https://www.linkedin.com/in/rampa2510) [![GMAIL](https://img.shields.io/static/v1.svg?label=send&message=iamram2510@ieee.org&color=red&logo=gmail&style=social)](https://www.github.com/rampa2510) 
