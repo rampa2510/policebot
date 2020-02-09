@@ -5,7 +5,7 @@
 //========================================================================================
 const BotReply = require('../Helpers/chatbotCon');
 const {insertOne,incrementCounter} = require('../Helpers/queryHandler')
-const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
+const client = require('twilio')("api key","pass");
 //########################################################################################
 
 module.exports = async (req,res)=>{

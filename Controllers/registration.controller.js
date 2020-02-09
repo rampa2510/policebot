@@ -6,7 +6,7 @@
 const hashPass = require("../Helpers/hashPassword");
 const { findOne, insertOne,generateOtp,deleteOne } = require("../Helpers/queryHandler");
 const { sign } = require("jsonwebtoken");
-const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
+const client = require('twilio')("api key","pass");
 //########################################################################################
 
 module.exports.genrateOtp = async (req, res, next) => {

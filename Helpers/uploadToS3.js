@@ -3,9 +3,9 @@ const sharp = require('sharp')
 const {unlinkSync,readFileSync} = require('fs')
 const {join} = require('path')
 const s3 = new aws.S3({
-  secretAccessKey:'HPuHq0qDQNhJN0YRM31fy6PwWGR1Tz4llPoT3At6', // Not working key, Your SECRET ACCESS KEY from AWS should go here, never share it!!!
-  accessKeyId:'AKIAIWZB2HKJB7FXQR7Q', // Not working key, Your ACCESS KEY ID from AWS should go here, never share it!!!
-  region: 'ap-south-1', // region of your bucket
+  secretAccessKey:'your secret access key', // Not working key, Your SECRET ACCESS KEY from AWS should go here, never share it!!!
+  accessKeyId:'your access key', // Not working key, Your ACCESS KEY ID from AWS should go here, never share it!!!
+  region: '', // region of your bucket
 })
 
 const uploadToS3 = (fileName,ext)=>{

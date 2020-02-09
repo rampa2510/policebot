@@ -4,7 +4,7 @@
  *                                                                                      */
 //========================================================================================
 const {findAll,updateOne,deleteOne,findOne,updateDetails,insertOne} = require('../Helpers/queryHandler')
-const client = require('twilio')("ACd68a6040106a2b0d3ebc3d2143f1a5ba","8efb9f0856c00bd17eced4b801f2c887");
+const client = require('twilio')("api key","pass");
 const { sign } = require("jsonwebtoken");
 const hashPass = require("../Helpers/hashPassword");
 //########################################################################################

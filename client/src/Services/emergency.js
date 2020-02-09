@@ -26,7 +26,8 @@ export async function getCoords(){
 
 export async function success({coords}) {
   try {
-    const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key=41866a1cdd99d0&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
+    // use location iq or any other service
+    const {display_name,boundingbox} = await fetch(`https://locationiq.org/v1/reverse.php?key={your key}&lat=${coords.latitude}&lon=${coords.longitude}&format=json`).then(res=>res.json());
     // throw new Error("")
     await interceptor('emergency',"POST",{display_name,boundingbox});
     alert("I have sent your location to policemen. Dont panic, help is on its way")
