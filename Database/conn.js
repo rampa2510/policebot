@@ -12,7 +12,7 @@ const option = { useNewUrlParser: true, useUnifiedTopology: true };
  */
 module.exports.connect = () =>
   new Promise((resolve, reject) => {
-    MongoClient.connect("mongodb+srv://admin:admin@cluster0-rxslv.mongodb.net/test?retryWrites=true&w=majority", option, (err, client) => {
+    MongoClient.connect("your uri", option, (err, client) => {
       if (err) {
         reject(err);
         console.log(err)
